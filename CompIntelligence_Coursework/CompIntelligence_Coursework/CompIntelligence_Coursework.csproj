@@ -5,4 +5,15 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="PSO\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Resources/Problem1.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/Problem1.csv" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using CompIntelligence_Coursework.Menu;
 
 namespace CompIntelligence_Coursework
 {
@@ -6,7 +6,8 @@ namespace CompIntelligence_Coursework
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.DisplayMenu();
         }
     }
 }
