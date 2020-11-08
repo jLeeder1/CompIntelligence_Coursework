@@ -7,7 +7,7 @@ namespace CompIntelligence_Coursework
         static void Main(string[] args)
         {
             MainMenu mainMenu = new MainMenu();
-            mainMenu.DisplayMenu();
+            mainMenu.RunMenu();
         }
     }
 }

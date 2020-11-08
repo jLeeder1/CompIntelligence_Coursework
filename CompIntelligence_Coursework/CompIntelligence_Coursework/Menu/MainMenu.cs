@@ -15,16 +15,23 @@ namespace CompIntelligence_Coursework.Menu
             stockLengthToCostLookup = new StockLengthToCostLookup();
         }
 
-        public void DisplayMenu()
+        public void RunMenu()
+        {
+            DisplayMenu();
+            ReadCSVFile();
+        }
+
+        private void DisplayMenu()
         {
             Console.WriteLine("Please choose from the choices below");
             Console.WriteLine("1. Not yet implemented");
             Console.WriteLine("2. Not yet implemented");
+        }
 
+        private void ReadCSVFile()
+        {
             CSVFileReader cSVFileReader = new CSVFileReader();
             cSVFileReader.ReadCSVFile(pieceLengthToQuantityLookup, stockLengthToCostLookup);
-
-            int x = 0;
         }
     }
 }
