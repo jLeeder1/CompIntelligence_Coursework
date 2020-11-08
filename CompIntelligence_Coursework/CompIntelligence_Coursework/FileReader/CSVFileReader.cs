@@ -31,7 +31,7 @@ namespace CompIntelligence_Coursework.FileReader
                     if (IsPieceLengths(currentLine))
                     {
                         string[] currentLinePlusOne = reader.ReadLine().Split(",");
-                        pieceLengthToQuantityLookup.LengthToCost = ConstructLengthQuantityLookup(currentLine, currentLinePlusOne);
+                        pieceLengthToQuantityLookup.LengthToQuantity = ConstructLengthQuantityLookup(currentLine, currentLinePlusOne);
                     }
                 }
                 

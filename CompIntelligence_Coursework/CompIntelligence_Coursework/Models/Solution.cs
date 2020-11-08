@@ -1,13 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CompIntelligence_Coursework.Models
 {
-    public class PieceLengthToQuantityLookup
+    public class Solution
     {
-        // Piece length | Quantity
+        // Stock length | quantity
         public Dictionary<double, double> LengthToQuantity { get; set; }
 
-        public PieceLengthToQuantityLookup()
+        public Solution()
         {
             LengthToQuantity = new Dictionary<double, double>();
         }
