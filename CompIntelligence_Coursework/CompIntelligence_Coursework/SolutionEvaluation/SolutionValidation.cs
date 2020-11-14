@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace CompIntelligence_Coursework.SolutionEvaluation
 {
-    public class SolutionValidation
+    public class SolutionValidation : ISolutionValidation
     {
         public bool IsValidSolution(Solution solution, PieceLengthToQuantityLookup pieceLengthToQuantityLookup, StockLengthToCostLookup stockLengthToCostLookup)
         {
             bool isValidLength = IsLengthOfSolutionValid(solution, pieceLengthToQuantityLookup);
             bool isOnlyValidCuts = IsSolutionOnlyFilledWithValidLengths(solution, stockLengthToCostLookup);
 
-            if(isValidLength && isOnlyValidCuts)
+            if (isValidLength && isOnlyValidCuts)
             {
                 return true;
             }
@@ -26,7 +26,7 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
             double solutionLength = GetTotalLengthOfSolutionStockLengths(solution);
             double pieceLength = GetTotalOfPieceLengths(pieceLengthToQuantityLookup);
 
-            if(solutionLength < pieceLength)
+            if (solutionLength < pieceLength)
             {
                 return false;
             }
