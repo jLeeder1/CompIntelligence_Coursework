@@ -1,9 +1,6 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
-using Moq;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using CompIntelligence_Coursework.Models;
 using CompIntelligence_Coursework.solutionEveluation;
 

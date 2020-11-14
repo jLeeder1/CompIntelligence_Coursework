@@ -2,9 +2,7 @@
 using CompIntelligence_Coursework.SolutionEvaluation;
 using FluentAssertions;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CompIntelligence_Coursework_TestSuite.SolutionEvaluationTests
 {
