@@ -16,8 +16,9 @@ namespace CompIntelligence_Coursework.PSO
             this.stockLengthToCostLookup = stockLengthToCostLookup;
         }
 
-        public Dictionary<int, Solution> FindSolution()
+        public Dictionary<int, Solution> FindSolutions()
         {
+            Console.WriteLine("PSO running");
             return null;
         }
     }

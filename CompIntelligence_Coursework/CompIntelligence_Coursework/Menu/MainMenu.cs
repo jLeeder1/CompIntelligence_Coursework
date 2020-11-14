@@ -1,4 +1,5 @@
 ﻿using CompIntelligence_Coursework.FileReader;
+using CompIntelligence_Coursework.Helpers;
 using CompIntelligence_Coursework.Models;
 using CompIntelligence_Coursework.PSO;
 using System;
@@ -10,28 +11,31 @@ namespace CompIntelligence_Coursework.Menu
     {
         private readonly IPieceLengthToQuantityLookup pieceLengthToQuantityLookup;
         private readonly IStockLengthToCostLookup stockLengthToCostLookup;
-        private readonly ISolutionFinderStrategy solutionFinderStrategy;
+        private readonly ISolutionStrategyFactory solutionStrategyFactory;
+        private ISolutionFinderStrategy solutionFinderStrategy;
 
-        private Dictionary<int, double> solutions;
+        private Dictionary<int, Solution> solutions;
 
-        public MainMenu(IPieceLengthToQuantityLookup pieceLengthToQuantityLookup, IStockLengthToCostLookup stockLengthToCostLookup)
+        public MainMenu(IPieceLengthToQuantityLookup pieceLengthToQuantityLookup, IStockLengthToCostLookup stockLengthToCostLookup, ISolutionStrategyFactory solutionStrategyFactory)
         {
             this.pieceLengthToQuantityLookup = pieceLengthToQuantityLookup;
             this.stockLengthToCostLookup = stockLengthToCostLookup;
+            this.solutionStrategyFactory = solutionStrategyFactory;
 
-            solutions = new Dictionary<int, double>();
+            solutions = new Dictionary<int, Solution>();
         }
 
         public void RunMenu()
         {
             DisplayMenu();
             ReadCSVFile();
+            RunApplication();
         }
 
         private void DisplayMenu()
         {
             Console.WriteLine("Please choose from the choices below");
-            Console.WriteLine("1. Not yet implemented");
+            Console.WriteLine("1. PSO solution");
             Console.WriteLine("2. Not yet implemented");
         }
 
@@ -41,10 +45,13 @@ namespace CompIntelligence_Coursework.Menu
             cSVFileReader.ReadCSVFile(pieceLengthToQuantityLookup, stockLengthToCostLookup);
         }
 
-        private void RunPSOSolution()
+        private void RunApplication()
         {
-            ISolutionFinderStrategy psoSolution = new PSOSolution();
-            solutions = 
+            var strategyType = SolutionStrategyTypes.PSOSolutionStrategy; // Menu choice needs to affect this
+
+            solutionFinderStrategy = solutionStrategyFactory.GetSolutionFinderStrategy(strategyType);
+            solutions = solutionFinderStrategy.FindSolutions();
+            //DataDisplay.DisplayData(solutions);
         }
     }
 }
