@@ -1,18 +1,25 @@
 ﻿using CompIntelligence_Coursework.FileReader;
 using CompIntelligence_Coursework.Models;
+using CompIntelligence_Coursework.PSO;
 using System;
+using System.Collections.Generic;
 
 namespace CompIntelligence_Coursework.Menu
 {
     public class MainMenu
     {
-        private readonly PieceLengthToQuantityLookup pieceLengthToQuantityLookup;
-        private readonly StockLengthToCostLookup stockLengthToCostLookup;
+        private readonly IPieceLengthToQuantityLookup pieceLengthToQuantityLookup;
+        private readonly IStockLengthToCostLookup stockLengthToCostLookup;
+        private readonly ISolutionFinderStrategy solutionFinderStrategy;
 
-        public MainMenu()
+        private Dictionary<int, double> solutions;
+
+        public MainMenu(IPieceLengthToQuantityLookup pieceLengthToQuantityLookup, IStockLengthToCostLookup stockLengthToCostLookup)
         {
-            pieceLengthToQuantityLookup = new PieceLengthToQuantityLookup();
-            stockLengthToCostLookup = new StockLengthToCostLookup();
+            this.pieceLengthToQuantityLookup = pieceLengthToQuantityLookup;
+            this.stockLengthToCostLookup = stockLengthToCostLookup;
+
+            solutions = new Dictionary<int, double>();
         }
 
         public void RunMenu()
@@ -32,6 +39,12 @@ namespace CompIntelligence_Coursework.Menu
         {
             CSVFileReader cSVFileReader = new CSVFileReader();
             cSVFileReader.ReadCSVFile(pieceLengthToQuantityLookup, stockLengthToCostLookup);
+        }
+
+        private void RunPSOSolution()
+        {
+            ISolutionFinderStrategy psoSolution = new PSOSolution();
+            solutions = 
         }
     }
 }

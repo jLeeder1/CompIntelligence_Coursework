@@ -6,10 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="PSO\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Remove="Resources/Problem1.csv" />
   </ItemGroup>
   <ItemGroup>

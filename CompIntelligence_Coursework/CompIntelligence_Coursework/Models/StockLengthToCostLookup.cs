@@ -2,7 +2,7 @@
 
 namespace CompIntelligence_Coursework.Models
 {
-    public class StockLengthToCostLookup
+    public class StockLengthToCostLookup : IStockLengthToCostLookup
     {
         // Stock length | Cost
         public Dictionary<double, double> LengthToCost { get; set; }
