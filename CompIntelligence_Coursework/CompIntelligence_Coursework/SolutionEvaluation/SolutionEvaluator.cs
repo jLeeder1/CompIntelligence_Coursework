@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace CompIntelligence_Coursework.solutionEveluation
 {
-    public class SolutionEvaluator
+    public class SolutionEvaluator : ISolutionEvaluator
     {
         public double GetCostOfSolution(Solution solution, StockLengthToCostLookup stockLengthToCostLookup)
         {
             double totalCost = 0.0;
 
-            foreach(KeyValuePair<double, double> currentSolution in solution.LengthToQuantity)
+            foreach (KeyValuePair<double, double> currentSolution in solution.LengthToQuantity)
             {
                 totalCost += GetCostOfOneStockLengthBasedOnQuantity(stockLengthToCostLookup, currentSolution.Key, currentSolution.Value);
             }

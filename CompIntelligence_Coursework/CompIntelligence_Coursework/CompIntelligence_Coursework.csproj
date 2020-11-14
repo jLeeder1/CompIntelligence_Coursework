@@ -15,5 +15,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources/Problem1.csv" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.0.0" />
+  </ItemGroup>
 
 </Project>

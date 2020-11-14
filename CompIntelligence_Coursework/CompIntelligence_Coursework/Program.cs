@@ -1,4 +1,6 @@
-﻿using CompIntelligence_Coursework.Menu;
+﻿using Autofac;
+using CompIntelligence_Coursework.DependencyInjection;
+using CompIntelligence_Coursework.Menu;
 
 namespace CompIntelligence_Coursework
 {
@@ -6,8 +8,13 @@ namespace CompIntelligence_Coursework
     {
         static void Main(string[] args)
         {
-            MainMenu mainMenu = new MainMenu();
-            mainMenu.RunMenu();
+            DependencyInjectionInitialisation dependencyInjection = new DependencyInjectionInitialisation();
+            var container = dependencyInjection.BuildContainer();
+
+            using(var scope = container.BeginLifetimeScope())
+            {
+                scope.Resolve<MainMenu>().RunMenu();
+            }
         }
     }
 }
