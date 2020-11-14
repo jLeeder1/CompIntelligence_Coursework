@@ -30,7 +30,7 @@ namespace CompIntelligence_Coursework_TestSuite.Helpers
             var result = solutionStrategyFactory.GetSolutionFinderStrategy(strategyType);
 
             // Assert
-            result.Should().NotBeNull();
+            result.Should().BeNull();
             result.Should().BeOfType(typeof(PSOSolution));
         }
     }
