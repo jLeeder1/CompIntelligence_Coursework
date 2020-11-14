@@ -6,8 +6,8 @@ namespace CompIntelligence_Coursework.Menu
 {
     public class MainMenu
     {
-        private PieceLengthToQuantityLookup pieceLengthToQuantityLookup;
-        private StockLengthToCostLookup stockLengthToCostLookup;
+        private readonly PieceLengthToQuantityLookup pieceLengthToQuantityLookup;
+        private readonly StockLengthToCostLookup stockLengthToCostLookup;
 
         public MainMenu()
         {
