@@ -1,5 +1,4 @@
 ﻿using CompIntelligence_Coursework.Models;
-using CompIntelligence_Coursework.Resources;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +8,7 @@ namespace CompIntelligence_Coursework.FileReader
 {
     public class CSVFileReader
     {
-        public void ReadCSVFile(PieceLengthToQuantityLookup pieceLengthToQuantityLookup, StockLengthToCostLookup stockLengthToCostLookup)
+        public void ReadCSVFile(IPieceLengthToQuantityLookup pieceLengthToQuantityLookup, IStockLengthToCostLookup stockLengthToCostLookup)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             string resourceName = "CompIntelligence_Coursework.Resources.Problem1.csv";
