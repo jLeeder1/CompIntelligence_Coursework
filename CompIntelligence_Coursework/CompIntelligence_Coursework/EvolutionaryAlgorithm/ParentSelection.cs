@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CompIntelligence_Coursework.RandomGenerator
+namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 {
     public class ParentSelection : IParentSelection
     {
@@ -13,7 +13,7 @@ namespace CompIntelligence_Coursework.RandomGenerator
         {
             List<Solution> potentialparentPopulation = new List<Solution>();
 
-            while (potentialparentPopulation.Count <= currentParentPopulation.Count)
+            while (potentialparentPopulation.Count < currentParentPopulation.Count)
             {
                 List<Solution> tournament = SelectTournament(currentParentPopulation);
                 potentialparentPopulation.AddRange(PickIndividualsFromTournament(tournament));

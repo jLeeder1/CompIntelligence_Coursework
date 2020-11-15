@@ -1,7 +1,7 @@
 ﻿using CompIntelligence_Coursework.Models;
 using System.Collections.Generic;
 
-namespace CompIntelligence_Coursework.RandomGenerator
+namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 {
     public interface IParentSelection
     {

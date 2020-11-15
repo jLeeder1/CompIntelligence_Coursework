@@ -7,7 +7,7 @@ using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace CompIntelligence_Coursework_TestSuite.Random
+namespace CompIntelligence_Coursework_TestSuite.RandomTests
 {
     public class RandomSolutionGeneratorTests
     {
