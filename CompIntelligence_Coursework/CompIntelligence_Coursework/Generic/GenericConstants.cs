@@ -4,9 +4,13 @@ namespace CompIntelligence_Coursework.Generic
 {
     public static class GenericConstants
     {
+        // User set
         public static int NUMBER_OF_ITERATIONS { get; set; }
 
         public static int SIZE_OF_POPULATION { get; set; }
+
+        // Non user set
+        public static double UPPER_BOUND_FOR_RANDOM_QUANTITY { get; } = 10;
 
         public static void ResetValuesToDefault()
         {
