@@ -16,7 +16,7 @@ namespace CompIntelligence_Coursework_TestSuite.Random
         private Mock<ISolutionEvaluator> mockSolutionEvaluator;
         private Mock<ISolutionValidation> mockSolutionValidation;
 
-        private RandomSolutionGenerator randomSolutionGenerator;
+        private IRandomSolutionGenerator randomSolutionGenerator;
 
         [SetUp]
         public void SetUp()

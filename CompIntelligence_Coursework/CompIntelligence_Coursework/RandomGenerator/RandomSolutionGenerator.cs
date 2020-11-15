@@ -8,7 +8,7 @@ using System.Text;
 
 namespace CompIntelligence_Coursework.RandomGenerator
 {
-    public class RandomSolutionGenerator
+    public class RandomSolutionGenerator : IRandomSolutionGenerator
     {
         private readonly IPieceLengthToQuantityLookup pieceLengthToQuantityLookup;
         private readonly IStockLengthToCostLookup stockLengthToCostLookup;
@@ -16,9 +16,9 @@ namespace CompIntelligence_Coursework.RandomGenerator
         private readonly ISolutionValidation solutionValidation;
 
         public RandomSolutionGenerator(
-            IPieceLengthToQuantityLookup pieceLengthToQuantityLookup, 
-            IStockLengthToCostLookup stockLengthToCostLookup, 
-            ISolutionEvaluator solutionEvaluator, 
+            IPieceLengthToQuantityLookup pieceLengthToQuantityLookup,
+            IStockLengthToCostLookup stockLengthToCostLookup,
+            ISolutionEvaluator solutionEvaluator,
             ISolutionValidation solutionValidation
             )
         {

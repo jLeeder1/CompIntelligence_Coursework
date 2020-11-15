@@ -2,6 +2,7 @@
 using CompIntelligence_Coursework.Helpers;
 using CompIntelligence_Coursework.Menu;
 using CompIntelligence_Coursework.Models;
+using CompIntelligence_Coursework.RandomGenerator;
 using CompIntelligence_Coursework.SolutionEvaluation;
 using CompIntelligence_Coursework.solutionEveluation;
 
@@ -28,6 +29,9 @@ namespace CompIntelligence_Coursework.DependencyInjection
             builder.RegisterInstance(stockLengthToCostLookup).As<IStockLengthToCostLookup>();
 
             // PSO
+
+            // Random solution generation
+            builder.RegisterType<RandomSolutionGenerator>().As<IRandomSolutionGenerator>();
 
             // Solution evaluation
             builder.RegisterType<SolutionEvaluator>().As<ISolutionEvaluator>();
