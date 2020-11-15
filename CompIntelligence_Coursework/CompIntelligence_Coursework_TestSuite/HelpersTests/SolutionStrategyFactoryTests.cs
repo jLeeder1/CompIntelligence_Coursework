@@ -5,7 +5,7 @@ using FluentAssertions;
 using Moq;
 using NUnit.Framework;
 
-namespace CompIntelligence_Coursework_TestSuite.Helpers
+namespace CompIntelligence_Coursework_TestSuite.HelpersTests
 {
     public class SolutionStrategyFactoryTests
     {

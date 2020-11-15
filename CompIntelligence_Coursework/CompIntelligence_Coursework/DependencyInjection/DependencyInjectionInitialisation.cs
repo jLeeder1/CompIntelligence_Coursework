@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using CompIntelligence_Coursework.EvolutionaryAlgorithm;
 using CompIntelligence_Coursework.Helpers;
 using CompIntelligence_Coursework.Menu;
 using CompIntelligence_Coursework.Models;
@@ -38,7 +39,7 @@ namespace CompIntelligence_Coursework.DependencyInjection
             // PSO
 
             // Random solution generation
-           /builder.RegisterType<RandomSolutionGenerator>().As<IRandomSolutionGenerator>();
+            builder.RegisterType<RandomSolutionGenerator>().As<IRandomSolutionGenerator>();
 
             // Solution evaluation
             builder.RegisterType<SolutionEvaluator>().As<ISolutionEvaluator>();
