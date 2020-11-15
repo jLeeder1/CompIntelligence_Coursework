@@ -20,7 +20,7 @@ namespace CompIntelligence_Coursework.DependencyInjection
             builder.RegisterType<MainMenu>();
 
             // Models
-            // Setup to use the same object each time not a new object
+            // Setup to use the same instance each time they are injected
             IPieceLengthToQuantityLookup pieceLengthToQuantityLookup = new PieceLengthToQuantityLookup();
             IStockLengthToCostLookup stockLengthToCostLookup = new StockLengthToCostLookup();
 
