@@ -5,7 +5,7 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
 {
     public class SolutionValidation : ISolutionValidation
     {
-        public bool IsValidSolution(Solution solution, PieceLengthToQuantityLookup pieceLengthToQuantityLookup, StockLengthToCostLookup stockLengthToCostLookup)
+        public bool IsValidSolution(Solution solution, IPieceLengthToQuantityLookup pieceLengthToQuantityLookup, IStockLengthToCostLookup stockLengthToCostLookup)
         {
             bool isValidLength = IsLengthOfSolutionValid(solution, pieceLengthToQuantityLookup);
             bool isOnlyValidCuts = IsSolutionOnlyFilledWithValidLengths(solution, stockLengthToCostLookup);
@@ -21,7 +21,7 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
         /*
          * Checks to see that the length of the solution is less than the lengths of pieces if they were placed end to end
          */
-        private bool IsLengthOfSolutionValid(Solution solution, PieceLengthToQuantityLookup pieceLengthToQuantityLookup)
+        private bool IsLengthOfSolutionValid(Solution solution, IPieceLengthToQuantityLookup pieceLengthToQuantityLookup)
         {
             double solutionLength = GetTotalLengthOfSolutionStockLengths(solution);
             double pieceLength = GetTotalOfPieceLengths(pieceLengthToQuantityLookup);
@@ -34,7 +34,7 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
             return true;
         }
 
-        private bool IsSolutionOnlyFilledWithValidLengths(Solution solution, StockLengthToCostLookup stockLengthToCostLookup)
+        private bool IsSolutionOnlyFilledWithValidLengths(Solution solution, IStockLengthToCostLookup stockLengthToCostLookup)
         {
             foreach (KeyValuePair<double, double> currentSolution in solution.LengthToQuantity)
             {
@@ -59,7 +59,7 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
             return totalLength;
         }
 
-        private double GetTotalOfPieceLengths(PieceLengthToQuantityLookup pieceLengthToQuantityLookup)
+        private double GetTotalOfPieceLengths(IPieceLengthToQuantityLookup pieceLengthToQuantityLookup)
         {
             double totalLength = 0.0;
 
