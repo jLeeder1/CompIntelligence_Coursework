@@ -53,5 +53,17 @@ namespace CompIntelligence_Coursework.RandomGenerator
 
             return solution;
         }
+
+        public List<Solution> GeneratePopulationOfRandomSolutions(int sizeOfPopulation)
+        {
+            List<Solution> population = new List<Solution>();
+
+            while (population.Count < sizeOfPopulation)
+            {
+                population.Add(GenerateRandomSolution());
+            }
+
+            return population;
+        }
     }
 }
