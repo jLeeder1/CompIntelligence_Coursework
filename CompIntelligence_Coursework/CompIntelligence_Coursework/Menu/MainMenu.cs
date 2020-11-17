@@ -1,4 +1,5 @@
 ﻿using CompIntelligence_Coursework.FileReader;
+using CompIntelligence_Coursework.Generic;
 using CompIntelligence_Coursework.Helpers;
 using CompIntelligence_Coursework.Models;
 using CompIntelligence_Coursework.PSO;
@@ -27,16 +28,32 @@ namespace CompIntelligence_Coursework.Menu
 
         public void RunMenu()
         {
-            DisplayMenu();
             ReadCSVFile();
-            RunApplication();
+
+            bool isRunning = true;
+
+            while (isRunning)
+            {
+                DisplayMenu();
+                SolutionStrategyTypes menuChoice = GetMenuChoice();
+
+                if(menuChoice == SolutionStrategyTypes.DefaultStrategy)
+                {
+                    break;
+                }
+                RunApplication(menuChoice);
+            }
+            
         }
 
         private void DisplayMenu()
         {
+            Console.WriteLine(Environment.NewLine);
             Console.WriteLine("Please choose from the choices below");
-            Console.WriteLine("1. PSO solution");
+            Console.WriteLine("1. Random Solution");
             Console.WriteLine("2. Not yet implemented");
+            Console.WriteLine("3. Not yet implemented");
+            Console.WriteLine("4. End Program");
         }
 
         private void ReadCSVFile()
@@ -45,13 +62,38 @@ namespace CompIntelligence_Coursework.Menu
             cSVFileReader.ReadCSVFile(pieceLengthToQuantityLookup, stockLengthToCostLookup);
         }
 
-        private void RunApplication()
+        private void RunApplication(SolutionStrategyTypes solutionStrategy)
         {
-            var strategyType = SolutionStrategyTypes.PSOSolutionStrategy; // Menu choice needs to affect this
-
-            solutionFinderStrategy = solutionStrategyFactory.GetSolutionFinderStrategy(strategyType);
+            solutionFinderStrategy = solutionStrategyFactory.GetSolutionFinderStrategy(solutionStrategy);
+            solutionFinderStrategy.ClearSolutions();
             solutions = solutionFinderStrategy.FindSolutions();
-            //DataDisplay.DisplayData(solutions);
+            DataDisplay.DisplayData(solutions);
+        }
+
+        private SolutionStrategyTypes GetMenuChoice()
+        {
+            string solutionToUse = string.Empty;
+
+            switch (Console.ReadKey().Key)
+            {
+                case ConsoleKey.D1:
+                    solutionToUse = GenericConstants.RANDOM_SOLUTION;
+                    break;
+                case ConsoleKey.D2:
+                    Console.WriteLine("Not yet implemented");
+                    break;
+                case ConsoleKey.D3:
+                    Console.WriteLine("Not yet implemented");
+                    break;
+                case ConsoleKey.D4:
+                    solutionToUse = GenericConstants.END_PROGRAM;
+                    break;
+                default:
+                    solutionToUse = GenericConstants.RANDOM_SOLUTION;
+                    break;
+            }
+
+            return SolutionStrategyTypeHelper.GetValueFromDescription<SolutionStrategyTypes>(solutionToUse);
         }
     }
 }
