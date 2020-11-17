@@ -33,5 +33,10 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 
             return null;
         }
+
+        public void ClearSolutions()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

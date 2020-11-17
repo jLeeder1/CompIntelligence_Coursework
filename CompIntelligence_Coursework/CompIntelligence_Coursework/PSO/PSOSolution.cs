@@ -21,5 +21,10 @@ namespace CompIntelligence_Coursework.PSO
             Console.WriteLine("PSO running");
             return null;
         }
+
+        public void ClearSolutions()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

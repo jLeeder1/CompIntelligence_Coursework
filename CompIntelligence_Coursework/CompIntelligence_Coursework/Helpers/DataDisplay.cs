@@ -15,7 +15,8 @@ namespace CompIntelligence_Coursework.Helpers
             foreach (KeyValuePair<int, Solution> entry in solutions)
             {
                 string lengthToQuantity = FormatSolutionForPrintingToConsole(entry.Value);
-                Console.WriteLine($"{System.Environment.NewLine}Iteration: {entry.Key}, Best solution in iteration: {lengthToQuantity}");
+                Console.WriteLine($"{System.Environment.NewLine}Iteration: {entry.Key}, Best solution in iteration: {lengthToQuantity}Cost: {entry.Value.SolutionCost}");
+                Console.WriteLine($"Cost: {entry.Value.SolutionCost}");
 
                 if (entry.Value.SolutionCost < bestSolutionCost)
                 {
@@ -25,7 +26,7 @@ namespace CompIntelligence_Coursework.Helpers
                 }
             }
 
-            Console.WriteLine($"{System.Environment.NewLine}Best solution found in iteration: {bestIteration} with cost: {bestSolutionCost}{System.Environment.NewLine} Best solution: {bestLengthToQuantity}");
+            Console.WriteLine($"{System.Environment.NewLine}Best solution found in iteration: {bestIteration} with cost: {bestSolutionCost}{System.Environment.NewLine}Best solution: {bestLengthToQuantity}");
         }
 
         private static string FormatSolutionForPrintingToConsole(Solution solution)
