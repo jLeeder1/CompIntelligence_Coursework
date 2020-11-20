@@ -5,7 +5,7 @@ namespace CompIntelligence_Coursework.solutionEveluation
 {
     public class SolutionEvaluator : ISolutionEvaluator
     {
-        public double GetCostOfSolution(Solution solution, IStockLengthToCostLookup stockLengthToCostLookup)
+        public double GetCostOfSolution(Solution solution, IStockItems stockLengthToCostLookup)
         {
             double totalCost = 0.0;
 
@@ -17,9 +17,9 @@ namespace CompIntelligence_Coursework.solutionEveluation
             return totalCost;
         }
 
-        private double GetCostOfOneStockLengthBasedOnQuantity(IStockLengthToCostLookup stockLengthToCostLookup, double stockLenth, double quantityOfStock)
+        private double GetCostOfOneStockLengthBasedOnQuantity(IStockItems stockLengthToCostLookup, double stockLenth, double quantityOfStock)
         {
-            double costOfOneLength = stockLengthToCostLookup.LengthToCost[stockLenth];
+            double costOfOneLength = stockLengthToCostLookup.StockItemList[stockLenth];
             return costOfOneLength * quantityOfStock;
         }
     }

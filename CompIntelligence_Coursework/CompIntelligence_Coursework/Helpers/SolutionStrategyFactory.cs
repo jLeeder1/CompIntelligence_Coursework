@@ -7,13 +7,13 @@ namespace CompIntelligence_Coursework.Helpers
 {
     public class SolutionStrategyFactory : ISolutionStrategyFactory
     {
-        private readonly IPieceLengthToQuantityLookup pieceLengthToQuantityLookup;
-        private readonly IStockLengthToCostLookup stockLengthToCostLookup;
+        private readonly IOrderItems pieceLengthToQuantityLookup;
+        private readonly IStockItems stockLengthToCostLookup;
         private readonly IRandomSolutionGenerator randomSolutionGenerator;
 
         public SolutionStrategyFactory(
-            IPieceLengthToQuantityLookup pieceLengthToQuantityLookup, 
-            IStockLengthToCostLookup stockLengthToCostLookup, 
+            IOrderItems pieceLengthToQuantityLookup, 
+            IStockItems stockLengthToCostLookup, 
             IRandomSolutionGenerator randomSolutionGenerator
             )
         {

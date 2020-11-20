@@ -4,6 +4,6 @@ namespace CompIntelligence_Coursework.solutionEveluation
 {
     public interface ISolutionEvaluator
     {
-        double GetCostOfSolution(Solution solution, IStockLengthToCostLookup stockLengthToCostLookup);
+        double GetCostOfSolution(Solution solution, IStockItems stockLengthToCostLookup);
     }
 }

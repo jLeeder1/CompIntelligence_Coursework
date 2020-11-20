@@ -9,16 +9,16 @@ namespace CompIntelligence_Coursework_TestSuite.SolutionEvaluationTests
     class SolutionEvaluatorTests
     {
         private ISolutionEvaluator solutionEvaluator;
-        private StockLengthToCostLookup stockLengthToCostLookup;
+        private StockItems stockLengthToCostLookup;
         
         [SetUp]
         public void Setup()
         {
             solutionEvaluator = new SolutionEvaluator();
 
-            stockLengthToCostLookup = new StockLengthToCostLookup()
+            stockLengthToCostLookup = new StockItems()
             {
-                LengthToCost = new Dictionary<double, double>()
+                StockItemList = new Dictionary<double, double>()
                 {
                     { 2, 10 },
                     { 4, 25 },

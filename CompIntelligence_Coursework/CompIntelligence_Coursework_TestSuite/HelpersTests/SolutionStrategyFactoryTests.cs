@@ -14,8 +14,8 @@ namespace CompIntelligence_Coursework_TestSuite.HelpersTests
         [SetUp]
         public void Setup()
         {
-            Mock<IPieceLengthToQuantityLookup> mockPieceLengthToQuantityLookup = new Mock<IPieceLengthToQuantityLookup>();
-            Mock<IStockLengthToCostLookup> mockstockLengthToCostLookup = new Mock<IStockLengthToCostLookup>();
+            Mock<IOrderItems> mockPieceLengthToQuantityLookup = new Mock<IOrderItems>();
+            Mock<IStockItems> mockstockLengthToCostLookup = new Mock<IStockItems>();
 
             solutionStrategyFactory = new SolutionStrategyFactory(mockPieceLengthToQuantityLookup.Object, mockstockLengthToCostLookup.Object);
         }

@@ -5,7 +5,7 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
 {
     public class SolutionValidation : ISolutionValidation
     {
-        public bool IsValidSolution(Solution solution, IPieceLengthToQuantityLookup pieceLengthToQuantityLookup, IStockLengthToCostLookup stockLengthToCostLookup)
+        public bool IsValidSolution(Solution solution, IOrderItems pieceLengthToQuantityLookup, IStockItems stockLengthToCostLookup)
         {
             bool isValidLength = IsLengthOfSolutionValid(solution, pieceLengthToQuantityLookup);
             bool isOnlyValidCuts = IsSolutionOnlyFilledWithValidLengths(solution, stockLengthToCostLookup);
@@ -21,7 +21,7 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
         /*
          * Checks to see that the length of the solution is less than the lengths of pieces if they were placed end to end
          */
-        private bool IsLengthOfSolutionValid(Solution solution, IPieceLengthToQuantityLookup pieceLengthToQuantityLookup)
+        private bool IsLengthOfSolutionValid(Solution solution, IOrderItems pieceLengthToQuantityLookup)
         {
             double solutionLength = GetTotalLengthOfSolutionStockLengths(solution);
             double pieceLength = GetTotalOfPieceLengths(pieceLengthToQuantityLookup);
@@ -34,11 +34,11 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
             return true;
         }
 
-        private bool IsSolutionOnlyFilledWithValidLengths(Solution solution, IStockLengthToCostLookup stockLengthToCostLookup)
+        private bool IsSolutionOnlyFilledWithValidLengths(Solution solution, IStockItems stockLengthToCostLookup)
         {
             foreach (KeyValuePair<double, double> currentSolution in solution.LengthToQuantity)
             {
-                if (!stockLengthToCostLookup.LengthToCost.ContainsKey(currentSolution.Key))
+                if (!stockLengthToCostLookup.StockItemList.ContainsKey(currentSolution.Key))
                 {
                     return false;
                 }
@@ -59,11 +59,11 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
             return totalLength;
         }
 
-        private double GetTotalOfPieceLengths(IPieceLengthToQuantityLookup pieceLengthToQuantityLookup)
+        private double GetTotalOfPieceLengths(IOrderItems pieceLengthToQuantityLookup)
         {
             double totalLength = 0.0;
 
-            foreach (KeyValuePair<double, double> currentSolution in pieceLengthToQuantityLookup.LengthToQuantity)
+            foreach (KeyValuePair<double, double> currentSolution in pieceLengthToQuantityLookup.OrderList)
             {
                 totalLength += currentSolution.Key * currentSolution.Value;
             }
