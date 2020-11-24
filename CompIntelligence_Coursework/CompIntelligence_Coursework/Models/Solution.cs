@@ -5,8 +5,7 @@ namespace CompIntelligence_Coursework.Models
 {
     public class Solution
     {
-        // Stock StockLength | quantity
-        public Dictionary<double, double> LengthToQuantity { get; set; }
+        public List<StockItem> SolutionStockItems { get; set; }
 
         public List<double> OffcutLengths { get; set; }
 
@@ -14,7 +13,7 @@ namespace CompIntelligence_Coursework.Models
 
         public Solution()
         {
-            LengthToQuantity = new Dictionary<double, double>();
+            SolutionStockItems = new List<StockItem>();
             OffcutLengths = new List<double>();
         }
     }

@@ -21,10 +21,10 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
         /*
          * Checks to see that the length of the solution is less than the lengths of pieces if they were placed end to end
          */
-        private bool IsLengthOfSolutionValid(Solution solution, IOrderItems pieceLengthToQuantityLookup)
+        private bool IsLengthOfSolutionValid(Solution solution, IOrderItems orderItems)
         {
             double solutionLength = GetTotalLengthOfSolutionStockLengths(solution);
-            double pieceLength = GetTotalOfPieceLengths(pieceLengthToQuantityLookup);
+            double pieceLength = GetTotalOfPieceLengths(orderItems);
 
             if (solutionLength < pieceLength)
             {
@@ -34,13 +34,16 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
             return true;
         }
 
-        private bool IsSolutionOnlyFilledWithValidLengths(Solution solution, IStockItems stockLengthToCostLookup)
+        private bool IsSolutionOnlyFilledWithValidLengths(Solution solution, IStockItems stockItems)
         {
-            foreach (KeyValuePair<double, double> currentSolution in solution.LengthToQuantity)
+            foreach (StockItem solutionStockItem in solution.SolutionStockItems)
             {
-                if (!stockLengthToCostLookup.StockItemList.ContainsKey(currentSolution.Key))
+                foreach (StockItem factoryStockItem in stockItems.StockItemList)
                 {
-                    return false;
+                    if (solutionStockItem.StockLength == factoryStockItem.StockLength)
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -51,21 +54,21 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
         {
             double totalLength = 0.0;
 
-            foreach (KeyValuePair<double, double> currentSolution in solution.LengthToQuantity)
+            foreach (StockItem stockitem in solution.SolutionStockItems)
             {
-                totalLength += currentSolution.Key * currentSolution.Value;
+                totalLength += stockitem.StockLength;
             }
 
             return totalLength;
         }
 
-        private double GetTotalOfPieceLengths(IOrderItems pieceLengthToQuantityLookup)
+        private double GetTotalOfPieceLengths(IOrderItems orderItems)
         {
             double totalLength = 0.0;
 
-            foreach (KeyValuePair<double, double> currentSolution in pieceLengthToQuantityLookup.OrderList)
+            foreach (OrderItem orderItem in orderItems.OrderItemsList)
             {
-                totalLength += currentSolution.Key * currentSolution.Value;
+                totalLength += orderItem.PieceLength * orderItem.QuantityOfPieceLength;
             }
 
             return totalLength;
