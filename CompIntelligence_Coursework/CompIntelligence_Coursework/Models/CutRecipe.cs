@@ -10,15 +10,16 @@ namespace CompIntelligence_Coursework.Models
     public class CutRecipe
     {
         public StockItem OriginalStockItemUsed { get; set; }
+        public OrderItem OriginalOrderItem { get; set; }
 
         public List<double> PositionsToCutAt { get; set; }
 
-        public List<double> OffCuts { get; set; }
+        public double OffCut { get; set; }
 
         public CutRecipe()
         {
             PositionsToCutAt = new List<double>();
-            OffCuts = new List<double>();
+            OffCut = 0;
         }
     }
 }

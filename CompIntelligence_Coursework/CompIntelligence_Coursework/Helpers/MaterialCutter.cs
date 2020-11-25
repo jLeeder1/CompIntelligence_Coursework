@@ -18,6 +18,7 @@ namespace CompIntelligence_Coursework.Helpers
             {
                 CutRecipe cutRecipe = new CutRecipe();
                 cutRecipe.OriginalStockItemUsed = stockItem;
+                cutRecipe.OriginalOrderItem = orderItem;
                 double lengthOfCurrentStockLeft = stockItem.StockLength;
 
                 while (lengthOfCurrentStockLeft >= orderItem.PieceLength)
@@ -26,7 +27,11 @@ namespace CompIntelligence_Coursework.Helpers
                     cutRecipe.PositionsToCutAt.Add(lengthOfCurrentStockLeft);
                 }
 
-                cutRecipe.OffCuts.Add(lengthOfCurrentStockLeft);
+                if(lengthOfCurrentStockLeft != 0)
+                {
+                    cutRecipe.OffCut = lengthOfCurrentStockLeft;
+                }
+                
                 cutRecipes.Add(cutRecipe);
                 quantityToCut--;
             }

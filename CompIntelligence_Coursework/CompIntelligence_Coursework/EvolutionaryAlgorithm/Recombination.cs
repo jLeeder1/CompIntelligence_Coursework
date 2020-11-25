@@ -25,6 +25,17 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 
         public List<Solution> RecombineParents(Solution parentOne, Solution parentTwo)
         {
+            Random random = new Random();
+
+            if (random.NextDouble() < EvolutionaryAlgorithmConstants.RECOMBINATION_CHANCE)
+            {
+                return new List<Solution>
+                {
+                    parentOne,
+                    parentTwo
+                };
+            }
+
             List<Solution> offspring = new List<Solution>();
             /*
             offspring.AddRange(RecombineParentsToFormOneChild(parentOne, parentTwo));

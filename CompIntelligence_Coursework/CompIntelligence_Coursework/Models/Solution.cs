@@ -19,13 +19,5 @@ namespace CompIntelligence_Coursework.Models
         {
             CutRecipes = new List<CutRecipe>();
         }
-
-        public void UpdateSolutionOffcuts()
-        {
-            foreach(CutRecipe cutRecipe in CutRecipes)
-            {
-                cutRecipe.OffCuts.Clear();
-            }
-        }
     }
 }
