@@ -1,4 +1,5 @@
 ﻿using CompIntelligence_Coursework.Generic;
+using CompIntelligence_Coursework.Helpers;
 using CompIntelligence_Coursework.Models;
 using CompIntelligence_Coursework.SolutionEvaluation;
 using CompIntelligence_Coursework.solutionEveluation;
@@ -10,42 +11,66 @@ namespace CompIntelligence_Coursework.RandomGenerator
 {
     public class RandomSolutionGenerator : IRandomSolutionGenerator
     {
-        private readonly IOrder pieceLengthToQuantityLookup;
-        private readonly IStockList stockLengthToCostLookup;
+        private readonly IOrder order;
+        private readonly IStockList stockList;
         private readonly ISolutionEvaluator solutionEvaluator;
         private readonly ISolutionValidation solutionValidation;
+        private readonly IMaterialCutter materialCutter;
 
         public RandomSolutionGenerator(
-            IOrder pieceLengthToQuantityLookup,
-            IStockList stockLengthToCostLookup,
+            IOrder order,
+            IStockList stockList,
             ISolutionEvaluator solutionEvaluator,
-            ISolutionValidation solutionValidation
+            ISolutionValidation solutionValidation,
+            IMaterialCutter materialCutter
             )
         {
-            this.pieceLengthToQuantityLookup = pieceLengthToQuantityLookup;
-            this.stockLengthToCostLookup = stockLengthToCostLookup;
+            this.order = order;
+            this.stockList = stockList;
             this.solutionEvaluator = solutionEvaluator;
             this.solutionValidation = solutionValidation;
+            this.materialCutter = materialCutter;
         }
 
         public Solution GenerateRandomSolution()
         {
             bool isValidSolutionFound = false;
-            Random random = new Random();
             Solution solution;
+            List<OrderItem> ordersFulfilled = new List<OrderItem>();
 
             do
             {
+                Random random = new Random();
                 solution = new Solution();
+                ordersFulfilled.Clear();
 
-                foreach (KeyValuePair<double, double> stockList in stockLengthToCostLookup.StockItemList)
+                foreach (StockItem stockItem in stockList.StockItemList)
                 {
-                    solution.LengthToQuantity[stockList.Key] = Math.Round(random.NextDouble() * GenericConstants.UPPER_BOUND_FOR_RANDOM_QUANTITY);
+                    if (ordersFulfilled.Count == order.OrderItemsList.Count)
+                    {
+                        break;
+                    }
+
+                    foreach (OrderItem orderItem in order.OrderItemsList)
+                    {
+                        if (ordersFulfilled.Contains(orderItem))
+                        {
+                            continue;
+                        }
+
+                        double chance = random.NextDouble();
+
+                        if (chance < GenericConstants.CHANCE_FOR_ORDER_TO_USE_STOCK_LENGTH)
+                        {
+                            solution.CutRecipes.AddRange(materialCutter.CutMaterial(stockItem, orderItem, orderItem.QuantityOfPieceLength));
+                            ordersFulfilled.Add(orderItem);
+                        }
+                    }
                 }
 
-                if (solutionValidation.IsValidSolution(solution, pieceLengthToQuantityLookup, stockLengthToCostLookup))
+                if (solutionValidation.IsValidSolution(solution, order, stockList))
                 {
-                    solution.SolutionCost = solutionEvaluator.GetCostOfSolution(solution, stockLengthToCostLookup);
+                    solution.SolutionCost = solutionEvaluator.GetCostOfSolution(solution.CutRecipes);
                     isValidSolutionFound = true;
                 }
 

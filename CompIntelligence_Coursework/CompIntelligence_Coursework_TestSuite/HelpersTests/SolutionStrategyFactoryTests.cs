@@ -9,6 +9,7 @@ namespace CompIntelligence_Coursework_TestSuite.HelpersTests
 {
     public class SolutionStrategyFactoryTests
     {
+        /*
         private ISolutionStrategyFactory solutionStrategyFactory;
 
         [SetUp]
@@ -32,6 +33,6 @@ namespace CompIntelligence_Coursework_TestSuite.HelpersTests
             // Assert
             result.Should().NotBeNull();
             result.Should().BeOfType(typeof(PSOSolution));
-        }
+        }*/
     }
 }

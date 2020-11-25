@@ -22,6 +22,7 @@ namespace CompIntelligence_Coursework.DependencyInjection
 
             // Helpers
             builder.RegisterType<SolutionStrategyFactory>().As<ISolutionStrategyFactory>();
+            builder.RegisterType<MaterialCutter>().As<IMaterialCutter>();
 
 
             // Menu
