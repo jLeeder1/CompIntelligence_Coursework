@@ -22,5 +22,14 @@ namespace CompIntelligence_Coursework.Models
             CutRecipes = new List<CutRecipe>();
             OffcutLengths = new List<double>();
         }
+
+        public void UpdateSolutionOffcuts()
+        {
+            foreach(CutRecipe cutRecipe in CutRecipes)
+            {
+                OffcutLengths.AddRange(cutRecipe.OffCuts);
+                cutRecipe.OffCuts.Clear();
+            }
+        }
     }
 }

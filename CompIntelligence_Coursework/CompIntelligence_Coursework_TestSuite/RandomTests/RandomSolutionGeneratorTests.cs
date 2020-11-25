@@ -11,6 +11,7 @@ namespace CompIntelligence_Coursework_TestSuite.RandomTests
 {
     public class RandomSolutionGeneratorTests
     {
+        /*
         private Mock<IOrder> mockPieceLengthToQuantityLookup;
         private Mock<IStockList> mockStockLengthToCostLookup;
         private Mock<ISolutionEvaluator> mockSolutionEvaluator;
@@ -55,6 +56,7 @@ namespace CompIntelligence_Coursework_TestSuite.RandomTests
             result.Should().NotBeNull();
             result.LengthToQuantity.Should().HaveSameCount(mockStockLengthToCostLookupDictionary);
             result.SolutionCost.Should().NotBe(null);
-        }
+        }*/
     }
+
 }

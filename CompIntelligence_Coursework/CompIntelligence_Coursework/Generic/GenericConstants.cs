@@ -5,7 +5,7 @@ namespace CompIntelligence_Coursework.Generic
     public static class GenericConstants
     {
         // User set
-        public static int NUMBER_OF_ITERATIONS { get; set; } = 100;
+        public static int NUMBER_OF_ITERATIONS { get; set; } = 50;
 
         public static int SIZE_OF_POPULATION { get; set; }
 
@@ -20,10 +20,12 @@ namespace CompIntelligence_Coursework.Generic
         // Non user set
         public static double UPPER_BOUND_FOR_RANDOM_QUANTITY { get; } = 10;
 
+        public static double CHANCE_FOR_ORDER_TO_USE_STOCK_LENGTH { get; } = 0.3;
+
         public static void ResetValuesToDefault()
         {
-            NUMBER_OF_ITERATIONS = 100;
-            SIZE_OF_POPULATION = 100;
+            NUMBER_OF_ITERATIONS = 50;
+            SIZE_OF_POPULATION = 50;
         }
 
         public static void DisplayConstants()

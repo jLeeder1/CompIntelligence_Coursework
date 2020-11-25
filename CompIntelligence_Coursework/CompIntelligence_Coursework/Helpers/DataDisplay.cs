@@ -16,7 +16,7 @@ namespace CompIntelligence_Coursework.Helpers
             {
                 string fullSolution = FormatSolutionForPrintingToConsole(entry.Value);
                 Console.WriteLine($"{System.Environment.NewLine}{System.Environment.NewLine}");
-                Console.WriteLine($"Iteration: {entry.Key}{System.Environment.NewLine}Best solution in iteration: {fullSolution}{System.Environment.NewLine}Cost: {entry.Value.SolutionCost}");
+                Console.WriteLine($"Iteration: {entry.Key}{System.Environment.NewLine}Best solution in iteration: {fullSolution}{System.Environment.NewLine}");
                 Console.WriteLine($"Cost: {entry.Value.SolutionCost}");
 
                 if (entry.Value.SolutionCost < bestSolutionCost)
@@ -36,7 +36,7 @@ namespace CompIntelligence_Coursework.Helpers
 
             foreach (CutRecipe cutRecipe in solution.CutRecipes)
             {
-                formattedString += ($"{System.Environment.NewLine}Stock used: {cutRecipe.OriginalStockItemUsed.StockLength}, Cuts at: {FormatCutsForPrintingToConsole(cutRecipe)}");
+                formattedString += ($"{System.Environment.NewLine}Stock length used: {cutRecipe.OriginalStockItemUsed.StockLength}, Cuts at: {FormatCutsForPrintingToConsole(cutRecipe)}");
             }
 
             return formattedString;
@@ -46,9 +46,9 @@ namespace CompIntelligence_Coursework.Helpers
         {
             string formattedString = "Cuts at: [";
 
-            foreach (double cutPosition in cutRecipe.PositionsToCutAt)
+            for (int index = cutRecipe.PositionsToCutAt.Count - 1; index >= 0; index--)
             {
-                formattedString += ($"{cutRecipe.PositionsToCutAt},");
+                formattedString += ($" {cutRecipe.PositionsToCutAt[index]}");
             }
 
             formattedString += " ]";
