@@ -7,7 +7,7 @@ namespace CompIntelligence_Coursework.Generic
         // User set
         public static int NUMBER_OF_ITERATIONS { get; set; } = 50;
 
-        public static int SIZE_OF_POPULATION { get; set; }
+        public static int SIZE_OF_POPULATION { get; set; } = 100;
 
         public static string RANDOM_SOLUTION { get; } = "Random_Solution";
 
@@ -25,7 +25,7 @@ namespace CompIntelligence_Coursework.Generic
         public static void ResetValuesToDefault()
         {
             NUMBER_OF_ITERATIONS = 50;
-            SIZE_OF_POPULATION = 50;
+            SIZE_OF_POPULATION = 100;
         }
 
         public static void DisplayConstants()

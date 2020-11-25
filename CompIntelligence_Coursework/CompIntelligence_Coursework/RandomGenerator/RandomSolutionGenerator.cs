@@ -1,12 +1,10 @@
-﻿using CompIntelligence_Coursework.Generic;
-using CompIntelligence_Coursework.Helpers;
+﻿using CompIntelligence_Coursework.Helpers;
 using CompIntelligence_Coursework.Models;
 using CompIntelligence_Coursework.SolutionEvaluation;
 using CompIntelligence_Coursework.solutionEveluation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CompIntelligence_Coursework.RandomGenerator
 {
@@ -44,9 +42,6 @@ namespace CompIntelligence_Coursework.RandomGenerator
                 Random random = new Random();
                 solution = new Solution();
                 ordersFulfilled.Clear();
-
-                
-               
 
                 foreach (OrderItem orderItem in order.OrderItemsList)
                 {

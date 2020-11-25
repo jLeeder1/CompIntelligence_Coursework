@@ -13,21 +13,17 @@ namespace CompIntelligence_Coursework.Models
     {
         public List<CutRecipe> CutRecipes { get; set; }
 
-        public List<double> OffcutLengths { get; set; }
-
         public double SolutionCost { get; set; }
 
         public Solution()
         {
             CutRecipes = new List<CutRecipe>();
-            OffcutLengths = new List<double>();
         }
 
         public void UpdateSolutionOffcuts()
         {
             foreach(CutRecipe cutRecipe in CutRecipes)
             {
-                OffcutLengths.AddRange(cutRecipe.OffCuts);
                 cutRecipe.OffCuts.Clear();
             }
         }
