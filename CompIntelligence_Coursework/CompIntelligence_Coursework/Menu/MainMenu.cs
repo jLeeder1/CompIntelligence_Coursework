@@ -51,7 +51,7 @@ namespace CompIntelligence_Coursework.Menu
             Console.WriteLine(Environment.NewLine);
             Console.WriteLine("Please choose from the choices below");
             Console.WriteLine("1. Random Solution");
-            Console.WriteLine("2. Not yet implemented");
+            Console.WriteLine("2. EVO Solution");
             Console.WriteLine("3. Not yet implemented");
             Console.WriteLine("4. End Program");
         }
@@ -80,7 +80,7 @@ namespace CompIntelligence_Coursework.Menu
                     solutionToUse = GenericConstants.RANDOM_SOLUTION;
                     break;
                 case ConsoleKey.D2:
-                    Console.WriteLine("Not yet implemented");
+                    solutionToUse = GenericConstants.EVO_SOLUTION;
                     break;
                 case ConsoleKey.D3:
                     Console.WriteLine("Not yet implemented");

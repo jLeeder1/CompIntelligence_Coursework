@@ -36,7 +36,7 @@ namespace CompIntelligence_Coursework.Helpers
 
             foreach (CutRecipe cutRecipe in solution.CutRecipes)
             {
-                formattedString += ($"{System.Environment.NewLine}Stock length used: {cutRecipe.OriginalStockItemUsed.StockLength}, Cuts at: {FormatCutsForPrintingToConsole(cutRecipe)}");
+                formattedString += ($"{System.Environment.NewLine}Stock length used: {cutRecipe.OriginalStockItemUsed.StockLength}, {FormatCutsForPrintingToConsole(cutRecipe)}");
             }
 
             return formattedString;
@@ -44,11 +44,15 @@ namespace CompIntelligence_Coursework.Helpers
 
         private static string FormatCutsForPrintingToConsole(CutRecipe cutRecipe)
         {
-            string formattedString = "Cuts at: [";
+            string formattedString = "Cuts: [ end -";
 
-            for (int index = cutRecipe.PositionsToCutAt.Count - 1; index >= 0; index--)
+            for (int index = 0; index <= cutRecipe.PositionsToCutAt.Count - 1; index++)
             {
                 formattedString += ($" {cutRecipe.PositionsToCutAt[index]}");
+                if(cutRecipe.PositionsToCutAt[index] != 0)
+                {
+                    formattedString += " -";
+                }
             }
 
             formattedString += " ]";
