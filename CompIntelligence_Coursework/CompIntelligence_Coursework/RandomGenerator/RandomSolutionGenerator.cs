@@ -45,9 +45,9 @@ namespace CompIntelligence_Coursework.RandomGenerator
 
                 foreach (OrderItem orderItem in order.OrderItemsList)
                 {
-                    if (ordersFulfilled.Contains(orderItem))
+                    if (ordersFulfilled.Count == order.OrderItemsList.Count)
                     {
-                        continue;
+                        break;
                     }
 
                     StockItem stockItem = stockList.StockItemList.ElementAt(random.Next(0, stockList.StockItemList.Count));

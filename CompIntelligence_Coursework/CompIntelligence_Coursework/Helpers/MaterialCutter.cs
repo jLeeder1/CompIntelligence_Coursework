@@ -16,15 +16,19 @@ namespace CompIntelligence_Coursework.Helpers
 
             while (quantityToCut > 0)
             {
-                CutRecipe cutRecipe = new CutRecipe();
-                cutRecipe.OriginalStockItemUsed = stockItem;
-                cutRecipe.OriginalOrderItem = orderItem;
+                CutRecipe cutRecipe = new CutRecipe
+                {
+                    OriginalStockItemUsed = stockItem,
+                    OriginalOrderItem = orderItem
+                };
+
                 double lengthOfCurrentStockLeft = stockItem.StockLength;
 
-                while (lengthOfCurrentStockLeft >= orderItem.PieceLength)
+                while (lengthOfCurrentStockLeft >= orderItem.PieceLength && quantityToCut >= 1)
                 {
                     lengthOfCurrentStockLeft -= orderItem.PieceLength;
                     cutRecipe.PositionsToCutAt.Add(lengthOfCurrentStockLeft);
+                    quantityToCut--;
                 }
 
                 if(lengthOfCurrentStockLeft != 0)
@@ -33,7 +37,6 @@ namespace CompIntelligence_Coursework.Helpers
                 }
                 
                 cutRecipes.Add(cutRecipe);
-                quantityToCut--;
             }
 
             return cutRecipes;
