@@ -14,15 +14,16 @@ namespace CompIntelligence_Coursework.Helpers
 
             foreach (KeyValuePair<int, Solution> entry in solutions)
             {
-                string lengthToQuantity = FormatSolutionForPrintingToConsole(entry.Value);
-                Console.WriteLine($"{System.Environment.NewLine}Iteration: {entry.Key}, Best solution in iteration: {lengthToQuantity}Cost: {entry.Value.SolutionCost}");
+                string fullSolution = FormatSolutionForPrintingToConsole(entry.Value);
+                Console.WriteLine($"{System.Environment.NewLine}{System.Environment.NewLine}");
+                Console.WriteLine($"Iteration: {entry.Key}{System.Environment.NewLine}Best solution in iteration: {fullSolution}{System.Environment.NewLine}Cost: {entry.Value.SolutionCost}");
                 Console.WriteLine($"Cost: {entry.Value.SolutionCost}");
 
                 if (entry.Value.SolutionCost < bestSolutionCost)
                 {
                     bestIteration = entry.Key;
                     bestSolutionCost = entry.Value.SolutionCost;
-                    bestLengthToQuantity = lengthToQuantity;
+                    bestLengthToQuantity = fullSolution;
                 }
             }
 
@@ -33,10 +34,24 @@ namespace CompIntelligence_Coursework.Helpers
         {
             string formattedString = string.Empty;
 
-            foreach (KeyValuePair<double, double> entry in solution.LengthToQuantity)
+            foreach (CutRecipe cutRecipe in solution.CutRecipes)
             {
-                formattedString += ($"{System.Environment.NewLine}Length: {entry.Key}, Quantity: {entry.Value}");
+                formattedString += ($"{System.Environment.NewLine}Stock used: {cutRecipe.OriginalStockItemUsed.StockLength}, Cuts at: {FormatCutsForPrintingToConsole(cutRecipe)}");
             }
+
+            return formattedString;
+        }
+
+        private static string FormatCutsForPrintingToConsole(CutRecipe cutRecipe)
+        {
+            string formattedString = "Cuts at: [";
+
+            foreach (double cutPosition in cutRecipe.PositionsToCutAt)
+            {
+                formattedString += ($"{cutRecipe.PositionsToCutAt},");
+            }
+
+            formattedString += " ]";
 
             return formattedString;
         }

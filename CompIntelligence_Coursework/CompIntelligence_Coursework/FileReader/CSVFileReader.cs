@@ -8,7 +8,7 @@ namespace CompIntelligence_Coursework.FileReader
 {
     public class CSVFileReader
     {
-        public void ReadCSVFile(IPieceLengthToQuantityLookup pieceLengthToQuantityLookup, IStockLengthToCostLookup stockLengthToCostLookup)
+        public void ReadCSVFile(IOrder orderItems, IStockList stockItems)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             string resourceName = "CompIntelligence_Coursework.Resources.Problem1.csv";
@@ -24,13 +24,13 @@ namespace CompIntelligence_Coursework.FileReader
                     if (IsStockLengths(currentLine))
                     {
                         string[] currentLinePlusOne = reader.ReadLine().Split(",");
-                        stockLengthToCostLookup.LengthToCost = ConstructLengthCostLookup(currentLine, currentLinePlusOne);
+                        stockItems.StockItemList = ConstructStockItems(currentLine, currentLinePlusOne);
                     }
 
                     if (IsPieceLengths(currentLine))
                     {
                         string[] currentLinePlusOne = reader.ReadLine().Split(",");
-                        pieceLengthToQuantityLookup.LengthToQuantity = ConstructLengthQuantityLookup(currentLine, currentLinePlusOne);
+                        orderItems.OrderItemsList = ConstructOrderItems(currentLine, currentLinePlusOne);
                     }
                 }
                 
@@ -73,33 +73,11 @@ namespace CompIntelligence_Coursework.FileReader
             return false;
         }
 
-        /*
-         * This logic is duplicated but at time of writing I wasn't sure what data types each lookup would use
-         * So leaving for now for easy switching and experimenting
-         */
-        private Dictionary<double, double> ConstructLengthCostLookup(string[] currentLine, string[] currentLinePlusOne)
+       
+
+        private List<StockItem> ConstructStockItems(string[] currentLine, string[] currentLinePlusOne)
         {
-            Dictionary<double, double> newLookup = new Dictionary<double, double>();
-
-            for(int index = 0; index <= currentLine.Length - 1; index++)
-            {
-                if(!IsViableToParse(currentLine[index]) || !IsViableToParse(currentLinePlusOne[index]))
-                {
-                    continue;
-                }
-
-                double currentLineDouble = double.Parse(currentLine[index]);
-                double currentLinePlusOneDouble = double.Parse(currentLinePlusOne[index]);
-                
-                newLookup.Add(currentLineDouble, currentLinePlusOneDouble);
-            }
-
-            return newLookup;
-        }
-
-        private Dictionary<double, double> ConstructLengthQuantityLookup(string[] currentLine, string[] currentLinePlusOne)
-        {
-            Dictionary<double, double> newLookup = new Dictionary<double, double>();
+            List<StockItem> newStockItemList = new List<StockItem>();
 
             for (int index = 0; index <= currentLine.Length - 1; index++)
             {
@@ -111,10 +89,30 @@ namespace CompIntelligence_Coursework.FileReader
                 double currentLineDouble = double.Parse(currentLine[index]);
                 double currentLinePlusOneDouble = double.Parse(currentLinePlusOne[index]);
 
-                newLookup.Add(currentLineDouble, currentLinePlusOneDouble);
+                newStockItemList.Add(new StockItem(currentLineDouble, currentLinePlusOneDouble));
             }
 
-            return newLookup;
+            return newStockItemList;
+        }
+
+        private List<OrderItem> ConstructOrderItems(string[] currentLine, string[] currentLinePlusOne)
+        {
+            List<OrderItem> newOrderItemList = new List<OrderItem>();
+
+            for (int index = 0; index <= currentLine.Length - 1; index++)
+            {
+                if (!IsViableToParse(currentLine[index]) || !IsViableToParse(currentLinePlusOne[index]))
+                {
+                    continue;
+                }
+
+                double currentLineDouble = double.Parse(currentLine[index]);
+                double currentLinePlusOneDouble = double.Parse(currentLinePlusOne[index]);
+
+                newOrderItemList.Add(new OrderItem(currentLineDouble) { QuantityOfPieceLength = currentLinePlusOneDouble });
+            }
+
+            return newOrderItemList;
         }
     }
 }

@@ -9,15 +9,15 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 {
     public class EvolutionarySolution : ISolutionFinderStrategy
     {
-        private readonly IPieceLengthToQuantityLookup pieceLengthToQuantityLookup;
-        private readonly IStockLengthToCostLookup stockLengthToCostLookup;
+        private readonly IOrder pieceLengthToQuantityLookup;
+        private readonly IStockList stockLengthToCostLookup;
         private readonly IRandomSolutionGenerator randomSolutionGenerator;
 
         // Populations
         private List<Solution> parentPopulation;
         private List<Solution> offspringPopulation;
 
-        public EvolutionarySolution(IPieceLengthToQuantityLookup pieceLengthToQuantityLookup, IStockLengthToCostLookup stockLengthToCostLookup, IRandomSolutionGenerator randomSolutionGenerator)
+        public EvolutionarySolution(IOrder pieceLengthToQuantityLookup, IStockList stockLengthToCostLookup, IRandomSolutionGenerator randomSolutionGenerator)
         {
             this.pieceLengthToQuantityLookup = pieceLengthToQuantityLookup;
             this.stockLengthToCostLookup = stockLengthToCostLookup;

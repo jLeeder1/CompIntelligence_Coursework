@@ -7,13 +7,13 @@ namespace CompIntelligence_Coursework.Helpers
 {
     public class SolutionStrategyFactory : ISolutionStrategyFactory
     {
-        private readonly IPieceLengthToQuantityLookup pieceLengthToQuantityLookup;
-        private readonly IStockLengthToCostLookup stockLengthToCostLookup;
+        private readonly IOrder pieceLengthToQuantityLookup;
+        private readonly IStockList stockLengthToCostLookup;
         private readonly IRandomSolutionGenerator randomSolutionGenerator;
 
         public SolutionStrategyFactory(
-            IPieceLengthToQuantityLookup pieceLengthToQuantityLookup, 
-            IStockLengthToCostLookup stockLengthToCostLookup, 
+            IOrder pieceLengthToQuantityLookup, 
+            IStockList stockLengthToCostLookup, 
             IRandomSolutionGenerator randomSolutionGenerator
             )
         {
@@ -24,7 +24,7 @@ namespace CompIntelligence_Coursework.Helpers
 
         public ISolutionFinderStrategy GetSolutionFinderStrategy(SolutionStrategyTypes solutionStrategyTypes)
         {
-            ISolutionFinderStrategy solutionFinderStrategy = null;
+            ISolutionFinderStrategy solutionFinderStrategy;
             switch (solutionStrategyTypes)
             {
                 case SolutionStrategyTypes.RandomSolutionStrategy:

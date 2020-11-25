@@ -3,16 +3,24 @@ using System.Collections.Generic;
 
 namespace CompIntelligence_Coursework.Models
 {
+    /*
+     * Holds a solution for an order including
+     * - A list of CutRecipes detailing where to make cuts along what sotck item
+     * - List of offcuts that can be used instead of cutting longer pieces
+     * - The total cost of the soution calculated from the quantity of each stock item used
+     */
     public class Solution
     {
-        // Stock AStockLength | quantity
-        public Dictionary<double, double> LengthToQuantity { get; set; }
+        public List<CutRecipe> CutRecipes { get; set; }
+
+        public List<double> OffcutLengths { get; set; }
 
         public double SolutionCost { get; set; }
 
         public Solution()
         {
-            LengthToQuantity = new Dictionary<double, double>();
+            CutRecipes = new List<CutRecipe>();
+            OffcutLengths = new List<double>();
         }
     }
 }

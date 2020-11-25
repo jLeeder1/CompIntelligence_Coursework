@@ -5,22 +5,16 @@ namespace CompIntelligence_Coursework.solutionEveluation
 {
     public class SolutionEvaluator : ISolutionEvaluator
     {
-        public double GetCostOfSolution(Solution solution, IStockLengthToCostLookup stockLengthToCostLookup)
+        public double GetCostOfSolution(List<CutRecipe> cutRecipes)
         {
             double totalCost = 0.0;
 
-            foreach (KeyValuePair<double, double> currentSolution in solution.LengthToQuantity)
+            foreach(CutRecipe cutRecipe in cutRecipes)
             {
-                totalCost += GetCostOfOneStockLengthBasedOnQuantity(stockLengthToCostLookup, currentSolution.Key, currentSolution.Value);
+                totalCost += cutRecipe.OriginalStockItemUsed.StockLengthCost;
             }
 
             return totalCost;
-        }
-
-        private double GetCostOfOneStockLengthBasedOnQuantity(IStockLengthToCostLookup stockLengthToCostLookup, double stockLenth, double quantityOfStock)
-        {
-            double costOfOneLength = stockLengthToCostLookup.LengthToCost[stockLenth];
-            return costOfOneLength * quantityOfStock;
         }
     }
 }

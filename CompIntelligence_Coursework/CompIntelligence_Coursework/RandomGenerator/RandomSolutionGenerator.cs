@@ -10,14 +10,14 @@ namespace CompIntelligence_Coursework.RandomGenerator
 {
     public class RandomSolutionGenerator : IRandomSolutionGenerator
     {
-        private readonly IPieceLengthToQuantityLookup pieceLengthToQuantityLookup;
-        private readonly IStockLengthToCostLookup stockLengthToCostLookup;
+        private readonly IOrder pieceLengthToQuantityLookup;
+        private readonly IStockList stockLengthToCostLookup;
         private readonly ISolutionEvaluator solutionEvaluator;
         private readonly ISolutionValidation solutionValidation;
 
         public RandomSolutionGenerator(
-            IPieceLengthToQuantityLookup pieceLengthToQuantityLookup,
-            IStockLengthToCostLookup stockLengthToCostLookup,
+            IOrder pieceLengthToQuantityLookup,
+            IStockList stockLengthToCostLookup,
             ISolutionEvaluator solutionEvaluator,
             ISolutionValidation solutionValidation
             )
@@ -38,7 +38,7 @@ namespace CompIntelligence_Coursework.RandomGenerator
             {
                 solution = new Solution();
 
-                foreach (KeyValuePair<double, double> stockList in stockLengthToCostLookup.LengthToCost)
+                foreach (KeyValuePair<double, double> stockList in stockLengthToCostLookup.StockItemList)
                 {
                     solution.LengthToQuantity[stockList.Key] = Math.Round(random.NextDouble() * GenericConstants.UPPER_BOUND_FOR_RANDOM_QUANTITY);
                 }

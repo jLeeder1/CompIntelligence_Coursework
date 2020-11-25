@@ -11,8 +11,8 @@ namespace CompIntelligence_Coursework_TestSuite.RandomTests
 {
     public class RandomSolutionGeneratorTests
     {
-        private Mock<IPieceLengthToQuantityLookup> mockPieceLengthToQuantityLookup;
-        private Mock<IStockLengthToCostLookup> mockStockLengthToCostLookup;
+        private Mock<IOrder> mockPieceLengthToQuantityLookup;
+        private Mock<IStockList> mockStockLengthToCostLookup;
         private Mock<ISolutionEvaluator> mockSolutionEvaluator;
         private Mock<ISolutionValidation> mockSolutionValidation;
 
@@ -21,8 +21,8 @@ namespace CompIntelligence_Coursework_TestSuite.RandomTests
         [SetUp]
         public void SetUp()
         {
-            mockPieceLengthToQuantityLookup = new Mock<IPieceLengthToQuantityLookup>();
-            mockStockLengthToCostLookup = new Mock<IStockLengthToCostLookup>();
+            mockPieceLengthToQuantityLookup = new Mock<IOrder>();
+            mockStockLengthToCostLookup = new Mock<IStockList>();
             mockSolutionEvaluator = new Mock<ISolutionEvaluator>();
             mockSolutionValidation = new Mock<ISolutionValidation>();
 
@@ -40,12 +40,12 @@ namespace CompIntelligence_Coursework_TestSuite.RandomTests
                 { 8, 20 }
             };
 
-            mockStockLengthToCostLookup.SetupGet(x => x.LengthToCost).Returns(mockStockLengthToCostLookupDictionary);
+            mockStockLengthToCostLookup.SetupGet(x => x.StockItemList).Returns(mockStockLengthToCostLookupDictionary);
 
             mockSolutionValidation.Setup(x => x.IsValidSolution(
                 It.IsAny<Solution>(), 
-                It.IsAny<IPieceLengthToQuantityLookup>(), 
-                It.IsAny<IStockLengthToCostLookup>()))
+                It.IsAny<IOrder>(), 
+                It.IsAny<IStockList>()))
                 .Returns(true);
 
             // Act

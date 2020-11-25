@@ -30,11 +30,11 @@ namespace CompIntelligence_Coursework.DependencyInjection
 
             // Models
             // Setup to use the same object each time not a new object
-            IPieceLengthToQuantityLookup pieceLengthToQuantityLookup = new PieceLengthToQuantityLookup();
-            IStockLengthToCostLookup stockLengthToCostLookup = new StockLengthToCostLookup();
+            IOrder pieceLengthToQuantityLookup = new Order();
+            IStockList stockLengthToCostLookup = new StockList();
 
-            builder.RegisterInstance(pieceLengthToQuantityLookup).As<IPieceLengthToQuantityLookup>();
-            builder.RegisterInstance(stockLengthToCostLookup).As<IStockLengthToCostLookup>();
+            builder.RegisterInstance(pieceLengthToQuantityLookup).As<IOrder>();
+            builder.RegisterInstance(stockLengthToCostLookup).As<IStockList>();
 
             // PSO
 

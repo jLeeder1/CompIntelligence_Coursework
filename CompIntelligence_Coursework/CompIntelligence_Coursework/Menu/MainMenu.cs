@@ -10,14 +10,14 @@ namespace CompIntelligence_Coursework.Menu
 {
     public class MainMenu
     {
-        private readonly IPieceLengthToQuantityLookup pieceLengthToQuantityLookup;
-        private readonly IStockLengthToCostLookup stockLengthToCostLookup;
+        private readonly IOrder pieceLengthToQuantityLookup;
+        private readonly IStockList stockLengthToCostLookup;
         private readonly ISolutionStrategyFactory solutionStrategyFactory;
         private ISolutionFinderStrategy solutionFinderStrategy;
 
         private Dictionary<int, Solution> solutions;
 
-        public MainMenu(IPieceLengthToQuantityLookup pieceLengthToQuantityLookup, IStockLengthToCostLookup stockLengthToCostLookup, ISolutionStrategyFactory solutionStrategyFactory)
+        public MainMenu(IOrder pieceLengthToQuantityLookup, IStockList stockLengthToCostLookup, ISolutionStrategyFactory solutionStrategyFactory)
         {
             this.pieceLengthToQuantityLookup = pieceLengthToQuantityLookup;
             this.stockLengthToCostLookup = stockLengthToCostLookup;

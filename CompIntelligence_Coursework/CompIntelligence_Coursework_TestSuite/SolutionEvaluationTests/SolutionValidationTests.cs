@@ -9,17 +9,17 @@ namespace CompIntelligence_Coursework_TestSuite.SolutionEvaluationTests
     public class SolutionValidationTests
     {
         private SolutionValidation solutionValidation;
-        private PieceLengthToQuantityLookup pieceLengthToQuantityLookup;
-        private StockLengthToCostLookup stockLengthToCostLookup;
-        
+        private Order pieceLengthToQuantityLookup;
+        private StockList stockLengthToCostLookup;
+        /*
         [SetUp]
         public void Setup()
         {
             solutionValidation = new SolutionValidation();
 
-            pieceLengthToQuantityLookup = new PieceLengthToQuantityLookup
+            pieceLengthToQuantityLookup = new Order
             {
-                LengthToQuantity = new Dictionary<double, double>
+                OrderItemsList = new Dictionary<double, double>
                 {
                     { 3, 4 },
                     { 5, 3 },
@@ -28,9 +28,9 @@ namespace CompIntelligence_Coursework_TestSuite.SolutionEvaluationTests
                 }
             };
 
-            stockLengthToCostLookup = new StockLengthToCostLookup
+            stockLengthToCostLookup = new StockList
             {
-                LengthToCost = new Dictionary<double, double>
+                StockItemList = new Dictionary<double, double>
                 {
                     { 2, 10 },
                     { 4, 25 },
@@ -104,6 +104,7 @@ namespace CompIntelligence_Coursework_TestSuite.SolutionEvaluationTests
 
             // Assert
             result.Should().BeFalse();
-        }
+        }*/
     }
+
 }
