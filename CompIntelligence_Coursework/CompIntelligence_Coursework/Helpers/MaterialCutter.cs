@@ -1,7 +1,5 @@
 ﻿using CompIntelligence_Coursework.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CompIntelligence_Coursework.Helpers
 {
@@ -19,6 +17,7 @@ namespace CompIntelligence_Coursework.Helpers
             while(quantityToCut > 0)
             {
                 CutRecipe cutRecipe = new CutRecipe();
+                cutRecipe.OriginalStockItemUsed = stockItem;
                 double lengthOfCurrentStockLeft = stockItem.StockLength;
 
                 while(lengthOfCurrentStockLeft >= orderItem.PieceLength)
