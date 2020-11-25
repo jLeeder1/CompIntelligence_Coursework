@@ -2,7 +2,7 @@
 
 namespace CompIntelligence_Coursework.Models
 {
-    public interface IStockItems
+    public interface IStockList
     {
         public List<StockItem> StockItemList { get; set; }
     }

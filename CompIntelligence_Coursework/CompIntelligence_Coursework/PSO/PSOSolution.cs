@@ -7,10 +7,10 @@ namespace CompIntelligence_Coursework.PSO
 {
     public class PSOSolution : ISolutionFinderStrategy
     {
-        private readonly IOrderItems pieceLengthToQuantityLookup;
-        private readonly IStockItems stockLengthToCostLookup;
+        private readonly IOrder pieceLengthToQuantityLookup;
+        private readonly IStockList stockLengthToCostLookup;
 
-        public PSOSolution(IOrderItems pieceLengthToQuantityLookup, IStockItems stockLengthToCostLookup)
+        public PSOSolution(IOrder pieceLengthToQuantityLookup, IStockList stockLengthToCostLookup)
         {
             this.pieceLengthToQuantityLookup = pieceLengthToQuantityLookup;
             this.stockLengthToCostLookup = stockLengthToCostLookup;

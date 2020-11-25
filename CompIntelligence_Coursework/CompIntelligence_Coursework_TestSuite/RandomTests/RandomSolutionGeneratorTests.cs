@@ -11,8 +11,8 @@ namespace CompIntelligence_Coursework_TestSuite.RandomTests
 {
     public class RandomSolutionGeneratorTests
     {
-        private Mock<IOrderItems> mockPieceLengthToQuantityLookup;
-        private Mock<IStockItems> mockStockLengthToCostLookup;
+        private Mock<IOrder> mockPieceLengthToQuantityLookup;
+        private Mock<IStockList> mockStockLengthToCostLookup;
         private Mock<ISolutionEvaluator> mockSolutionEvaluator;
         private Mock<ISolutionValidation> mockSolutionValidation;
 
@@ -21,8 +21,8 @@ namespace CompIntelligence_Coursework_TestSuite.RandomTests
         [SetUp]
         public void SetUp()
         {
-            mockPieceLengthToQuantityLookup = new Mock<IOrderItems>();
-            mockStockLengthToCostLookup = new Mock<IStockItems>();
+            mockPieceLengthToQuantityLookup = new Mock<IOrder>();
+            mockStockLengthToCostLookup = new Mock<IStockList>();
             mockSolutionEvaluator = new Mock<ISolutionEvaluator>();
             mockSolutionValidation = new Mock<ISolutionValidation>();
 
@@ -44,8 +44,8 @@ namespace CompIntelligence_Coursework_TestSuite.RandomTests
 
             mockSolutionValidation.Setup(x => x.IsValidSolution(
                 It.IsAny<Solution>(), 
-                It.IsAny<IOrderItems>(), 
-                It.IsAny<IStockItems>()))
+                It.IsAny<IOrder>(), 
+                It.IsAny<IStockList>()))
                 .Returns(true);
 
             // Act

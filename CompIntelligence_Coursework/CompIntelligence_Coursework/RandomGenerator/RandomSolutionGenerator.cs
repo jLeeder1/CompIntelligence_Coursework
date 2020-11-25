@@ -10,14 +10,14 @@ namespace CompIntelligence_Coursework.RandomGenerator
 {
     public class RandomSolutionGenerator : IRandomSolutionGenerator
     {
-        private readonly IOrderItems pieceLengthToQuantityLookup;
-        private readonly IStockItems stockLengthToCostLookup;
+        private readonly IOrder pieceLengthToQuantityLookup;
+        private readonly IStockList stockLengthToCostLookup;
         private readonly ISolutionEvaluator solutionEvaluator;
         private readonly ISolutionValidation solutionValidation;
 
         public RandomSolutionGenerator(
-            IOrderItems pieceLengthToQuantityLookup,
-            IStockItems stockLengthToCostLookup,
+            IOrder pieceLengthToQuantityLookup,
+            IStockList stockLengthToCostLookup,
             ISolutionEvaluator solutionEvaluator,
             ISolutionValidation solutionValidation
             )

@@ -8,7 +8,7 @@ namespace CompIntelligence_Coursework.FileReader
 {
     public class CSVFileReader
     {
-        public void ReadCSVFile(IOrderItems orderItems, IStockItems stockItems)
+        public void ReadCSVFile(IOrder orderItems, IStockList stockItems)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             string resourceName = "CompIntelligence_Coursework.Resources.Problem1.csv";
