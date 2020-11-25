@@ -5,6 +5,7 @@ using CompIntelligence_Coursework.SolutionEvaluation;
 using CompIntelligence_Coursework.solutionEveluation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CompIntelligence_Coursework.RandomGenerator
@@ -44,28 +45,22 @@ namespace CompIntelligence_Coursework.RandomGenerator
                 solution = new Solution();
                 ordersFulfilled.Clear();
 
-                foreach (StockItem stockItem in stockList.StockItemList)
+                
+               
+
+                foreach (OrderItem orderItem in order.OrderItemsList)
                 {
-                    if (ordersFulfilled.Count == order.OrderItemsList.Count)
+                    if (ordersFulfilled.Contains(orderItem))
                     {
-                        break;
+                        continue;
                     }
 
-                    foreach (OrderItem orderItem in order.OrderItemsList)
-                    {
-                        if (ordersFulfilled.Contains(orderItem))
-                        {
-                            continue;
-                        }
+                    StockItem stockItem = stockList.StockItemList.ElementAt(random.Next(0, stockList.StockItemList.Count));
 
-                        double chance = random.NextDouble();
+                    double chance = random.NextDouble();
 
-                        if (chance < GenericConstants.CHANCE_FOR_ORDER_TO_USE_STOCK_LENGTH)
-                        {
-                            solution.CutRecipes.AddRange(materialCutter.CutMaterial(stockItem, orderItem, orderItem.QuantityOfPieceLength));
-                            ordersFulfilled.Add(orderItem);
-                        }
-                    }
+                    solution.CutRecipes.AddRange(materialCutter.CutMaterial(stockItem, orderItem, orderItem.QuantityOfPieceLength));
+                    ordersFulfilled.Add(orderItem);
                 }
 
                 if (solutionValidation.IsValidSolution(solution, order, stockList))
