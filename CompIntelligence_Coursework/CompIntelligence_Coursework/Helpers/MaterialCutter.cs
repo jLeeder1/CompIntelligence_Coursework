@@ -16,9 +16,9 @@ namespace CompIntelligence_Coursework.Helpers
 
             CutRecipe cutRecipe = new CutRecipe
             {
-                OriginalStockItemUsed = stockItem,
-                OriginalOrderItem = orderItem
+                OriginalStockItemUsed = stockItem
             };
+            cutRecipe.OrderItemsFulfilledByRecipe.Add(orderItem);
 
             double lengthOfCurrentStockLeft = stockItem.StockLength;
 

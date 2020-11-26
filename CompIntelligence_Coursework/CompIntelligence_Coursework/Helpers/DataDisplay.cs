@@ -36,7 +36,7 @@ namespace CompIntelligence_Coursework.Helpers
 
             foreach (CutRecipe cutRecipe in solution.CutRecipes)
             {
-                formattedString += ($"{System.Environment.NewLine}Order: length: {cutRecipe.OriginalOrderItem.PieceLength}   |   Stock length used: {cutRecipe.OriginalStockItemUsed.StockLength}   |   {FormatCutsForPrintingToConsole(cutRecipe)}   |   Offcut: {cutRecipe.OffCut}");
+                formattedString += ($"{System.Environment.NewLine}OrderIDs:{FormatOrderIDsForPrintingToConsole(cutRecipe.OrderItemsFulfilledByRecipe)}   |   Stock length used: {cutRecipe.OriginalStockItemUsed.StockLength}   |   {FormatCutsForPrintingToConsole(cutRecipe)}   |   Offcut: {cutRecipe.OffCut}");
             }
 
             return formattedString;
@@ -53,6 +53,21 @@ namespace CompIntelligence_Coursework.Helpers
                 {
                     formattedString += " -";
                 }
+            }
+
+            formattedString += " ]";
+
+            return formattedString;
+        }
+
+        private static string FormatOrderIDsForPrintingToConsole(List<OrderItem> orderItems)
+        {
+            string formattedString = "[";
+
+            foreach(OrderItem orderItem in orderItems)
+            {
+                formattedString += ($" <ID: {orderItem.OrderItemID},");
+                formattedString += ($" Length: {orderItem.PieceLength}>");
             }
 
             formattedString += " ]";

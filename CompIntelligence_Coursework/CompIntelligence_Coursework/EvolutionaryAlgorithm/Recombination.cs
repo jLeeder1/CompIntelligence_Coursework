@@ -116,6 +116,40 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
             return new List<Solution> { offspring };
         }
 
+        // Much better than other method
+        // SHUFFLE CAN LEAD TO DUPLICATES? MAYBE BETTER TO ITERATE OVER BOTH PARENTS AND COMPARE THEIR CUT RECIPE FORE THE SAME ORDER, WHOEVER HAS THE LOWER COST GETS PUT INTO THE CHILD?
+        private List<Solution> RecombineParentsBasedOnOrderItemID(Solution parentOne, Solution parentTwo)
+        {
+            List<CutRecipe> newCutRecipes = new List<CutRecipe>();
+
+            for (int index = 0; index < parentOne.CutRecipes.Count - 1; index += 2)
+            {
+                newCutRecipes.Add(parentOne.CutRecipes.ElementAt(index));
+            }
+
+            for (int index = 1; index < parentTwo.CutRecipes.Count - 1; index += 2)
+            {
+                newCutRecipes.Add(parentTwo.CutRecipes.ElementAt(index));
+            }
+
+            Solution offspring = new Solution
+            {
+                CutRecipes = newCutRecipes,
+                SolutionCost = solutionEvaluator.GetCostOfSolution(newCutRecipes)
+            };
+
+            if (!solutionValidation.IsValidSolution(offspring, order, stockList))
+            {
+                return new List<Solution>
+                {
+                    parentOne,
+                    parentTwo
+                };
+            }
+
+            return new List<Solution> { offspring };
+        }
+
         // Doesn't really work
         private bool UseElitism(Solution parentOne, Solution parentTwo, Solution offspring)
         {

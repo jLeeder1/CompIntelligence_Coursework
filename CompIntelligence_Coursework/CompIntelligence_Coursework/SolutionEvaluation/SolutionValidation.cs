@@ -87,7 +87,10 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
             HashSet<int> copyOfOrderItemIDsFromRecipes = new HashSet<int>();
             foreach(CutRecipe cutRecipe in solution.CutRecipes)
             {
-                copyOfOrderItemIDsFromRecipes.Add(cutRecipe.OriginalOrderItem.OrderItemID);
+                foreach (OrderItem orderItem in cutRecipe.OrderItemsFulfilledByRecipe)
+                {
+                    copyOfOrderItemIDsFromRecipes.Add(orderItem.OrderItemID);
+                }
             }
 
             List<int> copyOfOrderItemIDsFromOrder = new List<int>();
