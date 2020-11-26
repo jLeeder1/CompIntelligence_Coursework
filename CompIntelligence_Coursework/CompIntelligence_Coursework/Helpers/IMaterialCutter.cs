@@ -5,6 +5,6 @@ namespace CompIntelligence_Coursework.Helpers
 {
     public interface IMaterialCutter
     {
-        List<CutRecipe> CutMaterial(StockItem stockItem, OrderItem orderItem, double quantityToCut);
+        List<CutRecipe> CutMaterial(StockItem stockItem, OrderItem orderItem);
     }
 }

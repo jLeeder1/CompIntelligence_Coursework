@@ -83,7 +83,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
         }
 
         // Much better than other method
-        // HUFFLE CAN LEAD TO DUPLICATES? MAYBE BETTER TO ITERATE OVER BOTH PARENTS AND COMPARE THEIR CUT RECIPE FORE THE SAME ORDER, WHOEVER HAS THE LOWER COST GETS PUT INTO THE CHILD?
+        // SHUFFLE CAN LEAD TO DUPLICATES? MAYBE BETTER TO ITERATE OVER BOTH PARENTS AND COMPARE THEIR CUT RECIPE FORE THE SAME ORDER, WHOEVER HAS THE LOWER COST GETS PUT INTO THE CHILD?
         private List<Solution> RecombineParentsToFormOneChildUsingShuffling(Solution parentOne, Solution parentTwo)
         {
             List<CutRecipe> newCutRecipes = new List<CutRecipe>();

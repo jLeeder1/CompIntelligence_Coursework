@@ -54,7 +54,7 @@ namespace CompIntelligence_Coursework.RandomGenerator
 
                     double chance = random.NextDouble();
 
-                    solution.CutRecipes.AddRange(materialCutter.CutMaterial(stockItem, orderItem, orderItem.QuantityOfPieceLength));
+                    solution.CutRecipes.AddRange(materialCutter.CutMaterial(stockItem, orderItem));
                     ordersFulfilled.Add(orderItem);
                 }
 

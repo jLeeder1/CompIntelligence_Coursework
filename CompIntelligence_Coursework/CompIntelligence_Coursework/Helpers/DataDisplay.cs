@@ -36,7 +36,7 @@ namespace CompIntelligence_Coursework.Helpers
 
             foreach (CutRecipe cutRecipe in solution.CutRecipes)
             {
-                formattedString += ($"{System.Environment.NewLine}Order: length: {cutRecipe.OriginalOrderItem.PieceLength}, Quantity: {cutRecipe.OriginalOrderItem.QuantityOfPieceLength}   |   Stock length used: {cutRecipe.OriginalStockItemUsed.StockLength}   |   {FormatCutsForPrintingToConsole(cutRecipe)}   |   Offcut: {cutRecipe.OffCut}");
+                formattedString += ($"{System.Environment.NewLine}Order: length: {cutRecipe.OriginalOrderItem.PieceLength}   |   Stock length used: {cutRecipe.OriginalStockItemUsed.StockLength}   |   {FormatCutsForPrintingToConsole(cutRecipe)}   |   Offcut: {cutRecipe.OffCut}");
             }
 
             return formattedString;

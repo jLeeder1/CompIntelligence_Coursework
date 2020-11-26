@@ -9,8 +9,9 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
         {
             bool isValidLength = IsLengthOfSolutionValid(solution, order);
             bool isOnlyValidCuts = IsSolutionOnlyFilledWithValidLengths(solution, stockList);
+            bool isOrderFulfilled = IsOrderFulfilledBySolution(solution, order);
 
-            if (isValidLength && isOnlyValidCuts)
+            if (isValidLength && isOnlyValidCuts && isOrderFulfilled)
             {
                 return true;
             }
@@ -72,10 +73,43 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
 
             foreach (OrderItem orderItem in order.OrderItemsList)
             {
-                totalLength += orderItem.PieceLength * orderItem.QuantityOfPieceLength;
+                totalLength += orderItem.PieceLength;
             }
 
             return totalLength;
+        }
+
+        /*
+         * Checks whether all orderItemIds are associated with at least one cut recipe
+         */
+        private bool IsOrderFulfilledBySolution(Solution solution, IOrder order)
+        {
+            HashSet<int> copyOfOrderItemIDsFromRecipes = new HashSet<int>();
+            foreach(CutRecipe cutRecipe in solution.CutRecipes)
+            {
+                copyOfOrderItemIDsFromRecipes.Add(cutRecipe.OriginalOrderItem.OrderItemID);
+            }
+
+            List<int> copyOfOrderItemIDsFromOrder = new List<int>();
+            foreach (OrderItem orderItem in order.OrderItemsList)
+            {
+                copyOfOrderItemIDsFromOrder.Add(orderItem.OrderItemID);
+            }
+
+            foreach (int id in copyOfOrderItemIDsFromOrder)
+            {
+                if (copyOfOrderItemIDsFromRecipes.Contains(id))
+                {
+                    copyOfOrderItemIDsFromRecipes.Remove(id);
+                }
+            }
+
+            if (copyOfOrderItemIDsFromRecipes.Count > 0)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

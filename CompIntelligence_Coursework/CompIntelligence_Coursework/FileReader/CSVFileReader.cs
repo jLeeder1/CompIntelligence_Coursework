@@ -98,7 +98,7 @@ namespace CompIntelligence_Coursework.FileReader
         private List<OrderItem> ConstructOrderItems(string[] currentLine, string[] currentLinePlusOne)
         {
             List<OrderItem> newOrderItemList = new List<OrderItem>();
-
+            int id = 0;
             for (int index = 0; index <= currentLine.Length - 1; index++)
             {
                 if (!IsViableToParse(currentLine[index]) || !IsViableToParse(currentLinePlusOne[index]))
@@ -109,7 +109,11 @@ namespace CompIntelligence_Coursework.FileReader
                 double currentLineDouble = double.Parse(currentLine[index]);
                 double currentLinePlusOneDouble = double.Parse(currentLinePlusOne[index]);
 
-                newOrderItemList.Add(new OrderItem(currentLineDouble) { QuantityOfPieceLength = currentLinePlusOneDouble });
+                for(int indexTwo = 0; indexTwo < currentLinePlusOneDouble; indexTwo++)
+                {
+                    newOrderItemList.Add(new OrderItem(currentLineDouble, id));
+                    id++;
+                }
             }
 
             return newOrderItemList;

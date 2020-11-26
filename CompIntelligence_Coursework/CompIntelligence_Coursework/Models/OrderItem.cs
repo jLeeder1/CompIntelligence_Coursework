@@ -10,9 +10,12 @@ namespace CompIntelligence_Coursework.Models
 
         public double QuantityOfPieceLength { get; set;}
 
-        public OrderItem(double pieceLength)
+        public int OrderItemID { get; }
+
+        public OrderItem(double pieceLength, int orderItemID)
         {
             PieceLength = pieceLength;
+            OrderItemID = orderItemID;
         }
     }
 }
