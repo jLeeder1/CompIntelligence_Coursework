@@ -35,17 +35,19 @@ namespace CompIntelligence_Coursework.RandomGenerator
         {
             bool isValidSolutionFound = false;
             Solution solution;
-            List<OrderItem> ordersFulfilled = new List<OrderItem>();
+            
 
             do
             {
                 Random random = new Random();
                 solution = new Solution();
-                ordersFulfilled.Clear();
+                Dictionary<double, double> copyOfOrder = new Dictionary<double, double>(order.OrderItems);
 
-                foreach (OrderItem orderItem in order.OrderItemsList)
+                // not loving the use of goto but oh well
+                KeepIterating:
+                foreach (KeyValuePair<double, double> orderItem in order.OrderItems)
                 {
-                    if (ordersFulfilled.Contains(orderItem))
+                    if (copyOfOrder[orderItem.Key] <= 0)
                     {
                         continue;
                     }
@@ -54,13 +56,22 @@ namespace CompIntelligence_Coursework.RandomGenerator
 
                     double chance = random.NextDouble();
 
-                    solution.CutRecipes.AddRange(materialCutter.CutMaterial(stockItem, orderItem, orderItem.QuantityOfPieceLength));
-                    ordersFulfilled.Add(orderItem);
+                    Activity activity = materialCutter.ProduceActivity(stockItem, orderItem.Key, orderItem.Value);
+                    copyOfOrder[orderItem.Key] -= activity.PositionsToCutAt.Count;
+                    solution.Activities.Add(activity);
+                }
+
+                foreach (KeyValuePair<double, double> checkCopyOfOrder in copyOfOrder)
+                {
+                    if(checkCopyOfOrder.Value > 0)
+                    {
+                        goto KeepIterating;
+                    }
                 }
 
                 if (solutionValidation.IsValidSolution(solution, order, stockList))
                 {
-                    solution.SolutionCost = solutionEvaluator.GetCostOfSolution(solution.CutRecipes);
+                    solution.SolutionCost = solutionEvaluator.GetCostOfSolution(solution);
                     isValidSolutionFound = true;
                 }
 

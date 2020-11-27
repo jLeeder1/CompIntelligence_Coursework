@@ -1,6 +1,5 @@
 ﻿using CompIntelligence_Coursework.EvolutionaryAlgorithm;
 using CompIntelligence_Coursework.Models;
-using CompIntelligence_Coursework.PSO;
 using CompIntelligence_Coursework.RandomGenerator;
 using CompIntelligence_Coursework.RandomSolutions;
 
@@ -44,7 +43,7 @@ namespace CompIntelligence_Coursework.Helpers
                     solutionFinderStrategy = new EvolutionarySolution(order, stockList, randomSolutionGenerator, parentSelection, recombination, bestSolutionFinder);
                     break;
                 default:
-                    solutionFinderStrategy = new PSOSolution(order, stockList);
+                    solutionFinderStrategy = new RandomSolution(randomSolutionGenerator);
                     break;
             }
 

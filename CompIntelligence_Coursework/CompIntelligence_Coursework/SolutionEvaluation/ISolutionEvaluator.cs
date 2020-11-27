@@ -5,6 +5,6 @@ namespace CompIntelligence_Coursework.solutionEveluation
 {
     public interface ISolutionEvaluator
     {
-        double GetCostOfSolution(List<CutRecipe> cutRecipes);
+        double GetCostOfSolution(Solution solution);
     }
 }

@@ -8,11 +8,11 @@ namespace CompIntelligence_Coursework.Models
     public class Order : IOrder
     {
         
-        public List<OrderItem> OrderItemsList { get; set; }
+        public Dictionary<double, double> OrderItems { get; }
 
         public Order()
         {
-            OrderItemsList = new List<OrderItem>();
+            OrderItems = new Dictionary<double, double>();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace CompIntelligence_Coursework.FileReader
 {
     public class CSVFileReader
     {
-        public void ReadCSVFile(IOrder orderItems, IStockList stockItems)
+        public void ReadCSVFile(IOrder order, IStockList stockItems)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             string resourceName = "CompIntelligence_Coursework.Resources.Problem1.csv";
@@ -30,7 +30,7 @@ namespace CompIntelligence_Coursework.FileReader
                     if (IsPieceLengths(currentLine))
                     {
                         string[] currentLinePlusOne = reader.ReadLine().Split(",");
-                        orderItems.OrderItemsList = ConstructOrderItems(currentLine, currentLinePlusOne);
+                        ConstructOrder(currentLine, currentLinePlusOne, order);
                     }
                 }
                 
@@ -95,10 +95,8 @@ namespace CompIntelligence_Coursework.FileReader
             return newStockItemList;
         }
 
-        private List<OrderItem> ConstructOrderItems(string[] currentLine, string[] currentLinePlusOne)
+        private void ConstructOrder(string[] currentLine, string[] currentLinePlusOne, IOrder order)
         {
-            List<OrderItem> newOrderItemList = new List<OrderItem>();
-
             for (int index = 0; index <= currentLine.Length - 1; index++)
             {
                 if (!IsViableToParse(currentLine[index]) || !IsViableToParse(currentLinePlusOne[index]))
@@ -109,10 +107,8 @@ namespace CompIntelligence_Coursework.FileReader
                 double currentLineDouble = double.Parse(currentLine[index]);
                 double currentLinePlusOneDouble = double.Parse(currentLinePlusOne[index]);
 
-                newOrderItemList.Add(new OrderItem(currentLineDouble) { QuantityOfPieceLength = currentLinePlusOneDouble });
+                order.OrderItems.Add(currentLineDouble, currentLinePlusOneDouble);
             }
-
-            return newOrderItemList;
         }
     }
 }

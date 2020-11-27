@@ -11,8 +11,6 @@ namespace CompIntelligence_Coursework.Generic
 
         public static string RANDOM_SOLUTION { get; } = "Random_Solution";
 
-        public static string PSO_SOLUTION { get; } = "PSO_Solution";
-
         public static string EVO_SOLUTION { get; } = "EVO_Solution";
 
         public static string END_PROGRAM { get; } = "End_Program";

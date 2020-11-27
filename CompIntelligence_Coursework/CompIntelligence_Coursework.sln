@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompIntelligence_Coursework", "CompIntelligence_Coursework\CompIntelligence_Coursework.csproj", "{D9496A2E-F63B-43E8-8E55-A3B0D9CFF4A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompIntelligence_Coursework_TestSuite", "CompIntelligence_Coursework_TestSuite\CompIntelligence_Coursework_TestSuite.csproj", "{54B172BF-7567-443A-99E0-0C577AC02DD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompIntelligence_Coursework_TestSuite", "CompIntelligence_Coursework_TestSuite\CompIntelligence_Coursework_TestSuite.csproj", "{54B172BF-7567-443A-99E0-0C577AC02DD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

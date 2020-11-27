@@ -11,21 +11,13 @@ namespace CompIntelligence_Coursework.Models
      */
     public class Solution
     {
-        public List<CutRecipe> CutRecipes { get; set; }
+        public List<Activity> Activities { get; set; }
 
         public double SolutionCost { get; set; }
 
         public Solution()
         {
-            CutRecipes = new List<CutRecipe>();
-        }
-
-        public void UpdateSolutionOffcuts()
-        {
-            foreach(CutRecipe cutRecipe in CutRecipes)
-            {
-                cutRecipe.OffCuts.Clear();
-            }
+            Activities = new List<Activity>();
         }
     }
 }
