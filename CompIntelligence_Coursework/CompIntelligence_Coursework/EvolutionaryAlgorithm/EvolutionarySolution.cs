@@ -2,6 +2,7 @@
 using CompIntelligence_Coursework.Helpers;
 using CompIntelligence_Coursework.Models;
 using CompIntelligence_Coursework.RandomGenerator;
+using CompIntelligence_Coursework.solutionEveluation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,8 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
         private readonly IParentSelection parentSelection;
         private readonly IRecombination recombination;
         private readonly IBestSolutionFinder bestSolutionFinder;
+        private readonly IMutation mutation;
+        private readonly ISolutionEvaluator solutionEvaluator;
 
         // Solutions
         private Dictionary<int, Solution> solutions;
@@ -27,13 +30,17 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
             IRandomSolutionGenerator randomSolutionGenerator,
             IParentSelection parentSelection,
             IRecombination recombination,
-            IBestSolutionFinder bestSolutionFinder
+            IBestSolutionFinder bestSolutionFinder,
+            IMutation mutation,
+            ISolutionEvaluator solutionEvaluator
             )
         {
             this.randomSolutionGenerator = randomSolutionGenerator;
             this.parentSelection = parentSelection;
             this.recombination = recombination;
             this.bestSolutionFinder = bestSolutionFinder;
+            this.mutation = mutation;
+            this.solutionEvaluator = solutionEvaluator;
 
             solutions = new Dictionary<int, Solution>();
 
@@ -60,7 +67,12 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                 }
 
                 // For each offspring run mutation (chance inside of the mutation logic)
-
+                foreach(Solution offspring in offspringPopulation)
+                {
+                    mutation.MutateSolution(offspring);
+                    offspring.SolutionCost = solutionEvaluator.GetCostOfSolution(offspring);
+                }
+                
                 // Find best solution in the generation and repeat
                 solutions.Add(generationNum, bestSolutionFinder.GetBestSolutionInGeneration(offspringPopulation));
                 ResetPopulations();

@@ -15,9 +15,12 @@ namespace CompIntelligence_Coursework.Helpers
             foreach (KeyValuePair<int, Solution> entry in solutions)
             {
                 string fullSolution = FormatSolutionForPrintingToConsole(entry.Value);
-                Console.WriteLine($"{System.Environment.NewLine}{System.Environment.NewLine}");
-                Console.WriteLine($"Iteration: {entry.Key}{System.Environment.NewLine}Best solution in iteration: {fullSolution}{System.Environment.NewLine}");
+                Console.WriteLine($"{System.Environment.NewLine}");
+                Console.WriteLine("--------------------------------------------------");
+                Console.WriteLine($"Iteration: {entry.Key}{System.Environment.NewLine}Best solution in iteration: {fullSolution}");
+                Console.WriteLine("--------------------------------------------------");
                 Console.WriteLine($"Cost: {entry.Value.SolutionCost}");
+                Console.WriteLine("--------------------------------------------------");
 
                 if (entry.Value.SolutionCost < bestSolutionCost)
                 {
@@ -27,7 +30,7 @@ namespace CompIntelligence_Coursework.Helpers
                 }
             }
 
-            Console.WriteLine($"{System.Environment.NewLine}Best solution found in iteration: {bestIteration} with cost: {bestSolutionCost}{System.Environment.NewLine}Best solution: {bestLengthToQuantity}");
+            Console.WriteLine($"{System.Environment.NewLine}BEST SOLUTION FOUND IN ITERATION: {bestIteration} WITH COST: {bestSolutionCost}{System.Environment.NewLine}BEST SOLUTION: {bestLengthToQuantity}");
         }
 
         private static string FormatSolutionForPrintingToConsole(Solution solution)
@@ -36,7 +39,7 @@ namespace CompIntelligence_Coursework.Helpers
 
             foreach (Activity activity in solution.Activities)
             {
-                formattedString += ($"{System.Environment.NewLine}Stock length used: {activity.StockItemUsed.StockLength}, {FormatCutsForPrintingToConsole(activity.PositionsToCutAt)}, Offcut: {activity.Offcut}");
+                formattedString += ($"{System.Environment.NewLine}Stock length used: {activity.StockItemUsed.StockLength} | Offcut: {activity.Offcut} | {FormatCutsForPrintingToConsole(activity.PositionsToCutAt)}");
             }
 
             return formattedString;

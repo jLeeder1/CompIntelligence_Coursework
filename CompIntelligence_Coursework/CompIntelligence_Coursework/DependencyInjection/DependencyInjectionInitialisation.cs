@@ -20,6 +20,7 @@ namespace CompIntelligence_Coursework.DependencyInjection
             // Evolutionary Algorithms
             builder.RegisterType<ParentSelection>().As<IParentSelection>();
             builder.RegisterType<Recombination>().As<IRecombination>();
+            builder.RegisterType<Mutation>().As<IMutation>();
 
             // Helpers
             builder.RegisterType<SolutionStrategyFactory>().As<ISolutionStrategyFactory>();
