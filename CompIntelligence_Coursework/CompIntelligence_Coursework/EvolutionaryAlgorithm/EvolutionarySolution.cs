@@ -11,8 +11,6 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 {
     public class EvolutionarySolution : ISolutionFinderStrategy
     {
-        private readonly IOrder order;
-        private readonly IStockList stockList;
         private readonly IRandomSolutionGenerator randomSolutionGenerator;
         private readonly IParentSelection parentSelection;
         private readonly IRecombination recombination;
@@ -26,16 +24,12 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
         private List<Solution> offspringPopulation;
 
         public EvolutionarySolution(
-            IOrder order,
-            IStockList stockList,
             IRandomSolutionGenerator randomSolutionGenerator,
             IParentSelection parentSelection,
             IRecombination recombination,
             IBestSolutionFinder bestSolutionFinder
             )
         {
-            this.order = order;
-            this.stockList = stockList;
             this.randomSolutionGenerator = randomSolutionGenerator;
             this.parentSelection = parentSelection;
             this.recombination = recombination;

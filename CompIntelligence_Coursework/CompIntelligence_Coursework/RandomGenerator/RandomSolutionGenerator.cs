@@ -69,7 +69,7 @@ namespace CompIntelligence_Coursework.RandomGenerator
                     }
                 }
 
-                if (solutionValidation.IsValidSolution(solution, order, stockList))
+                if (solutionValidation.IsValidSolution(solution))
                 {
                     solution.SolutionCost = solutionEvaluator.GetCostOfSolution(solution);
                     isValidSolutionFound = true;

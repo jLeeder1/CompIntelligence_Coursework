@@ -10,101 +10,60 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 {
     public class Recombination : IRecombination
     {
-        private readonly IOrder order;
-        private readonly IStockList stockList;
         private readonly ISolutionEvaluator solutionEvaluator;
         private readonly ISolutionValidation solutionValidation;
 
-        public Recombination(IOrder order, IStockList stockList, ISolutionEvaluator solutionEvaluator, ISolutionValidation solutionValidation)
+        public Recombination(ISolutionEvaluator solutionEvaluator, ISolutionValidation solutionValidation)
         {
-            this.order = order;
-            this.stockList = stockList;
             this.solutionEvaluator = solutionEvaluator;
             this.solutionValidation = solutionValidation;
         }
 
         public List<Solution> RecombineParents(Solution parentOne, Solution parentTwo)
         {
-            List<Solution> offspring = new List<Solution>();
-            /*
-            offspring.AddRange(RecombineParentsToFormOneChild(parentOne, parentTwo));
-            offspring.AddRange(RecombineParentsToFormOneChild(parentTwo, parentOne));
-            
-
-            offspring.AddRange(RecombineParentsToFormOneChildUsingShuffling(parentOne, parentTwo));
-            offspring.AddRange(RecombineParentsToFormOneChildUsingShuffling(parentTwo, parentOne));
-            return offspring;
-            */
-
-            return null;
+            return new List<Solution>
+            {
+                RecombineParentsToFormOneChild(parentOne, parentTwo),
+                RecombineParentsToFormOneChild(parentTwo, parentOne)
+            };
         }
-        /*
-        private List<Solution> RecombineParentsToFormOneChild(Solution parentOne, Solution parentTwo)
+       
+        private Solution RecombineParentsToFormOneChild(Solution parentOne, Solution parentTwo)
         {
+            int numberOfActivitiesParentOne = parentOne.Activities.Count;
+            int numberOfActivitiesParentTwo = parentTwo.Activities.Count;
+
+            int iteationLimit = Math.Min(numberOfActivitiesParentOne, numberOfActivitiesParentTwo);
+
+            Solution offspring = new Solution();
             Random random = new Random();
-            int parentOneElementAmountBoundary = random.Next(0, parentOne.Activities.Count - 1);
 
-            List<CutRecipe> newCutRecipes = new List<CutRecipe>();
-
-            for (int index = 0; index <= parentOneElementAmountBoundary; index++)
+            for(int index = 0; index < iteationLimit; index++)
             {
-                newCutRecipes.Add(parentOne.Activities.ElementAt(index));
-            }
-
-            for (int index = parentOneElementAmountBoundary + 1; index <= parentTwo.Activities.Count - 1; index++)
-            {
-                newCutRecipes.Add(parentTwo.Activities.ElementAt(index));
-            }
-
-            Solution offspring = new Solution
-            {
-                Activities = newCutRecipes,
-                SolutionCost = solutionEvaluator.GetCostOfSolution(newCutRecipes)
-            };
-
-            if (!solutionValidation.IsValidSolution(offspring, order, stockList) && UseElitism(parentOne, parentTwo, offspring))
-            {
-                return new List<Solution>
+                // Take from parent one
+                if(random.NextDouble() > 0.5)
                 {
-                    parentOne,
-                    parentTwo
-                };
-            }
-
-            return new List<Solution> { offspring };
-        }
-
-        // Much better than other method
-        private List<Solution> RecombineParentsToFormOneChildUsingShuffling(Solution parentOne, Solution parentTwo)
-        {
-            List<CutRecipe> newCutRecipes = new List<CutRecipe>();
-
-            for (int index = 0; index < parentOne.Activities.Count - 1; index += 2)
-            {
-                newCutRecipes.Add(parentOne.Activities.ElementAt(index));
-            }
-
-            for (int index = 1; index <parentTwo.Activities.Count - 1; index += 2)
-            {
-                newCutRecipes.Add(parentTwo.Activities.ElementAt(index));
-            }
-
-            Solution offspring = new Solution
-            {
-                Activities = newCutRecipes,
-                SolutionCost = solutionEvaluator.GetCostOfSolution(newCutRecipes)
-            };
-
-            if (!solutionValidation.IsValidSolution(offspring, order, stockList))
-            {
-                return new List<Solution>
+                    offspring.Activities.Add(parentOne.Activities.ElementAt(index));
+                }
+                // Take from parent two
+                else
                 {
-                    parentOne,
-                    parentTwo
-                };
+                    offspring.Activities.Add(parentOne.Activities.ElementAt(index));
+                }
             }
 
-            return new List<Solution> { offspring };
+            if (solutionValidation.IsValidSolution(offspring))
+            {
+                offspring.SolutionCost = solutionEvaluator.GetCostOfSolution(offspring);
+                return offspring;
+            }
+
+            if(random.NextDouble() > 0.5)
+            {
+                return parentOne;
+            }
+
+            return parentTwo;
         }
 
         // Doesn't really work
@@ -117,6 +76,5 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 
             return false;
         }
-        */
     }
 }

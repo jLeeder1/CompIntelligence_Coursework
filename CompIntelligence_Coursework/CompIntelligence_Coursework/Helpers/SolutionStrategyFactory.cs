@@ -7,24 +7,18 @@ namespace CompIntelligence_Coursework.Helpers
 {
     public class SolutionStrategyFactory : ISolutionStrategyFactory
     {
-        private readonly IOrder order;
-        private readonly IStockList stockList;
         private readonly IRandomSolutionGenerator randomSolutionGenerator;
         private readonly IParentSelection parentSelection;
         private readonly IRecombination recombination;
         private readonly IBestSolutionFinder bestSolutionFinder;
 
         public SolutionStrategyFactory(
-            IOrder order,
-            IStockList stockList,
             IRandomSolutionGenerator randomSolutionGenerator,
             IParentSelection parentSelection,
             IRecombination recombination,
             IBestSolutionFinder bestSolutionFinder
             )
         {
-            this.order = order;
-            this.stockList = stockList;
             this.randomSolutionGenerator = randomSolutionGenerator;
             this.parentSelection = parentSelection;
             this.recombination = recombination;
@@ -40,7 +34,7 @@ namespace CompIntelligence_Coursework.Helpers
                     solutionFinderStrategy = new RandomSolution(randomSolutionGenerator);
                     break;
                 case SolutionStrategyTypes.EVOSolutionStrategy:
-                    solutionFinderStrategy = new EvolutionarySolution(order, stockList, randomSolutionGenerator, parentSelection, recombination, bestSolutionFinder);
+                    solutionFinderStrategy = new EvolutionarySolution(randomSolutionGenerator, parentSelection, recombination, bestSolutionFinder);
                     break;
                 default:
                     solutionFinderStrategy = new RandomSolution(randomSolutionGenerator);
