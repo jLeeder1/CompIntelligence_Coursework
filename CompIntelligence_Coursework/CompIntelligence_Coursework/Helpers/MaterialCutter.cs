@@ -19,7 +19,7 @@ namespace CompIntelligence_Coursework.Helpers
 
             double lengthOfCurrentStockLeft = stockItem.StockLength;
 
-            while (lengthOfCurrentStockLeft >= orderLength && activity.PositionsToCutAt.Count <= orderQuantity)
+            while (lengthOfCurrentStockLeft >= orderLength && activity.PositionsToCutAt.Count < orderQuantity)
             {
                 lengthOfCurrentStockLeft -= orderLength;
                 activity.PositionsToCutAt.Add(orderLength);

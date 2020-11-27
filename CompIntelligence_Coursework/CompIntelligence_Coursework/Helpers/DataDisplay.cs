@@ -36,7 +36,7 @@ namespace CompIntelligence_Coursework.Helpers
 
             foreach (Activity activity in solution.Activities)
             {
-                formattedString += ($"{System.Environment.NewLine}Stock length used: {activity.StockItemUsed}, {FormatCutsForPrintingToConsole(activity.PositionsToCutAt)}");
+                formattedString += ($"{System.Environment.NewLine}Stock length used: {activity.StockItemUsed.StockLength}, {FormatCutsForPrintingToConsole(activity.PositionsToCutAt)}, Offcut: {activity.Offcut}");
             }
 
             return formattedString;
@@ -44,12 +44,12 @@ namespace CompIntelligence_Coursework.Helpers
 
         private static string FormatCutsForPrintingToConsole(List<double> positionsToCutAt)
         {
-            string formattedString = "Cuts: [ end -";
+            string formattedString = "Cuts: [";
 
             for (int index = 0; index <= positionsToCutAt.Count - 1; index++)
             {
                 formattedString += ($" {positionsToCutAt[index]}");
-                if(positionsToCutAt[index] != 0)
+                if(positionsToCutAt[index] != 0 && index != positionsToCutAt.Count - 1)
                 {
                     formattedString += " -";
                 }
