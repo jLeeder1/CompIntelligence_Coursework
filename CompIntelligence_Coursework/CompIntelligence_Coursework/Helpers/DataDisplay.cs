@@ -34,22 +34,22 @@ namespace CompIntelligence_Coursework.Helpers
         {
             string formattedString = string.Empty;
 
-            foreach (CutRecipe cutRecipe in solution.CutRecipes)
+            foreach (Activity activity in solution.Activities)
             {
-                formattedString += ($"{System.Environment.NewLine}Stock length used: {cutRecipe.OriginalStockItemUsed.StockLength}, {FormatCutsForPrintingToConsole(cutRecipe)}");
+                formattedString += ($"{System.Environment.NewLine}Stock length used: {activity.StockItemUsed.StockLength}, {FormatCutsForPrintingToConsole(activity.PositionsToCutAt)}, Offcut: {activity.Offcut}");
             }
 
             return formattedString;
         }
 
-        private static string FormatCutsForPrintingToConsole(CutRecipe cutRecipe)
+        private static string FormatCutsForPrintingToConsole(List<double> positionsToCutAt)
         {
-            string formattedString = "Cuts: [ end -";
+            string formattedString = "Cuts: [";
 
-            for (int index = 0; index <= cutRecipe.PositionsToCutAt.Count - 1; index++)
+            for (int index = 0; index <= positionsToCutAt.Count - 1; index++)
             {
-                formattedString += ($" {cutRecipe.PositionsToCutAt[index]}");
-                if(cutRecipe.PositionsToCutAt[index] != 0)
+                formattedString += ($" {positionsToCutAt[index]}");
+                if(positionsToCutAt[index] != 0 && index != positionsToCutAt.Count - 1)
                 {
                     formattedString += " -";
                 }

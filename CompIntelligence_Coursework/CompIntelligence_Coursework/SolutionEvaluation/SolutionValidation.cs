@@ -1,4 +1,5 @@
-﻿using CompIntelligence_Coursework.Models;
+﻿using CompIntelligence_Coursework.Helpers;
+using CompIntelligence_Coursework.Models;
 using System.Collections.Generic;
 
 namespace CompIntelligence_Coursework.SolutionEvaluation
@@ -9,8 +10,9 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
         {
             bool isValidLength = IsLengthOfSolutionValid(solution, order);
             bool isOnlyValidCuts = IsSolutionOnlyFilledWithValidLengths(solution, stockList);
+            bool isOrderFulfilled = IsOrderFulfilled(solution, order);
 
-            if (isValidLength && isOnlyValidCuts)
+            if (isValidLength && isOnlyValidCuts && isOrderFulfilled)
             {
                 return true;
             }
@@ -43,9 +45,9 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
                 stockItemLengths.Add(stockItem.StockLength);
             }
 
-            foreach(CutRecipe cutRecipe in solution.CutRecipes)
+            foreach(Activity activity in solution.Activities)
             {
-                if (!stockItemLengths.Contains(cutRecipe.OriginalStockItemUsed.StockLength))
+                if (!stockItemLengths.Contains(activity.StockItemUsed.StockLength))
                 {
                     return false;
                 }
@@ -58,9 +60,9 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
         {
             double totalLength = 0.0;
 
-            foreach (CutRecipe cutRecipe in solution.CutRecipes)
+            foreach (Activity activity in solution.Activities)
             {
-                totalLength += cutRecipe.OriginalStockItemUsed.StockLength;
+                totalLength += activity.StockItemUsed.StockLength;
             }
 
             return totalLength;
@@ -70,12 +72,39 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
         {
             double totalLength = 0.0;
 
-            foreach (OrderItem orderItem in order.OrderItemsList)
+            foreach (KeyValuePair<double, double> entry in order.OrderItems)
             {
-                totalLength += orderItem.PieceLength * orderItem.QuantityOfPieceLength;
+                totalLength += entry.Key * entry.Value;
             }
 
             return totalLength;
+        }
+
+        /*
+         * Creates a Dictionaty of the order lengths and quantities
+         * then decrements quantities from this as they are cut from the solutions activities
+         */
+        private bool IsOrderFulfilled(Solution solution, IOrder order)
+        {
+            Dictionary<double, double> orderDictionaryCopy = new Dictionary<double, double>(order.OrderItems);
+
+            foreach(Activity activity in solution.Activities)
+            {
+                foreach(double cutPiece in activity.PositionsToCutAt)
+                {
+                    orderDictionaryCopy[cutPiece]--;
+                }
+            }
+
+            foreach (KeyValuePair<double, double> entry in orderDictionaryCopy)
+            {
+                if(entry.Value > 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

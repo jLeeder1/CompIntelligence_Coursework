@@ -10,28 +10,24 @@ namespace CompIntelligence_Coursework.Helpers
          * once the length left from cutting is lower than the piece length that remianing length is added to the offcuts
          * and a new stock length is used to cut the remaining quantity of pieces
          */
-        public List<CutRecipe> CutMaterial(StockItem stockItem, OrderItem orderItem, double quantityToCut)
+        public Activity ProduceActivity(StockItem stockItem, double orderLength, double orderQuantity)
         {
-            List<CutRecipe> cutRecipes = new List<CutRecipe>();
-
-            while (quantityToCut > 0)
+            Activity activity = new Activity
             {
-                CutRecipe cutRecipe = new CutRecipe();
-                cutRecipe.OriginalStockItemUsed = stockItem;
-                double lengthOfCurrentStockLeft = stockItem.StockLength;
+                StockItemUsed = stockItem
+            };
 
-                while (lengthOfCurrentStockLeft >= orderItem.PieceLength)
-                {
-                    lengthOfCurrentStockLeft -= orderItem.PieceLength;
-                    cutRecipe.PositionsToCutAt.Add(lengthOfCurrentStockLeft);
-                }
+            double lengthOfCurrentStockLeft = stockItem.StockLength;
 
-                cutRecipe.OffCuts.Add(lengthOfCurrentStockLeft);
-                cutRecipes.Add(cutRecipe);
-                quantityToCut--;
+            while (lengthOfCurrentStockLeft >= orderLength && activity.PositionsToCutAt.Count < orderQuantity)
+            {
+                lengthOfCurrentStockLeft -= orderLength;
+                activity.PositionsToCutAt.Add(orderLength);
             }
 
-            return cutRecipes;
+            activity.Offcut = lengthOfCurrentStockLeft;
+
+            return activity;
         }
     }
 }

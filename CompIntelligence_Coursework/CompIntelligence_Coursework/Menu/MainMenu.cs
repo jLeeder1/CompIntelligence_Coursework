@@ -2,7 +2,6 @@
 using CompIntelligence_Coursework.Generic;
 using CompIntelligence_Coursework.Helpers;
 using CompIntelligence_Coursework.Models;
-using CompIntelligence_Coursework.PSO;
 using System;
 using System.Collections.Generic;
 
@@ -52,7 +51,6 @@ namespace CompIntelligence_Coursework.Menu
             Console.WriteLine("Please choose from the choices below");
             Console.WriteLine("1. Random Solution");
             Console.WriteLine("2. EVO Solution");
-            Console.WriteLine("3. Not yet implemented");
             Console.WriteLine("4. End Program");
         }
 
@@ -81,9 +79,6 @@ namespace CompIntelligence_Coursework.Menu
                     break;
                 case ConsoleKey.D2:
                     solutionToUse = GenericConstants.EVO_SOLUTION;
-                    break;
-                case ConsoleKey.D3:
-                    Console.WriteLine("Not yet implemented");
                     break;
                 case ConsoleKey.D4:
                     solutionToUse = GenericConstants.END_PROGRAM;
