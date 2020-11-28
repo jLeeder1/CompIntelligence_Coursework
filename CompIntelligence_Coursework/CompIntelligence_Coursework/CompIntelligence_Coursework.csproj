@@ -12,6 +12,12 @@
     <EmbeddedResource Include="Resources/Problem1.csv" />
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="Resources/Problem2.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/Problem2.csv" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="6.0.0" />
   </ItemGroup>
 
