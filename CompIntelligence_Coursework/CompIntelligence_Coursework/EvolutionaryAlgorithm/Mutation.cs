@@ -68,12 +68,13 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                 }
             }
 
-            solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0);
+            //solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0);
         }
 
         private List<Activity> GetActivitiesWithOffcuts(Solution solution)
         {
             List<Activity> activitiesWithOffcuts = new List<Activity>();
+            solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0); // This is duplicated in the method above, doesn't seem to remove all of the gaps when it is above?
 
             foreach (Activity activity in solution.Activities)
             {
