@@ -6,11 +6,20 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
 {
     public class SolutionValidation : ISolutionValidation
     {
-        public bool IsValidSolution(Solution solution, IOrder order, IStockList stockList)
+        private readonly IOrder order;
+        private readonly IStockList stockList;
+
+        public SolutionValidation(IOrder order, IStockList stockList)
         {
-            bool isValidLength = IsLengthOfSolutionValid(solution, order);
-            bool isOnlyValidCuts = IsSolutionOnlyFilledWithValidLengths(solution, stockList);
-            bool isOrderFulfilled = IsOrderFulfilled(solution, order);
+            this.order = order;
+            this.stockList = stockList;
+        }
+
+        public bool IsValidSolution(Solution solution)
+        {
+            bool isValidLength = IsLengthOfSolutionValid(solution);
+            bool isOnlyValidCuts = IsSolutionOnlyFilledWithValidLengths(solution);
+            bool isOrderFulfilled = IsOrderFulfilled(solution);
 
             if (isValidLength && isOnlyValidCuts && isOrderFulfilled)
             {
@@ -23,10 +32,10 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
         /*
          * Checks to see that the length of the solution is less than the lengths of pieces if they were placed end to end
          */
-        private bool IsLengthOfSolutionValid(Solution solution, IOrder order)
+        private bool IsLengthOfSolutionValid(Solution solution)
         {
             double solutionLength = GetTotalLengthOfSolutionStockUsed(solution);
-            double pieceLength = GetTotalOfPieceLengths(order);
+            double pieceLength = GetTotalOfPieceLengths();
 
             if (solutionLength < pieceLength)
             {
@@ -36,11 +45,11 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
             return true;
         }
 
-        private bool IsSolutionOnlyFilledWithValidLengths(Solution solution, IStockList stockItems)
+        private bool IsSolutionOnlyFilledWithValidLengths(Solution solution)
         {
             List<double> stockItemLengths = new List<double>();
 
-            foreach(StockItem stockItem in stockItems.StockItemList)
+            foreach(StockItem stockItem in stockList.StockItemList)
             {
                 stockItemLengths.Add(stockItem.StockLength);
             }
@@ -68,7 +77,7 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
             return totalLength;
         }
 
-        private double GetTotalOfPieceLengths(IOrder order)
+        private double GetTotalOfPieceLengths()
         {
             double totalLength = 0.0;
 
@@ -84,7 +93,7 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
          * Creates a Dictionaty of the order lengths and quantities
          * then decrements quantities from this as they are cut from the solutions activities
          */
-        private bool IsOrderFulfilled(Solution solution, IOrder order)
+        private bool IsOrderFulfilled(Solution solution)
         {
             Dictionary<double, double> orderDictionaryCopy = new Dictionary<double, double>(order.OrderItems);
 

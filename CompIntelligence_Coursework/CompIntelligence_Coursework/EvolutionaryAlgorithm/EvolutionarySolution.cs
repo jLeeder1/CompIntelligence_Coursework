@@ -2,6 +2,7 @@
 using CompIntelligence_Coursework.Helpers;
 using CompIntelligence_Coursework.Models;
 using CompIntelligence_Coursework.RandomGenerator;
+using CompIntelligence_Coursework.solutionEveluation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,12 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 {
     public class EvolutionarySolution : ISolutionFinderStrategy
     {
-        private readonly IOrder order;
-        private readonly IStockList stockList;
         private readonly IRandomSolutionGenerator randomSolutionGenerator;
         private readonly IParentSelection parentSelection;
         private readonly IRecombination recombination;
         private readonly IBestSolutionFinder bestSolutionFinder;
+        private readonly IMutation mutation;
+        private readonly ISolutionEvaluator solutionEvaluator;
 
         // Solutions
         private Dictionary<int, Solution> solutions;
@@ -26,20 +27,20 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
         private List<Solution> offspringPopulation;
 
         public EvolutionarySolution(
-            IOrder order,
-            IStockList stockList,
             IRandomSolutionGenerator randomSolutionGenerator,
             IParentSelection parentSelection,
             IRecombination recombination,
-            IBestSolutionFinder bestSolutionFinder
+            IBestSolutionFinder bestSolutionFinder,
+            IMutation mutation,
+            ISolutionEvaluator solutionEvaluator
             )
         {
-            this.order = order;
-            this.stockList = stockList;
             this.randomSolutionGenerator = randomSolutionGenerator;
             this.parentSelection = parentSelection;
             this.recombination = recombination;
             this.bestSolutionFinder = bestSolutionFinder;
+            this.mutation = mutation;
+            this.solutionEvaluator = solutionEvaluator;
 
             solutions = new Dictionary<int, Solution>();
 
@@ -65,8 +66,13 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                     offspringPopulation.AddRange(recombination.RecombineParents(parentOne, parentTwo));
                 }
 
-                // For each offspring run mutation (chance inside of the mutation logic)
-
+                // For each offspring run mutation 
+                foreach(Solution offspring in offspringPopulation)
+                {
+                    mutation.MutateSolution(offspring);
+                    offspring.SolutionCost = solutionEvaluator.GetCostOfSolution(offspring);
+                }
+                
                 // Find best solution in the generation and repeat
                 solutions.Add(generationNum, bestSolutionFinder.GetBestSolutionInGeneration(offspringPopulation));
                 ResetPopulations();
