@@ -66,7 +66,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                     offspringPopulation.AddRange(recombination.RecombineParents(parentOne, parentTwo));
                 }
 
-                // For each offspring run mutation (chance inside of the mutation logic)
+                // For each offspring run mutation 
                 foreach(Solution offspring in offspringPopulation)
                 {
                     mutation.MutateSolution(offspring);

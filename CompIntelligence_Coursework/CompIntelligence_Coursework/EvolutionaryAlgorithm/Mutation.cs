@@ -10,12 +10,10 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 {
     public class Mutation : IMutation
     {
-        private readonly ISolutionEvaluator solutionEvaluator;
         private readonly ISolutionValidation solutionValidation;
 
-        public Mutation(ISolutionEvaluator solutionEvaluator, ISolutionValidation solutionValidation)
+        public Mutation(ISolutionValidation solutionValidation)
         {
-            this.solutionEvaluator = solutionEvaluator;
             this.solutionValidation = solutionValidation;
         }
 
@@ -28,7 +26,17 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                 return;
             }
 
+            List<Activity> copyOfActivities = new List<Activity>(solution.Activities);
+
             Mutate(solution);
+
+            if (solutionValidation.IsValidSolution(solution))
+            {
+                return;
+            }
+
+            solution.Activities.Clear();
+            solution.Activities.AddRange(copyOfActivities);
         }
 
         private void Mutate(Solution solution)
@@ -39,12 +47,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 
             Random random = new Random();
             Activity activityToMutate = activitiesWithOffcuts.ElementAt(random.Next(0, activitiesWithOffcuts.Count - 1));
-
-            if(activityToMutate.Offcut > activityToMutate.StockItemUsed.StockLength)
-            {
-                int x = 0;
-            }
-
+            
             foreach (Activity activity in solution.Activities)
             {
                 if (activity.Equals(activityToMutate))
@@ -65,7 +68,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                 }
             }
 
-            solution.Activities.RemoveAll(activity => activity.Offcut > 0 && activity.PositionsToCutAt.Count == 0);
+            solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0);
         }
 
         private List<Activity> GetActivitiesWithOffcuts(Solution solution)
@@ -84,17 +87,3 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
         }
     }
 }
-
-/*
-            foreach (Activity ac in solution.Activities)
-            {
-                if (ac.Offcut > 0 && ac.PositionsToCutAt.Count == 0)
-                {
-                    if (Object.ReferenceEquals(ac, activityToMutate))
-                    {
-                        Console.WriteLine("Test");
-                    }
-                    Console.WriteLine("Test");
-                }
-            }
-            */
