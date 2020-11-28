@@ -39,7 +39,11 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 
             Random random = new Random();
             Activity activityToMutate = activitiesWithOffcuts.ElementAt(random.Next(0, activitiesWithOffcuts.Count - 1));
-            double cutToMove = 0;
+
+            if(activityToMutate.Offcut > activityToMutate.StockItemUsed.StockLength)
+            {
+                int x = 0;
+            }
 
             foreach (Activity activity in solution.Activities)
             {
@@ -49,20 +53,19 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                 }
 
                 int elementToMove = random.Next(0, activityToMutate.PositionsToCutAt.Count);
-                cutToMove = activityToMutate.PositionsToCutAt.ElementAt(elementToMove);
+                double cutToMove = activityToMutate.PositionsToCutAt.ElementAt(elementToMove);
 
                 if(cutToMove <= activity.Offcut)
                 {
                     activity.PositionsToCutAt.Add(cutToMove);
                     activity.Offcut -= cutToMove;
                     activityToMutate.PositionsToCutAt.RemoveAt(elementToMove);
+                    activityToMutate.Offcut += cutToMove;
                     break;
                 }
             }
 
-            activityToMutate.Offcut += cutToMove;
             solution.Activities.RemoveAll(activity => activity.Offcut > 0 && activity.PositionsToCutAt.Count == 0);
-
         }
 
         private List<Activity> GetActivitiesWithOffcuts(Solution solution)
