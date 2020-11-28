@@ -38,58 +38,31 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
             if(activitiesWithOffcuts.Count == 0) { return; }
 
             Random random = new Random();
-            Activity activityOne = activitiesWithOffcuts.ElementAt(random.Next(0, activitiesWithOffcuts.Count - 1));
+            Activity activityToMutate = activitiesWithOffcuts.ElementAt(random.Next(0, activitiesWithOffcuts.Count - 1));
             double cutToMove = 0;
 
-            foreach (Activity ac in solution.Activities)
-            {
-                if (ac.Offcut > 0 && ac.PositionsToCutAt.Count == 0)
-                {
-                    if (Object.ReferenceEquals(ac, activityOne))
-                    {
-                        Console.WriteLine("Test");
-                    }
-                    Console.WriteLine("Test");
-                }
-            }
             foreach (Activity activity in solution.Activities)
             {
-                if (activity.Equals(activityOne))
+                if (activity.Equals(activityToMutate))
                 {
                     continue;
                 }
 
-                int elementToMove = random.Next(0, activityOne.PositionsToCutAt.Count - 1);
-                cutToMove = activityOne.PositionsToCutAt.ElementAt(elementToMove);
+                int elementToMove = random.Next(0, activityToMutate.PositionsToCutAt.Count);
+                cutToMove = activityToMutate.PositionsToCutAt.ElementAt(elementToMove);
 
                 if(cutToMove <= activity.Offcut)
                 {
                     activity.PositionsToCutAt.Add(cutToMove);
                     activity.Offcut -= cutToMove;
-                    activityOne.PositionsToCutAt.RemoveAt(elementToMove);
+                    activityToMutate.PositionsToCutAt.RemoveAt(elementToMove);
                     break;
                 }
             }
 
-            foreach (Activity ac in solution.Activities)
-            {
-                if (ac.Offcut > 0 && ac.PositionsToCutAt.Count == 0)
-                {
-                    if(Object.ReferenceEquals(ac, activityOne))
-                    {
-                        Console.WriteLine("Test");
-                    }
-                    Console.WriteLine("Test");
-                }
-            }
+            activityToMutate.Offcut += cutToMove;
+            solution.Activities.RemoveAll(activity => activity.Offcut > 0 && activity.PositionsToCutAt.Count == 0);
 
-            if (activityOne.Offcut > 0 && activityOne.PositionsToCutAt.Count == 0)
-            {
-                solution.Activities.Remove(activityOne);
-                return;
-            }
-
-            activityOne.Offcut += cutToMove;
         }
 
         private List<Activity> GetActivitiesWithOffcuts(Solution solution)
@@ -98,7 +71,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 
             foreach (Activity activity in solution.Activities)
             {
-                if (activity.Offcut > 0)
+                if (activity.Offcut > 0 && activity.PositionsToCutAt.Count > 0)
                 {
                     activitiesWithOffcuts.Add(activity);
                 }
@@ -108,3 +81,17 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
         }
     }
 }
+
+/*
+            foreach (Activity ac in solution.Activities)
+            {
+                if (ac.Offcut > 0 && ac.PositionsToCutAt.Count == 0)
+                {
+                    if (Object.ReferenceEquals(ac, activityToMutate))
+                    {
+                        Console.WriteLine("Test");
+                    }
+                    Console.WriteLine("Test");
+                }
+            }
+            */

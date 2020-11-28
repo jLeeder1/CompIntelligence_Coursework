@@ -1,6 +1,5 @@
 ﻿using CompIntelligence_Coursework.Helpers;
 using CompIntelligence_Coursework.Models;
-using CompIntelligence_Coursework.PSO;
 using FluentAssertions;
 using Moq;
 using NUnit.Framework;
