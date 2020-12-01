@@ -10,11 +10,15 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 {
     public class Mutation : IMutation
     {
-        private readonly ISolutionValidation solutionValidation;
+        public double SumOfCostOfMutatedIndividuals { get; set; }
 
-        public Mutation(ISolutionValidation solutionValidation)
+        private readonly ISolutionValidation solutionValidation;
+        private readonly ISolutionEvaluator solutionEvaluator;
+
+        public Mutation(ISolutionValidation solutionValidation, ISolutionEvaluator solutionEvaluator)
         {
             this.solutionValidation = solutionValidation;
+            this.solutionEvaluator = solutionEvaluator;
         }
 
         public void MutateSolution(Solution solution)
@@ -32,6 +36,9 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 
             if (solutionValidation.IsValidSolution(solution))
             {
+                double mutatedSolutionCost = solutionEvaluator.GetCostOfSolution(solution);
+                solution.SolutionCost = mutatedSolutionCost;
+                SumOfCostOfMutatedIndividuals += mutatedSolutionCost;
                 return;
             }
 

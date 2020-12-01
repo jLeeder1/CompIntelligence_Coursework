@@ -21,6 +21,7 @@ namespace CompIntelligence_Coursework.DependencyInjection
             builder.RegisterType<ParentSelection>().As<IParentSelection>();
             builder.RegisterType<Recombination>().As<IRecombination>();
             builder.RegisterType<Mutation>().As<IMutation>();
+            builder.RegisterType<AdptiveChanceAdjuster>().As<IAdptiveChanceAdjuster>();
 
             // Helpers
             builder.RegisterType<SolutionStrategyFactory>().As<ISolutionStrategyFactory>();
@@ -39,8 +40,6 @@ namespace CompIntelligence_Coursework.DependencyInjection
 
             builder.RegisterInstance(pieceLengthToQuantityLookup).As<IOrder>();
             builder.RegisterInstance(stockLengthToCostLookup).As<IStockList>();
-
-            // PSO
 
             // Random solution generation
             builder.RegisterType<RandomSolutionGenerator>().As<IRandomSolutionGenerator>();

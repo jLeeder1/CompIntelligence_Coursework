@@ -14,6 +14,7 @@ namespace CompIntelligence_Coursework.Helpers
         private readonly IBestSolutionFinder bestSolutionFinder;
         private readonly IMutation mutation;
         private readonly ISolutionEvaluator solutionEvaluator;
+        private readonly IAdptiveChanceAdjuster adptiveChanceAdjuster;
 
         public SolutionStrategyFactory(
             IRandomSolutionGenerator randomSolutionGenerator,
@@ -21,7 +22,8 @@ namespace CompIntelligence_Coursework.Helpers
             IRecombination recombination,
             IBestSolutionFinder bestSolutionFinder,
             IMutation mutation,
-            ISolutionEvaluator solutionEvaluator
+            ISolutionEvaluator solutionEvaluator,
+            IAdptiveChanceAdjuster adptiveChanceAdjuster
             )
         {
             this.randomSolutionGenerator = randomSolutionGenerator;
@@ -30,6 +32,7 @@ namespace CompIntelligence_Coursework.Helpers
             this.bestSolutionFinder = bestSolutionFinder;
             this.mutation = mutation;
             this.solutionEvaluator = solutionEvaluator;
+            this.adptiveChanceAdjuster = adptiveChanceAdjuster;
         }
 
         public ISolutionFinderStrategy GetSolutionFinderStrategy(SolutionStrategyTypes solutionStrategyTypes)
@@ -41,7 +44,7 @@ namespace CompIntelligence_Coursework.Helpers
                     solutionFinderStrategy = new RandomSolution(randomSolutionGenerator);
                     break;
                 case SolutionStrategyTypes.EVOSolutionStrategy:
-                    solutionFinderStrategy = new EvolutionarySolution(randomSolutionGenerator, parentSelection, recombination, bestSolutionFinder, mutation, solutionEvaluator);
+                    solutionFinderStrategy = new EvolutionarySolution(randomSolutionGenerator, parentSelection, recombination, bestSolutionFinder, mutation, solutionEvaluator, adptiveChanceAdjuster);
                     break;
                 default:
                     solutionFinderStrategy = new RandomSolution(randomSolutionGenerator);

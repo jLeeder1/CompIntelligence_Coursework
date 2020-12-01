@@ -10,6 +10,8 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 {
     public class Recombination : IRecombination
     {
+        public double SumOfCostOfRecombinedIndividuals { get; set; }
+
         private readonly ISolutionEvaluator solutionEvaluator;
         private readonly ISolutionValidation solutionValidation;
 
@@ -65,7 +67,9 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 
             if (solutionValidation.IsValidSolution(offspring))
             {
-                offspring.SolutionCost = solutionEvaluator.GetCostOfSolution(offspring);
+                double recombinedSolutionCost = solutionEvaluator.GetCostOfSolution(offspring);
+                offspring.SolutionCost = recombinedSolutionCost;
+                SumOfCostOfRecombinedIndividuals += recombinedSolutionCost;
                 return offspring;
             }
 
