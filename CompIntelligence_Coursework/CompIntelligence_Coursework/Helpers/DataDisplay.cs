@@ -8,6 +8,12 @@ namespace CompIntelligence_Coursework.Helpers
     {
         public static void DisplayData(Dictionary<int, Solution> solutions)
         {
+            if(solutions == null || solutions.Count == 0)
+            {
+                Console.WriteLine("No solutions to show");
+                return;
+            }
+
             int bestIteration = 0;
             double bestSolutionCost = double.MaxValue;
             string bestLengthToQuantity = string.Empty;

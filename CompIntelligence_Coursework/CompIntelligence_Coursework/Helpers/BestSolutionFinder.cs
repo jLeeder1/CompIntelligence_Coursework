@@ -24,5 +24,21 @@ namespace CompIntelligence_Coursework.Helpers
 
             return bestSolution;
         }
+
+        public KeyValuePair<int, Solution> GetBestSolutionInGenerationFromDictionary(Dictionary<int, Solution> solutions)
+        {
+            Solution bestSolution = solutions[0];
+            int foundInGeneraton = 0;
+            foreach (KeyValuePair<int, Solution> entry in solutions)
+            {
+                if (entry.Value.SolutionCost < bestSolution.SolutionCost)
+                {
+                    bestSolution = entry.Value;
+                    foundInGeneraton = entry.Key;
+                }
+            }
+
+            return new KeyValuePair<int, Solution>(foundInGeneraton, bestSolution);
+        }
     }
 }

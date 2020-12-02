@@ -6,5 +6,6 @@ namespace CompIntelligence_Coursework.Helpers
     public interface IBestSolutionFinder
     {
         Solution GetBestSolutionInGeneration(List<Solution> solutions);
+        KeyValuePair<int, Solution> GetBestSolutionInGenerationFromDictionary(Dictionary<int, Solution> solutions);
     }
 }

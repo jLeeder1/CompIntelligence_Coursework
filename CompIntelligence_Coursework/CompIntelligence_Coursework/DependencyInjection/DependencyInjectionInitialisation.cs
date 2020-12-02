@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using CompIntelligence_Coursework.EvolutionaryAlgorithm;
+using CompIntelligence_Coursework.FileReader;
 using CompIntelligence_Coursework.Helpers;
 using CompIntelligence_Coursework.Menu;
 using CompIntelligence_Coursework.Models;
@@ -27,6 +28,7 @@ namespace CompIntelligence_Coursework.DependencyInjection
             builder.RegisterType<SolutionStrategyFactory>().As<ISolutionStrategyFactory>();
             builder.RegisterType<MaterialCutter>().As<IMaterialCutter>();
             builder.RegisterType<BestSolutionFinder>().As<IBestSolutionFinder>();
+            builder.RegisterType<CSVFileWriter>().As<ICSVFileWriter>();
 
 
             // Menu

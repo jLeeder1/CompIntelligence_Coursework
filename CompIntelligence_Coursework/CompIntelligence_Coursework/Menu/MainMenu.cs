@@ -51,6 +51,7 @@ namespace CompIntelligence_Coursework.Menu
             Console.WriteLine("Please choose from the choices below");
             Console.WriteLine("1. Random Solution");
             Console.WriteLine("2. EVO Solution");
+            Console.WriteLine("3. Generate test results");
             Console.WriteLine("4. End Program");
         }
 
@@ -79,6 +80,9 @@ namespace CompIntelligence_Coursework.Menu
                     break;
                 case ConsoleKey.D2:
                     solutionToUse = GenericConstants.EVO_SOLUTION;
+                    break;
+                case ConsoleKey.D3:
+                    solutionToUse = GenericConstants.GENERATE_TEST_RESULTS;
                     break;
                 case ConsoleKey.D4:
                     solutionToUse = GenericConstants.END_PROGRAM;
