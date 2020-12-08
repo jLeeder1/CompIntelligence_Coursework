@@ -12,7 +12,7 @@ namespace CompIntelligence_Coursework.FileReader
         public void ReadCSVFile(IOrder order, IStockList stockItems)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
-            string resourceName = FileNames.PROBLEM2;
+            string resourceName = FileNames.PROBLEM1;
 
             try
             {

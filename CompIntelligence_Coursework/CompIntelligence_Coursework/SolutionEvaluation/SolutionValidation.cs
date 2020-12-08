@@ -1,5 +1,4 @@
-﻿using CompIntelligence_Coursework.Helpers;
-using CompIntelligence_Coursework.Models;
+﻿using CompIntelligence_Coursework.Models;
 using System.Collections.Generic;
 
 namespace CompIntelligence_Coursework.SolutionEvaluation
