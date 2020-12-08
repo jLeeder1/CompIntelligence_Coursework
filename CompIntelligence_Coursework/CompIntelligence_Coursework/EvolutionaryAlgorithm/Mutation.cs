@@ -14,11 +14,13 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 
         private readonly ISolutionValidation solutionValidation;
         private readonly ISolutionEvaluator solutionEvaluator;
+        private readonly IStockList stockList;
 
-        public Mutation(ISolutionValidation solutionValidation, ISolutionEvaluator solutionEvaluator)
+        public Mutation(ISolutionValidation solutionValidation, ISolutionEvaluator solutionEvaluator, IStockList stockList)
         {
             this.solutionValidation = solutionValidation;
             this.solutionEvaluator = solutionEvaluator;
+            this.stockList = stockList;
         }
 
         public void MutateSolution(Solution solution)
@@ -32,7 +34,54 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 
             List<Activity> copyOfActivities = new List<Activity>(solution.Activities);
 
-            Mutate(solution);
+            /*
+            if(IsGoingToAddActivityOrMoveCut() == true)
+            {
+                Mutate(solution);
+            }
+            
+            else
+            {
+                MutateByAddingActivity(solution);
+            }
+            */
+            //solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0);
+            MutateByAddingActivity(solution);
+            foreach (Activity activity in solution.Activities)
+            {
+                if (activity.PositionsToCutAt.Count == 0)
+                {
+                    int x = 0;
+                }
+            }
+            //solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0);
+            List<Activity> activitiesToRemove = new List<Activity>();
+
+            foreach(Activity activity in solution.Activities)
+            {
+                if(activity.PositionsToCutAt.Count == 0)
+                {
+                    activitiesToRemove.Add(activity);
+                }
+            }
+
+            foreach (Activity activity in activitiesToRemove)
+            {
+                var check = solution.Activities.Remove(activity);
+                if(check == false)
+                {
+                    int x = 0;
+                }
+            }
+
+            foreach (Activity activity in solution.Activities)
+            {
+                if (activity.PositionsToCutAt.Count == 0)
+                {
+                    int x = 0;
+                }
+            }
+            
 
             if (solutionValidation.IsValidSolution(solution))
             {
@@ -46,6 +95,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
             solution.Activities.AddRange(copyOfActivities);
         }
 
+        // Mutates by removing a cut and adding to another existing activity
         private void Mutate(Solution solution)
         {
             List<Activity> activitiesWithOffcuts = GetActivitiesWithOffcuts(solution);
@@ -81,7 +131,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
         private List<Activity> GetActivitiesWithOffcuts(Solution solution)
         {
             List<Activity> activitiesWithOffcuts = new List<Activity>();
-            solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0); // This is duplicated in the method above, doesn't seem to remove all of the gaps when it is above?
+            //solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0); // This is duplicated in the method above, doesn't seem to remove all of the gaps when it is above?
 
             foreach (Activity activity in solution.Activities)
             {
@@ -92,6 +142,63 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
             }
 
             return activitiesWithOffcuts;
+        }
+
+        // Mutates by removing cut and adding it to a new activity
+        private void MutateByAddingActivity(Solution solution)
+        {
+            Random random = new Random();
+            Activity activityToMutate = solution.Activities.ElementAt(random.Next(0, solution.Activities.Count));
+
+            if (activityToMutate.PositionsToCutAt.Count == 0)
+            {
+                return;
+            }
+
+            double cutToRemove = activityToMutate.PositionsToCutAt.ElementAt(random.Next(0, activityToMutate.PositionsToCutAt.Count));
+            activityToMutate.PositionsToCutAt.Remove(cutToRemove);
+            if(activityToMutate.PositionsToCutAt.Count == 0)
+            {
+                solution.Activities.Remove(activityToMutate);
+            }
+
+            List<StockItem> viableStockItems = GenerateListOfViableStockItems(cutToRemove);
+            StockItem stockItemToUse = viableStockItems.ElementAt(random.Next(0, viableStockItems.Count));
+
+            solution.Activities.Add(new Activity
+            {
+                StockItemUsed = stockItemToUse,
+                PositionsToCutAt = new List<double>()
+                {
+                    cutToRemove
+                }
+            });
+        }
+
+        private List<StockItem> GenerateListOfViableStockItems(double cutToRemove)
+        {
+            List<StockItem> viableStockItems = new List<StockItem>();
+
+            foreach(StockItem stockItem in stockList.StockItemList)
+            {
+                if(stockItem.StockLength >= cutToRemove)
+                {
+                    viableStockItems.Add(stockItem);
+                }
+            }
+
+            return viableStockItems;
+        }
+
+        private bool IsGoingToAddActivityOrMoveCut()
+        {
+            Random random = new Random();
+            if(random.NextDouble() < 0.5)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

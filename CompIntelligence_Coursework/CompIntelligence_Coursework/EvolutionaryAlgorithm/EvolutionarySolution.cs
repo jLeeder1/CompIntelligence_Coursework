@@ -74,7 +74,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                 {
                     mutation.MutateSolution(offspring);
                 }
-                
+
                 // Find best solution in the generation and repeat
                 solutions.Add(generationNum, bestSolutionFinder.GetBestSolutionInGeneration(offspringPopulation));
 
