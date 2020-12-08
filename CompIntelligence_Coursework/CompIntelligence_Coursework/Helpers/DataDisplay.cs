@@ -8,6 +8,12 @@ namespace CompIntelligence_Coursework.Helpers
     {
         public static void DisplayData(Dictionary<int, Solution> solutions)
         {
+            if(solutions == null || solutions.Count == 0)
+            {
+                Console.WriteLine($"{Environment.NewLine}No solutions to show");
+                return;
+            }
+
             int bestIteration = 0;
             double bestSolutionCost = double.MaxValue;
             string bestLengthToQuantity = string.Empty;
@@ -15,9 +21,9 @@ namespace CompIntelligence_Coursework.Helpers
             foreach (KeyValuePair<int, Solution> entry in solutions)
             {
                 string fullSolution = FormatSolutionForPrintingToConsole(entry.Value);
-                Console.WriteLine($"{System.Environment.NewLine}");
+                Console.WriteLine($"{Environment.NewLine}");
                 Console.WriteLine("--------------------------------------------------");
-                Console.WriteLine($"Iteration: {entry.Key}{System.Environment.NewLine}Best solution in iteration: {fullSolution}");
+                Console.WriteLine($"Iteration: {entry.Key}{Environment.NewLine}Best solution in iteration: {fullSolution}");
                 Console.WriteLine("--------------------------------------------------");
                 Console.WriteLine($"Cost: {entry.Value.SolutionCost}");
                 Console.WriteLine("--------------------------------------------------");

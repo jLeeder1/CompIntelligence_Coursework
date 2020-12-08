@@ -14,6 +14,9 @@ namespace CompIntelligence_Coursework.Helpers
         PSOSolutionStrategy,
 
         [Description("EVO_Solution")]
-        EVOSolutionStrategy
+        EVOSolutionStrategy,
+
+        [Description("Generate_Test_Results")]
+        GenerateTestResults
     }
 }

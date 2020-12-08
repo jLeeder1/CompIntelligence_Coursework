@@ -16,7 +16,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
             while (potentialparentPopulation.Count < currentParentPopulation.Count)
             {
                 List<Solution> tournament = SelectTournament(currentParentPopulation);
-                potentialparentPopulation.AddRange(PickIndividualsFromTournament(tournament));
+                potentialparentPopulation.AddRange(RandomTournamentSelection(tournament));
             }
 
             return potentialparentPopulation;
@@ -56,6 +56,17 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
             pickedIndividuals.Add(tournament.First());
 
             return pickedIndividuals;
+        }
+
+        private List<Solution> RandomTournamentSelection(List<Solution> tournament)
+        {
+            Random random = new Random();
+
+            return new List<Solution>
+            {
+                tournament.ElementAt(random.Next(0, tournament.Count - 1)),
+                tournament.ElementAt(random.Next(0, tournament.Count - 1))
+            };
         }
 
         private Solution FindMiddleIndividual(List<Solution> tournament)

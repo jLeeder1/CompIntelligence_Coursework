@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using CompIntelligence_Coursework.EvolutionaryAlgorithm;
+using CompIntelligence_Coursework.FileReader;
 using CompIntelligence_Coursework.Helpers;
 using CompIntelligence_Coursework.Menu;
 using CompIntelligence_Coursework.Models;
@@ -21,11 +22,13 @@ namespace CompIntelligence_Coursework.DependencyInjection
             builder.RegisterType<ParentSelection>().As<IParentSelection>();
             builder.RegisterType<Recombination>().As<IRecombination>();
             builder.RegisterType<Mutation>().As<IMutation>();
+            builder.RegisterType<AdptiveChanceAdjuster>().As<IAdptiveChanceAdjuster>();
 
             // Helpers
             builder.RegisterType<SolutionStrategyFactory>().As<ISolutionStrategyFactory>();
             builder.RegisterType<MaterialCutter>().As<IMaterialCutter>();
             builder.RegisterType<BestSolutionFinder>().As<IBestSolutionFinder>();
+            builder.RegisterType<CSVFileWriter>().As<ICSVFileWriter>();
 
 
             // Menu
@@ -39,8 +42,6 @@ namespace CompIntelligence_Coursework.DependencyInjection
 
             builder.RegisterInstance(pieceLengthToQuantityLookup).As<IOrder>();
             builder.RegisterInstance(stockLengthToCostLookup).As<IStockList>();
-
-            // PSO
 
             // Random solution generation
             builder.RegisterType<RandomSolutionGenerator>().As<IRandomSolutionGenerator>();

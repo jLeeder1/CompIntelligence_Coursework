@@ -18,6 +18,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
         private readonly IBestSolutionFinder bestSolutionFinder;
         private readonly IMutation mutation;
         private readonly ISolutionEvaluator solutionEvaluator;
+        private readonly IAdptiveChanceAdjuster adptiveChanceAdjuster;
 
         // Solutions
         private Dictionary<int, Solution> solutions;
@@ -32,7 +33,8 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
             IRecombination recombination,
             IBestSolutionFinder bestSolutionFinder,
             IMutation mutation,
-            ISolutionEvaluator solutionEvaluator
+            ISolutionEvaluator solutionEvaluator,
+            IAdptiveChanceAdjuster adptiveChanceAdjuster
             )
         {
             this.randomSolutionGenerator = randomSolutionGenerator;
@@ -41,6 +43,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
             this.bestSolutionFinder = bestSolutionFinder;
             this.mutation = mutation;
             this.solutionEvaluator = solutionEvaluator;
+            this.adptiveChanceAdjuster = adptiveChanceAdjuster;
 
             solutions = new Dictionary<int, Solution>();
 
@@ -70,11 +73,17 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                 foreach(Solution offspring in offspringPopulation)
                 {
                     mutation.MutateSolution(offspring);
-                    offspring.SolutionCost = solutionEvaluator.GetCostOfSolution(offspring);
                 }
                 
                 // Find best solution in the generation and repeat
                 solutions.Add(generationNum, bestSolutionFinder.GetBestSolutionInGeneration(offspringPopulation));
+
+                if (EvolutionaryAlgorithmConstants.IS_USING_ADAPTIVE_CROSSOVER_CHANCES)
+                {
+                    adptiveChanceAdjuster.AdjustMutationRecombinationChances(recombination.SumOfCostOfRecombinedIndividuals, mutation.SumOfCostOfMutatedIndividuals);
+                    ResetSumValues();
+                }
+
                 ResetPopulations();
             }
 
@@ -91,6 +100,12 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
             parentPopulation.Clear();
             parentPopulation.AddRange(offspringPopulation);
             offspringPopulation.Clear();
+        }
+
+        private void ResetSumValues()
+        {
+            recombination.SumOfCostOfRecombinedIndividuals = 0;
+            mutation.SumOfCostOfMutatedIndividuals = 0;
         }
     }
 }

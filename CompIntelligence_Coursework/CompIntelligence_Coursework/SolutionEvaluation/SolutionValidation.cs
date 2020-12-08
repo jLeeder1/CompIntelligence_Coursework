@@ -1,5 +1,4 @@
-﻿using CompIntelligence_Coursework.Helpers;
-using CompIntelligence_Coursework.Models;
+﻿using CompIntelligence_Coursework.Models;
 using System.Collections.Generic;
 
 namespace CompIntelligence_Coursework.SolutionEvaluation
@@ -107,7 +106,7 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
 
             foreach (KeyValuePair<double, double> entry in orderDictionaryCopy)
             {
-                if(entry.Value > 0  || entry.Value < 0)
+                if(entry.Value > 0)
                 {
                     return false;
                 }
