@@ -32,67 +32,24 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                 return;
             }
 
-            List<Activity> copyOfActivities = new List<Activity>(solution.Activities);
-
-            /*
-            if(IsGoingToAddActivityOrMoveCut() == true)
+            
+            if (IsGoingToAddActivityOrMoveCut() == true)
             {
                 Mutate(solution);
             }
-            
             else
             {
                 MutateByAddingActivity(solution);
             }
-            */
-            //solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0);
-            MutateByAddingActivity(solution);
-            foreach (Activity activity in solution.Activities)
-            {
-                if (activity.PositionsToCutAt.Count == 0)
-                {
-                    int x = 0;
-                }
-            }
-            //solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0);
-            List<Activity> activitiesToRemove = new List<Activity>();
-
-            foreach(Activity activity in solution.Activities)
-            {
-                if(activity.PositionsToCutAt.Count == 0)
-                {
-                    activitiesToRemove.Add(activity);
-                }
-            }
-
-            foreach (Activity activity in activitiesToRemove)
-            {
-                var check = solution.Activities.Remove(activity);
-                if(check == false)
-                {
-                    int x = 0;
-                }
-            }
-
-            foreach (Activity activity in solution.Activities)
-            {
-                if (activity.PositionsToCutAt.Count == 0)
-                {
-                    int x = 0;
-                }
-            }
             
-
-            if (solutionValidation.IsValidSolution(solution))
-            {
-                double mutatedSolutionCost = solutionEvaluator.GetCostOfSolution(solution);
-                solution.SolutionCost = mutatedSolutionCost;
-                SumOfCostOfMutatedIndividuals += mutatedSolutionCost;
-                return;
-            }
-
-            solution.Activities.Clear();
-            solution.Activities.AddRange(copyOfActivities);
+            //solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0);
+            //MutateByAddingActivity(solution);
+            solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0);
+            
+            
+            double mutatedSolutionCost = solutionEvaluator.GetCostOfSolution(solution);
+            solution.SolutionCost = mutatedSolutionCost;
+            SumOfCostOfMutatedIndividuals += mutatedSolutionCost;
         }
 
         // Mutates by removing a cut and adding to another existing activity
@@ -131,7 +88,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
         private List<Activity> GetActivitiesWithOffcuts(Solution solution)
         {
             List<Activity> activitiesWithOffcuts = new List<Activity>();
-            //solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0); // This is duplicated in the method above, doesn't seem to remove all of the gaps when it is above?
+            solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0); // This is duplicated in the method above, doesn't seem to remove all of the gaps when it is above?
 
             foreach (Activity activity in solution.Activities)
             {
@@ -148,18 +105,23 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
         private void MutateByAddingActivity(Solution solution)
         {
             Random random = new Random();
-            Activity activityToMutate = solution.Activities.ElementAt(random.Next(0, solution.Activities.Count));
+            Activity activityToMutate = solution.Activities.ElementAt(random.Next(solution.Activities.Count));
 
-            if (activityToMutate.PositionsToCutAt.Count == 0)
+            if(activityToMutate.PositionsToCutAt.Count == 0)
             {
                 return;
             }
 
-            double cutToRemove = activityToMutate.PositionsToCutAt.ElementAt(random.Next(0, activityToMutate.PositionsToCutAt.Count));
+            double cutToRemove = activityToMutate.PositionsToCutAt.ElementAt(random.Next(activityToMutate.PositionsToCutAt.Count));
             activityToMutate.PositionsToCutAt.Remove(cutToRemove);
+            
             if(activityToMutate.PositionsToCutAt.Count == 0)
             {
                 solution.Activities.Remove(activityToMutate);
+            }
+            else
+            {
+                activityToMutate.Offcut += cutToRemove;
             }
 
             List<StockItem> viableStockItems = GenerateListOfViableStockItems(cutToRemove);
@@ -171,7 +133,8 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                 PositionsToCutAt = new List<double>()
                 {
                     cutToRemove
-                }
+                },
+                Offcut = stockItemToUse.StockLength - cutToRemove
             });
         }
 

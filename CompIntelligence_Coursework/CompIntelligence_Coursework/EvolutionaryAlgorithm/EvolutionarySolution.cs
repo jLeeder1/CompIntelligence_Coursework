@@ -67,6 +67,8 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                     Solution parentTwo = potentialParentPool.ElementAt(random.Next(0, potentialParentPool.Count - 1));
 
                     offspringPopulation.AddRange(recombination.RecombineParents(parentOne, parentTwo));
+                    //offspringPopulation.Add(parentOne);
+                    //offspringPopulation.Add(parentTwo);
                 }
 
                 // For each offspring run mutation 
