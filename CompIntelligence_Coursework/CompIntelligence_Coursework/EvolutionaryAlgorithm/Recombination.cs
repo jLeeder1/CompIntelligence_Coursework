@@ -1,4 +1,5 @@
-﻿using CompIntelligence_Coursework.Models;
+﻿using CompIntelligence_Coursework.Helpers;
+using CompIntelligence_Coursework.Models;
 using CompIntelligence_Coursework.SolutionEvaluation;
 using CompIntelligence_Coursework.solutionEveluation;
 using System;
@@ -33,6 +34,8 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                     parentTwo
                 };
             }
+
+            FailedSolutionsCounter.FailedRecombinationCounter++;
 
             return new List<Solution>
             {
@@ -70,7 +73,12 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                 double recombinedSolutionCost = solutionEvaluator.GetCostOfSolution(offspring);
                 offspring.SolutionCost = recombinedSolutionCost;
                 SumOfCostOfRecombinedIndividuals += recombinedSolutionCost;
-                return offspring;
+
+                if (UseElitism(parentOne, parentTwo, offspring))
+                {
+                    return offspring;
+                }
+                
             }
 
             if(random.NextDouble() > 0.5)
@@ -84,7 +92,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
         // Doesn't really work
         private bool UseElitism(Solution parentOne, Solution parentTwo, Solution offspring)
         {
-            if(EvolutionaryAlgorithmConstants.IS_USING_ELITISM == true && offspring.SolutionCost < parentOne.SolutionCost || offspring.SolutionCost < parentTwo.SolutionCost)
+            if(EvolutionaryAlgorithmConstants.IS_USING_ELITISM == true && offspring.SolutionCost < parentOne.SolutionCost && offspring.SolutionCost < parentTwo.SolutionCost)
             {
                 return true;
             }

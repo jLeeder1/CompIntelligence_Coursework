@@ -35,10 +35,9 @@ namespace CompIntelligence_Coursework.FileReader
                 }
                 
                 outputFile.WriteLine($"Number of tests,{GenericConstants.NUMBER_OF_TEST_RESULTS_TO_CREATE}");
-                outputFile.WriteLine($"Execution time,{ExecutionTimer.GetExecutionTime()}");
-                outputFile.WriteLine("Generation cost found in" + ","+ "Best cost value");
+                outputFile.WriteLine($"Generation cost found in" + ","+ "Best cost value" + "," + "Time taken to find result(ms)" + "," + "Failed Recombination count");
                 foreach (Result result in results)
-                    outputFile.WriteLine($"{result.GenerationResultFoundIn},{result.SolutionCost}");
+                    outputFile.WriteLine($"{result.GenerationResultFoundIn},{result.SolutionCost}, {result.TimeTakenToFindResult.TotalMilliseconds},{result.FailedRecombinationCount}");
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using CompIntelligence_Coursework.Models;
+﻿using CompIntelligence_Coursework.Helpers;
+using CompIntelligence_Coursework.Models;
 using CompIntelligence_Coursework.SolutionEvaluation;
 using CompIntelligence_Coursework.solutionEveluation;
 using System;
@@ -34,7 +35,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
 
             List<Activity> copyOfActivities = new List<Activity>(solution.Activities);
             double copyOfSolutionCost = solution.SolutionCost;
-            /*
+            
             if (IsGoingToAddActivityOrMoveCut() == true)
             {
                 Mutate(solution);
@@ -43,8 +44,8 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
             {
                 MutateByAddingActivity(solution);
             }
-            */
-            Mutate(solution);
+
+            //Mutate(solution);
             solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0);
 
             if (!solutionValidation.IsValidSolution(solution))
@@ -164,7 +165,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
         private bool IsGoingToAddActivityOrMoveCut()
         {
             Random random = new Random();
-            if(random.NextDouble() < 0.5)
+            if(random.NextDouble() < 1)
             {
                 return true;
             }

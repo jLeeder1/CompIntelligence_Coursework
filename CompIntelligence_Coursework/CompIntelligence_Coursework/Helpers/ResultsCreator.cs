@@ -39,14 +39,24 @@ namespace CompIntelligence_Coursework.Helpers
         private List<Result> GenerateListOfResults()
         {
             List<Result> localResults = new List<Result>();
+            FailedSolutionsCounter.ResetCounters();
             for (int index = 0; index < GenericConstants.NUMBER_OF_TEST_RESULTS_TO_CREATE; index++)
             {
                 evoSolution.ClearSolutions();
+                ExecutionTimer.StartTimer();
+                FailedSolutionsCounter.ResetCounters();
+
                 Dictionary<int, Solution> solutions = evoSolution.FindSolutions();
 
                 KeyValuePair<int, Solution> bestSolution = bestSolutionFinder.GetBestSolutionInGenerationFromDictionary(solutions);
 
-                localResults.Add(new Result() {GenerationResultFoundIn = bestSolution.Key, SolutionCost = bestSolution.Value.SolutionCost });
+                localResults.Add(new Result() 
+                {
+                    GenerationResultFoundIn = bestSolution.Key,
+                    SolutionCost = bestSolution.Value.SolutionCost,
+                    TimeTakenToFindResult = ExecutionTimer.GetExecutionTime(),
+                    FailedRecombinationCount = FailedSolutionsCounter.FailedRecombinationCounter
+                });
             }
 
             return localResults;

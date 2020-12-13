@@ -40,10 +40,8 @@ namespace CompIntelligence_Coursework.Menu
                 {
                     break;
                 }
-                ExecutionTimer.StartTimer();
                 RunApplication(menuChoice);
             }
-            
         }
 
         private void DisplayMenu()
@@ -75,28 +73,15 @@ namespace CompIntelligence_Coursework.Menu
         {
             string solutionToUse = string.Empty;
 
-            switch (Console.ReadKey().Key)
+            solutionToUse = Console.ReadKey().Key switch
             {
-                case ConsoleKey.D1:
-                    solutionToUse = GenericConstants.RANDOM_SOLUTION;
-                    break;
-                case ConsoleKey.D2:
-                    solutionToUse = GenericConstants.EVO_SOLUTION;
-                    break;
-                case ConsoleKey.D3:
-                    solutionToUse = GenericConstants.GENERATE_TEST_RESULTS;
-                    break;
-                case ConsoleKey.D4:
-                    solutionToUse = GenericConstants.GENERATE_RANDOM_TEST_RESULTS;
-                    break;
-                case ConsoleKey.D5:
-                    solutionToUse = GenericConstants.END_PROGRAM;
-                    break;
-                default:
-                    solutionToUse = GenericConstants.RANDOM_SOLUTION;
-                    break;
-            }
-
+                ConsoleKey.D1 => GenericConstants.RANDOM_SOLUTION,
+                ConsoleKey.D2 => GenericConstants.EVO_SOLUTION,
+                ConsoleKey.D3 => GenericConstants.GENERATE_TEST_RESULTS,
+                ConsoleKey.D4 => GenericConstants.GENERATE_RANDOM_TEST_RESULTS,
+                ConsoleKey.D5 => GenericConstants.END_PROGRAM,
+                _ => GenericConstants.RANDOM_SOLUTION,
+            };
             return SolutionStrategyTypeHelper.GetValueFromDescription<SolutionStrategyTypes>(solutionToUse);
         }
     }
