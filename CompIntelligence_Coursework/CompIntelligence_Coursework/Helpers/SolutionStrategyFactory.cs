@@ -1,5 +1,6 @@
 ﻿using CompIntelligence_Coursework.EvolutionaryAlgorithm;
 using CompIntelligence_Coursework.FileReader;
+using CompIntelligence_Coursework.Generic;
 using CompIntelligence_Coursework.Models;
 using CompIntelligence_Coursework.RandomGenerator;
 using CompIntelligence_Coursework.RandomSolutions;
@@ -52,6 +53,10 @@ namespace CompIntelligence_Coursework.Helpers
                     break;
                 case SolutionStrategyTypes.GenerateTestResults:
                     solutionFinderStrategy = new ResultsCreator(bestSolutionFinder, new EvolutionarySolution(randomSolutionGenerator, parentSelection, recombination, bestSolutionFinder, mutation, solutionEvaluator, adptiveChanceAdjuster), csvFileWriter);
+                    break;
+                case SolutionStrategyTypes.GenerateRandomTestResults:
+                    solutionFinderStrategy = new ResultsCreator(bestSolutionFinder, new RandomSolution(randomSolutionGenerator), csvFileWriter);
+                    GenericConstants.IS_USING_RANDOM_SOLUTION = true;
                     break;
                 default:
                     solutionFinderStrategy = new RandomSolution(randomSolutionGenerator);

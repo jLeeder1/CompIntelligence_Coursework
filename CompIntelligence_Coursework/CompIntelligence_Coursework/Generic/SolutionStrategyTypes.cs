@@ -17,6 +17,9 @@ namespace CompIntelligence_Coursework.Helpers
         EVOSolutionStrategy,
 
         [Description("Generate_Test_Results")]
-        GenerateTestResults
+        GenerateTestResults,
+
+        [Description("Generate_Random_Test_Results")]
+        GenerateRandomTestResults
     }
 }

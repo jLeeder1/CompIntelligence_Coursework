@@ -32,6 +32,8 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                 return;
             }
 
+            List<Activity> copyOfActivities = new List<Activity>(solution.Activities);
+            double copyOfSolutionCost = solution.SolutionCost;
             
             if (IsGoingToAddActivityOrMoveCut() == true)
             {
@@ -42,11 +44,16 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                 MutateByAddingActivity(solution);
             }
             
-            //solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0);
-            //MutateByAddingActivity(solution);
             solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0);
-            
-            
+
+            if (!solutionValidation.IsValidSolution(solution))
+            {
+                solution.Activities.Clear();
+                solution.Activities.AddRange(copyOfActivities);
+                solution.SolutionCost = copyOfSolutionCost;
+                return;
+            }
+
             double mutatedSolutionCost = solutionEvaluator.GetCostOfSolution(solution);
             solution.SolutionCost = mutatedSolutionCost;
             SumOfCostOfMutatedIndividuals += mutatedSolutionCost;
@@ -82,7 +89,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                 }
             }
 
-            //solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0);
+            solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0);
         }
 
         private List<Activity> GetActivitiesWithOffcuts(Solution solution)

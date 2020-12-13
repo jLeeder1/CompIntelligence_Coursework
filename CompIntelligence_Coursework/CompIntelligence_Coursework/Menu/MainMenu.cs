@@ -51,8 +51,9 @@ namespace CompIntelligence_Coursework.Menu
             Console.WriteLine("Please choose from the choices below");
             Console.WriteLine("1. Random Solution");
             Console.WriteLine("2. EVO Solution");
-            Console.WriteLine("3. Generate test results");
-            Console.WriteLine("4. End Program");
+            Console.WriteLine("3. Generate EVO test results");
+            Console.WriteLine("4. Generate Random test results");
+            Console.WriteLine("5. End Program");
         }
 
         private void ReadCSVFile()
@@ -85,6 +86,9 @@ namespace CompIntelligence_Coursework.Menu
                     solutionToUse = GenericConstants.GENERATE_TEST_RESULTS;
                     break;
                 case ConsoleKey.D4:
+                    solutionToUse = GenericConstants.GENERATE_RANDOM_TEST_RESULTS;
+                    break;
+                case ConsoleKey.D5:
                     solutionToUse = GenericConstants.END_PROGRAM;
                     break;
                 default:

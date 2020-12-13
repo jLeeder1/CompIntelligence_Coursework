@@ -16,13 +16,23 @@ namespace CompIntelligence_Coursework.FileReader
             string docPath =
               Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-            // Write the string array to a new file named "WriteLines.txt".
-            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "TestResults.txt")))
+            string fileName = $"TestResults_{DateTime.Now:HH-mm-ss-f}.txt";
+
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, fileName)))
             {
-                outputFile.WriteLine($"Is using adaptive crossover,{EvolutionaryAlgorithmConstants.IS_USING_ADAPTIVE_CROSSOVER_CHANCES}");
-                outputFile.WriteLine($"Number of generations,{GenericConstants.NUMBER_OF_ITERATIONS}");
-                outputFile.WriteLine($"Number of iterations in generation,{GenericConstants.NUMBER_OF_ITERATIONS}");
-                outputFile.WriteLine($"Tournament size,{EvolutionaryAlgorithmConstants.TOURNAMENT_SIZE}");
+                if (GenericConstants.IS_USING_RANDOM_SOLUTION)
+                {
+                    outputFile.WriteLine($"Is using random solution,{GenericConstants.IS_USING_RANDOM_SOLUTION}");
+                }
+                else
+                {
+                    outputFile.WriteLine($"Is using adaptive crossover,{EvolutionaryAlgorithmConstants.IS_USING_ADAPTIVE_CROSSOVER_CHANCES}");
+                    outputFile.WriteLine($"Is using elitism,{EvolutionaryAlgorithmConstants.IS_USING_ELITISM}");
+                    outputFile.WriteLine($"Tournament size,{EvolutionaryAlgorithmConstants.TOURNAMENT_SIZE}");
+                    outputFile.WriteLine($"Number of generations,{GenericConstants.NUMBER_OF_ITERATIONS}");
+                    outputFile.WriteLine($"Number of iterations in generation,{GenericConstants.NUMBER_OF_ITERATIONS}");
+                }
+                
                 outputFile.WriteLine($"Number of tests,{GenericConstants.NUMBER_OF_TEST_RESULTS_TO_CREATE}");
                 outputFile.WriteLine("Generation cost found in" + ","+ "Best cost value");
                 foreach (Result result in results)

@@ -106,7 +106,7 @@ namespace CompIntelligence_Coursework.SolutionEvaluation
 
             foreach (KeyValuePair<double, double> entry in orderDictionaryCopy)
             {
-                if(entry.Value > 0)
+                if(entry.Value != 0)
                 {
                     return false;
                 }
