@@ -40,6 +40,7 @@ namespace CompIntelligence_Coursework.Menu
                 {
                     break;
                 }
+                ExecutionTimer.StartTimer();
                 RunApplication(menuChoice);
             }
             

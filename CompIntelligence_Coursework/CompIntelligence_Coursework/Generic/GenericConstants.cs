@@ -4,8 +4,8 @@ namespace CompIntelligence_Coursework.Generic
 {
     public static class GenericConstants
     {
-        public static int NUMBER_OF_ITERATIONS { get; set; } = 5;
-        public static int SIZE_OF_POPULATION { get; set; } = 25;
+        public static int NUMBER_OF_ITERATIONS { get; set; } = 50;
+        public static int SIZE_OF_POPULATION { get; set; } = 100;
         public static int NUMBER_OF_TEST_RESULTS_TO_CREATE { get; set; } = 50;
         public static string RANDOM_SOLUTION { get; } = "Random_Solution";
         public static string EVO_SOLUTION { get; } = "EVO_Solution";
