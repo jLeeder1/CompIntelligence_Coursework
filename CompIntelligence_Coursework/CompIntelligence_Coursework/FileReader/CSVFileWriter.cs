@@ -29,6 +29,7 @@ namespace CompIntelligence_Coursework.FileReader
                 {
                     outputFile.WriteLine($"Is using adaptive crossover,{EvolutionaryAlgorithmConstants.IS_USING_ADAPTIVE_CROSSOVER_CHANCES}");
                     outputFile.WriteLine($"Is using elitism,{EvolutionaryAlgorithmConstants.IS_USING_ELITISM}");
+                    outputFile.WriteLine($"Is using ranked parent selection,{EvolutionaryAlgorithmConstants.IS_USING_RANKED_TOURNAMENT}");
                     outputFile.WriteLine($"Tournament size,{EvolutionaryAlgorithmConstants.TOURNAMENT_SIZE}");
                     outputFile.WriteLine($"Number of generations,{GenericConstants.NUMBER_OF_ITERATIONS}");
                     outputFile.WriteLine($"Number of iterations in generation,{GenericConstants.NUMBER_OF_ITERATIONS}");

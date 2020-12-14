@@ -7,7 +7,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
     public class EvolutionaryAlgorithmConstants
     {
         public static int TOURNAMENT_SIZE { get; set; } = 10;
-        public static bool IS_USING_ELITISM { get; set; } = true;
+        public static bool IS_USING_ELITISM { get; set; } = false;
         public static double RECOMBINATION_CHANCE
         {
             get => recombinationChance;
@@ -32,7 +32,8 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
         }
         public static double RECOMBINATION_CHANCE_ADJUST_VALUE { get; set; } = 0.05;
         public static double MUTATION_CHANCE_ADJUST_VALUE { get; set; } = 0.0025;
-        public static bool IS_USING_ADAPTIVE_CROSSOVER_CHANCES { get; set; } = true;
+        public static bool IS_USING_ADAPTIVE_CROSSOVER_CHANCES { get; set; } = false;
+        public static bool IS_USING_RANKED_TOURNAMENT { get; set; } = false;
 
         private static double recombinationChance = 0.6;
         private static double recombinationChanceLowerLimit = 0.1;

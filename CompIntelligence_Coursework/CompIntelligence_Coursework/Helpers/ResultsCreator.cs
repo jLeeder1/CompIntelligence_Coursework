@@ -51,21 +51,49 @@ namespace CompIntelligence_Coursework.Helpers
             EvolutionaryAlgorithmConstants.IS_USING_ELITISM = false;
             GenerateOneSetOfResults(evoSolution, GenericConstants.EVO_Default_TEST_RESULTS);
 
-            // Generate EVO Elitism results
+            // Generate EVO default results with ranked parent selection
+            ClearSolutions();
+            EvolutionaryAlgorithmConstants.IS_USING_ADAPTIVE_CROSSOVER_CHANCES = false;
+            EvolutionaryAlgorithmConstants.IS_USING_ELITISM = false;
+            EvolutionaryAlgorithmConstants.IS_USING_RANKED_TOURNAMENT = true;
+            GenerateOneSetOfResults(evoSolution, GenericConstants.EVO_Default_TEST_RESULTS_WITH_RANKED_SELECTION);
+
+            // Generate EVO Elitism results non ranked
             ClearSolutions();
             EvolutionaryAlgorithmConstants.IS_USING_ELITISM = true;
+            EvolutionaryAlgorithmConstants.IS_USING_RANKED_TOURNAMENT = false;
             GenerateOneSetOfResults(evoSolution, GenericConstants.EVO_Elitism_TEST_RESULTS);
 
-            // Generate EVO Adaptive results
+            // Generate EVO Elitism results ranked
+            ClearSolutions();
+            EvolutionaryAlgorithmConstants.IS_USING_ELITISM = true;
+            EvolutionaryAlgorithmConstants.IS_USING_RANKED_TOURNAMENT = true;
+            GenerateOneSetOfResults(evoSolution, GenericConstants.EVO_Elitism_TEST_RESULTS_RANKED);
+
+            // Generate EVO Adaptive results non ranked
             ClearSolutions();
             EvolutionaryAlgorithmConstants.IS_USING_ELITISM = false;
             EvolutionaryAlgorithmConstants.IS_USING_ADAPTIVE_CROSSOVER_CHANCES = true;
             GenerateOneSetOfResults(evoSolution, GenericConstants.EVO_Adaptive_TEST_RESULTS);
 
-            // Generate EVO Elitism Adaptive results
+            // Generate EVO Adaptive results ranked
+            ClearSolutions();
+            EvolutionaryAlgorithmConstants.IS_USING_ELITISM = false;
+            EvolutionaryAlgorithmConstants.IS_USING_ADAPTIVE_CROSSOVER_CHANCES = true;
+            EvolutionaryAlgorithmConstants.IS_USING_RANKED_TOURNAMENT = true;
+            GenerateOneSetOfResults(evoSolution, GenericConstants.EVO_Adaptive_TEST_RESULTS_RANKED);
+
+            // Generate EVO Elitism Adaptive results non ranked
             ClearSolutions();
             EvolutionaryAlgorithmConstants.IS_USING_ELITISM = true;
+            EvolutionaryAlgorithmConstants.IS_USING_RANKED_TOURNAMENT = false;
             GenerateOneSetOfResults(evoSolution, GenericConstants.EVO_Elitism_Adaptive_TEST_RESULTS);
+
+            // Generate EVO Elitism Adaptive results ranked
+            ClearSolutions();
+            EvolutionaryAlgorithmConstants.IS_USING_ELITISM = true;
+            EvolutionaryAlgorithmConstants.IS_USING_RANKED_TOURNAMENT = true;
+            GenerateOneSetOfResults(evoSolution, GenericConstants.EVO_Elitism_Adaptive_TEST_RESULTS_RANKED);
         }
 
         private void GenerateOneSetOfResults(ISolutionFinderStrategy solutionFinderStrategy, string fileNamePrefix) 

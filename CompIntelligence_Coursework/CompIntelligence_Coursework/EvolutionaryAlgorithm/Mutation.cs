@@ -46,7 +46,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
             }
 
             //Mutate(solution);
-            solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count == 0);
+            solution.Activities.RemoveAll(activity => activity.PositionsToCutAt.Count <= 0);
 
             if (!solutionValidation.IsValidSolution(solution))
             {

@@ -17,9 +17,13 @@ namespace CompIntelligence_Coursework.Generic
         // File names
         public static string RANDOM_TEST_RESULTS{ get; } = "Random_Results";
         public static string EVO_Default_TEST_RESULTS{ get; } = "EVO_Default_Results";
+        public static string EVO_Default_TEST_RESULTS_WITH_RANKED_SELECTION{ get; } = "EVO_Default_Results_Ranked_Selection";
         public static string EVO_Elitism_TEST_RESULTS{ get; } = "EVO_Elitism_Results";
+        public static string EVO_Elitism_TEST_RESULTS_RANKED{ get; } = "EVO_Elitism_Results_Ranked_Selection";
         public static string EVO_Adaptive_TEST_RESULTS{ get; } = "EVO_Adaptive_Results";
+        public static string EVO_Adaptive_TEST_RESULTS_RANKED{ get; } = "EVO_Adaptive_Results_Ranked_Selection";
         public static string EVO_Elitism_Adaptive_TEST_RESULTS{ get; } = "EVO_Elitism_Adaptive_Results";
+        public static string EVO_Elitism_Adaptive_TEST_RESULTS_RANKED{ get; } = "EVO_Elitism_Adaptive_Results_Ranked";
 
 
         public static void ResetValuesToDefault()
