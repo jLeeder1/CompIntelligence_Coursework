@@ -5,6 +5,6 @@ namespace CompIntelligence_Coursework.FileReader
 {
     public interface ICSVFileWriter
     {
-        void WriteResultsToFile(List<Result> results);
+        void WriteResultsToFile(List<Result> results, string fileNamePrefix);
     }
 }

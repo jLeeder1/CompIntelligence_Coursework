@@ -14,6 +14,13 @@ namespace CompIntelligence_Coursework.Generic
         public static string GENERATE_RANDOM_TEST_RESULTS { get; } = "Generate_Random_Test_Results";
         public static bool IS_USING_RANDOM_SOLUTION { get; set; } = false;
 
+        // File names
+        public static string RANDOM_TEST_RESULTS{ get; } = "Random_Results";
+        public static string EVO_Default_TEST_RESULTS{ get; } = "EVO_Default_Results";
+        public static string EVO_Elitism_TEST_RESULTS{ get; } = "EVO_Elitism_Results";
+        public static string EVO_Adaptive_TEST_RESULTS{ get; } = "EVO_Adaptive_Results";
+        public static string EVO_Elitism_Adaptive_TEST_RESULTS{ get; } = "EVO_Elitism_Adaptive_Results";
+
 
         public static void ResetValuesToDefault()
         {

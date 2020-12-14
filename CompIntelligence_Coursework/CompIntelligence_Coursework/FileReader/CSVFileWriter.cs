@@ -11,13 +11,13 @@ namespace CompIntelligence_Coursework.FileReader
 {
     public class CSVFileWriter : ICSVFileWriter
     {
-        public void WriteResultsToFile(List<Result> results)
+        public void WriteResultsToFile(List<Result> results, string fileNamePrefix)
         {
             // Set a variable to the Documents path.
             string docPath =
               Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-            string fileName = $"TestResults_{DateTime.Now:HH-mm-ss-f}.txt";
+            string fileName = $"{fileNamePrefix}_{DateTime.Now:HH-mm-ss-f}.txt";
 
             using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, fileName)))
             {

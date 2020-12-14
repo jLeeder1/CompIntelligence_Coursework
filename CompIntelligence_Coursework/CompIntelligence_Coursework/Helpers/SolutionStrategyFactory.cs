@@ -52,11 +52,7 @@ namespace CompIntelligence_Coursework.Helpers
                     solutionFinderStrategy = new EvolutionarySolution(randomSolutionGenerator, parentSelection, recombination, bestSolutionFinder, mutation, solutionEvaluator, adptiveChanceAdjuster);
                     break;
                 case SolutionStrategyTypes.GenerateTestResults:
-                    solutionFinderStrategy = new ResultsCreator(bestSolutionFinder, new EvolutionarySolution(randomSolutionGenerator, parentSelection, recombination, bestSolutionFinder, mutation, solutionEvaluator, adptiveChanceAdjuster), csvFileWriter);
-                    break;
-                case SolutionStrategyTypes.GenerateRandomTestResults:
-                    solutionFinderStrategy = new ResultsCreator(bestSolutionFinder, new RandomSolution(randomSolutionGenerator), csvFileWriter);
-                    GenericConstants.IS_USING_RANDOM_SOLUTION = true;
+                    solutionFinderStrategy = new ResultsCreator(bestSolutionFinder, new RandomSolution(randomSolutionGenerator), new EvolutionarySolution(randomSolutionGenerator, parentSelection, recombination, bestSolutionFinder, mutation, solutionEvaluator, adptiveChanceAdjuster), csvFileWriter);
                     break;
                 default:
                     solutionFinderStrategy = new RandomSolution(randomSolutionGenerator);
