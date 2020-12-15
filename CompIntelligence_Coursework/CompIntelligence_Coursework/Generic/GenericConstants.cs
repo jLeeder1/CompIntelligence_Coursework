@@ -13,6 +13,7 @@ namespace CompIntelligence_Coursework.Generic
         public static string GENERATE_TEST_RESULTS { get; } = "Generate_Test_Results";
         public static string GENERATE_RANDOM_TEST_RESULTS { get; } = "Generate_Random_Test_Results";
         public static bool IS_USING_RANDOM_SOLUTION { get; set; } = false;
+        public static bool IS_USING_SAME_INITIALPOPULATION { get; set; } = true;
 
         // File names
         public static string RANDOM_TEST_RESULTS{ get; } = "Random_Results";

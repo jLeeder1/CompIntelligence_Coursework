@@ -51,9 +51,18 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
             offspringPopulation = new List<Solution>();
         }
 
-        public Dictionary<int, Solution> FindSolutions()
+        public Dictionary<int, Solution> FindSolutions(List<Solution> initialPopulation = null)
         {
-            parentPopulation = randomSolutionGenerator.GeneratePopulationOfRandomSolutions(GenericConstants.SIZE_OF_POPULATION);
+            parentPopulation.Clear();
+
+            if(initialPopulation == null)
+            {
+                parentPopulation = randomSolutionGenerator.GeneratePopulationOfRandomSolutions(GenericConstants.SIZE_OF_POPULATION);
+            }
+            else
+            {
+                parentPopulation.AddRange(initialPopulation);
+            }
             
             for(int generationNum = 0; generationNum < GenericConstants.NUMBER_OF_ITERATIONS; generationNum++)
             {

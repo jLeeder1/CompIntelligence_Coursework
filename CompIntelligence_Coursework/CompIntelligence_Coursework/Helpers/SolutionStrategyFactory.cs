@@ -18,6 +18,7 @@ namespace CompIntelligence_Coursework.Helpers
         private readonly ISolutionEvaluator solutionEvaluator;
         private readonly IAdptiveChanceAdjuster adptiveChanceAdjuster;
         private readonly ICSVFileWriter csvFileWriter;
+        private readonly IMaterialCutter materialCutter;
 
         public SolutionStrategyFactory(
             IRandomSolutionGenerator randomSolutionGenerator,
@@ -27,7 +28,8 @@ namespace CompIntelligence_Coursework.Helpers
             IMutation mutation,
             ISolutionEvaluator solutionEvaluator,
             IAdptiveChanceAdjuster adptiveChanceAdjuster,
-            ICSVFileWriter csvFileWriter
+            ICSVFileWriter csvFileWriter,
+            IMaterialCutter materialCutter
             )
         {
             this.randomSolutionGenerator = randomSolutionGenerator;
@@ -38,6 +40,7 @@ namespace CompIntelligence_Coursework.Helpers
             this.solutionEvaluator = solutionEvaluator;
             this.adptiveChanceAdjuster = adptiveChanceAdjuster;
             this.csvFileWriter = csvFileWriter;
+            this.materialCutter = materialCutter;
         }
 
         public ISolutionFinderStrategy GetSolutionFinderStrategy(SolutionStrategyTypes solutionStrategyTypes)
@@ -52,7 +55,7 @@ namespace CompIntelligence_Coursework.Helpers
                     solutionFinderStrategy = new EvolutionarySolution(randomSolutionGenerator, parentSelection, recombination, bestSolutionFinder, mutation, solutionEvaluator, adptiveChanceAdjuster);
                     break;
                 case SolutionStrategyTypes.GenerateTestResults:
-                    solutionFinderStrategy = new ResultsCreator(bestSolutionFinder, new RandomSolution(randomSolutionGenerator), new EvolutionarySolution(randomSolutionGenerator, parentSelection, recombination, bestSolutionFinder, mutation, solutionEvaluator, adptiveChanceAdjuster), csvFileWriter);
+                    solutionFinderStrategy = new ResultsCreator(bestSolutionFinder, new RandomSolution(randomSolutionGenerator), new EvolutionarySolution(randomSolutionGenerator, parentSelection, recombination, bestSolutionFinder, mutation, solutionEvaluator, adptiveChanceAdjuster), csvFileWriter, randomSolutionGenerator);
                     break;
                 default:
                     solutionFinderStrategy = new RandomSolution(randomSolutionGenerator);

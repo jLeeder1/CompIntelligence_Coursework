@@ -1,7 +1,9 @@
 ﻿using CompIntelligence_Coursework.Generic;
 using CompIntelligence_Coursework.Models;
 using CompIntelligence_Coursework.RandomGenerator;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CompIntelligence_Coursework.RandomSolutions
 {
@@ -19,11 +21,28 @@ namespace CompIntelligence_Coursework.RandomSolutions
             solutions = new Dictionary<int, Solution>();
         }
 
-        public Dictionary<int, Solution> FindSolutions()
+        public Dictionary<int, Solution> FindSolutions(List<Solution> initialPopulation = null)
         {
-            for (int index = 0; index < GenericConstants.NUMBER_OF_ITERATIONS; index++)
+            int numIterations = GenericConstants.NUMBER_OF_ITERATIONS;
+
+            if(initialPopulation != null)
             {
-                Solution solution = randomSolutionGenerator.GenerateRandomSolution();
+                numIterations = initialPopulation.Count;
+            }
+            
+            for (int index = 0; index < numIterations; index++)
+            {
+                Solution solution;
+
+                if(initialPopulation != null)
+                {
+                    solution = initialPopulation.ElementAt(index);
+                }
+                else
+                {
+                    solution = randomSolutionGenerator.GenerateRandomSolution();
+                }
+                
 
                 solutions.Add(index, solution);
             }

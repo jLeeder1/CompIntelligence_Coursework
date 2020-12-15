@@ -2,6 +2,8 @@
 using CompIntelligence_Coursework.FileReader;
 using CompIntelligence_Coursework.Generic;
 using CompIntelligence_Coursework.Models;
+using CompIntelligence_Coursework.RandomGenerator;
+using CompIntelligence_Coursework.RandomSolutions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,16 +16,23 @@ namespace CompIntelligence_Coursework.Helpers
         private readonly ISolutionFinderStrategy randomSolution;
         private readonly ISolutionFinderStrategy evoSolution;
         private readonly ICSVFileWriter csvFileWriter;
+        private readonly IRandomSolutionGenerator randomSolutionGenerator;
 
         private List<Result> results;
+        private readonly List<Solution> initialPopulation;
 
-        public ResultsCreator(IBestSolutionFinder bestSolutionFinder, ISolutionFinderStrategy randomSolution, ISolutionFinderStrategy evoSolution, ICSVFileWriter csvFileWriter)
+        public ResultsCreator(IBestSolutionFinder bestSolutionFinder, ISolutionFinderStrategy randomSolution, ISolutionFinderStrategy evoSolution, ICSVFileWriter csvFileWriter, IRandomSolutionGenerator randomSolutionGenerator)
         {
             this.bestSolutionFinder = bestSolutionFinder;
             this.randomSolution = randomSolution;
             this.evoSolution = evoSolution;
             this.csvFileWriter = csvFileWriter;
+            this.randomSolutionGenerator = randomSolutionGenerator;
             results = new List<Result>();
+            if (GenericConstants.IS_USING_SAME_INITIALPOPULATION)
+            {
+                initialPopulation = new List<Solution>();
+            }
         }
 
         public void ClearSolutions()
@@ -31,7 +40,7 @@ namespace CompIntelligence_Coursework.Helpers
             results.Clear();
         }
 
-        Dictionary<int, Solution> ISolutionFinderStrategy.FindSolutions()
+        Dictionary<int, Solution> ISolutionFinderStrategy.FindSolutions(List<Solution> initialPopulation = null)
         {
             GenerateSuiteOfResult();
             return null;
@@ -99,11 +108,18 @@ namespace CompIntelligence_Coursework.Helpers
         private void GenerateOneSetOfResults(ISolutionFinderStrategy solutionFinderStrategy, string fileNamePrefix) 
         {
             ClearSolutions();
-            results = GenerateListOfResults(solutionFinderStrategy);
+            if (fileNamePrefix == GenericConstants.RANDOM_TEST_RESULTS)
+            {
+                results = GenerateListOfResultsForRandom(solutionFinderStrategy);
+            }
+            else
+            {
+                results = GenerateListOfResults(solutionFinderStrategy, initialPopulation);
+            }
             csvFileWriter.WriteResultsToFile(results, fileNamePrefix);
         }
 
-        private List<Result> GenerateListOfResults(ISolutionFinderStrategy solutionFinderStrategy)
+        private List<Result> GenerateListOfResults(ISolutionFinderStrategy solutionFinderStrategy, List<Solution> initialPopulation)
         {
             List<Result> localResults = new List<Result>();
             FailedSolutionsCounter.ResetCounters();
@@ -113,11 +129,42 @@ namespace CompIntelligence_Coursework.Helpers
                 ExecutionTimer.StartTimer();
                 FailedSolutionsCounter.ResetCounters();
 
-                Dictionary<int, Solution> solutions = solutionFinderStrategy.FindSolutions();
+                Dictionary<int, Solution> solutions = solutionFinderStrategy.FindSolutions(initialPopulation);
 
                 KeyValuePair<int, Solution> bestSolution = bestSolutionFinder.GetBestSolutionInGenerationFromDictionary(solutions);
 
                 localResults.Add(new Result() 
+                {
+                    GenerationResultFoundIn = bestSolution.Key,
+                    SolutionCost = bestSolution.Value.SolutionCost,
+                    TimeTakenToFindResult = ExecutionTimer.GetExecutionTime(),
+                    FailedRecombinationCount = FailedSolutionsCounter.FailedRecombinationCounter
+                });
+            }
+
+            return localResults;
+        }
+
+        private List<Result> GenerateListOfResultsForRandom(ISolutionFinderStrategy solutionFinderStrategy)
+        {
+            List<Result> localResults = new List<Result>();
+            FailedSolutionsCounter.ResetCounters();
+            Dictionary<int, Solution> solutions = new Dictionary<int, Solution>();
+
+            for (int index = 0; index < GenericConstants.NUMBER_OF_TEST_RESULTS_TO_CREATE; index++)
+            {
+                solutionFinderStrategy.ClearSolutions();
+                ExecutionTimer.StartTimer();
+                FailedSolutionsCounter.ResetCounters();
+
+                Solution solution = randomSolutionGenerator.GenerateRandomSolution();
+                solutions.Add(index, solution);
+                initialPopulation.Add(solution);
+
+                //KeyValuePair<int, Solution> bestSolution = bestSolutionFinder.GetBestSolutionInGenerationFromDictionary(solutions);
+                KeyValuePair<int, Solution> bestSolution = new KeyValuePair<int, Solution>(index, solution);
+
+                localResults.Add(new Result()
                 {
                     GenerationResultFoundIn = bestSolution.Key,
                     SolutionCost = bestSolution.Value.SolutionCost,

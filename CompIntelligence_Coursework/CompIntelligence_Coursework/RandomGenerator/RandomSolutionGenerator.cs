@@ -35,11 +35,11 @@ namespace CompIntelligence_Coursework.RandomGenerator
         {
             bool isValidSolutionFound = false;
             Solution solution;
-            
+            Random random = new Random();
 
             do
             {
-                Random random = new Random();
+                
                 solution = new Solution();
                 Dictionary<double, double> copyOfOrder = new Dictionary<double, double>(order.OrderItems);
 
@@ -58,6 +58,16 @@ namespace CompIntelligence_Coursework.RandomGenerator
 
                     Activity activity = materialCutter.ProduceActivity(stockItem, orderItem.Key, orderItem.Value);
                     copyOfOrder[orderItem.Key] -= activity.PositionsToCutAt.Count;
+
+                    var randomOrderItem = order.OrderItems.ElementAt(random.Next(0, order.OrderItems.Count));
+
+                    if (copyOfOrder[randomOrderItem.Key] > 0 && activity.Offcut >= randomOrderItem.Key)
+                    {
+                        activity.PositionsToCutAt.Add(randomOrderItem.Key);
+                        activity.Offcut -= randomOrderItem.Key;
+                        copyOfOrder[randomOrderItem.Key]--;
+                    }
+
                     solution.Activities.Add(activity);
                 }
 

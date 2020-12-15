@@ -1,4 +1,5 @@
 ﻿using CompIntelligence_Coursework.Models;
+using System;
 using System.Collections.Generic;
 
 namespace CompIntelligence_Coursework.Helpers
@@ -12,6 +13,8 @@ namespace CompIntelligence_Coursework.Helpers
          */
         public Activity ProduceActivity(StockItem stockItem, double orderLength, double orderQuantity)
         {
+            Random random = new Random();
+
             Activity activity = new Activity
             {
                 StockItemUsed = stockItem
@@ -23,6 +26,11 @@ namespace CompIntelligence_Coursework.Helpers
             {
                 lengthOfCurrentStockLeft -= orderLength;
                 activity.PositionsToCutAt.Add(orderLength);
+
+                if(random.Next(0, 4) >= 2)
+                {
+                    break;
+                }
             }
 
             activity.Offcut = lengthOfCurrentStockLeft;
