@@ -130,6 +130,7 @@ namespace CompIntelligence_Coursework.Helpers
                 FailedSolutionsCounter.ResetCounters();
 
                 Dictionary<int, Solution> solutions = solutionFinderStrategy.FindSolutions(initialPopulation);
+                double averageCost = CalculateAverageCostInGeneration(solutions);
 
                 KeyValuePair<int, Solution> bestSolution = bestSolutionFinder.GetBestSolutionInGenerationFromDictionary(solutions);
 
@@ -138,11 +139,25 @@ namespace CompIntelligence_Coursework.Helpers
                     GenerationResultFoundIn = bestSolution.Key,
                     SolutionCost = bestSolution.Value.SolutionCost,
                     TimeTakenToFindResult = ExecutionTimer.GetExecutionTime(),
-                    FailedRecombinationCount = FailedSolutionsCounter.FailedRecombinationCounter
+                    FailedRecombinationCount = FailedSolutionsCounter.FailedRecombinationCounter,
+                    AverageCostOfGeneration = averageCost
                 });
             }
 
             return localResults;
+        }
+
+        private double CalculateAverageCostInGeneration(Dictionary<int, Solution> solutions)
+        {
+            double sumOfCosts = 0;
+
+            foreach(KeyValuePair<int, Solution> entry in solutions)
+            {
+                sumOfCosts += entry.Value.SolutionCost;
+            }
+
+            double average = sumOfCosts / solutions.Count;
+            return average;
         }
 
         private List<Result> GenerateListOfResultsForRandom(ISolutionFinderStrategy solutionFinderStrategy)

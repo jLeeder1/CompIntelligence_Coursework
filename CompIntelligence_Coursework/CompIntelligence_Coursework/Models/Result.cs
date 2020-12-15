@@ -10,5 +10,6 @@ namespace CompIntelligence_Coursework.Models
         public TimeSpan TimeTakenToFindResult { get; set; }
         public int FailedMutationCount { get; set; }
         public int FailedRecombinationCount { get; set; }
+        public double AverageCostOfGeneration { get; set; }
     }
 }
