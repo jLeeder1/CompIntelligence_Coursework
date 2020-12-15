@@ -58,7 +58,7 @@ namespace CompIntelligence_Coursework.RandomGenerator
 
                     Activity activity = materialCutter.ProduceActivity(stockItem, orderItem.Key, orderItem.Value);
                     copyOfOrder[orderItem.Key] -= activity.PositionsToCutAt.Count;
-
+                    /*
                     var randomOrderItem = order.OrderItems.ElementAt(random.Next(0, order.OrderItems.Count));
 
                     if (copyOfOrder[randomOrderItem.Key] > 0 && activity.Offcut >= randomOrderItem.Key)
@@ -67,7 +67,7 @@ namespace CompIntelligence_Coursework.RandomGenerator
                         activity.Offcut -= randomOrderItem.Key;
                         copyOfOrder[randomOrderItem.Key]--;
                     }
-
+                    */
                     solution.Activities.Add(activity);
                 }
 

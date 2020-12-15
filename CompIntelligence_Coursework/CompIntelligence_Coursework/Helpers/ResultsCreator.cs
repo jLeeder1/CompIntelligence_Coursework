@@ -71,18 +71,21 @@ namespace CompIntelligence_Coursework.Helpers
             ClearSolutions();
             EvolutionaryAlgorithmConstants.IS_USING_ELITISM = true;
             EvolutionaryAlgorithmConstants.IS_USING_RANKED_TOURNAMENT = false;
+            EvolutionaryAlgorithmConstants.IS_USING_ADAPTIVE_CROSSOVER_CHANCES = false;
             GenerateOneSetOfResults(evoSolution, GenericConstants.EVO_Elitism_TEST_RESULTS);
 
             // Generate EVO Elitism results ranked
             ClearSolutions();
             EvolutionaryAlgorithmConstants.IS_USING_ELITISM = true;
             EvolutionaryAlgorithmConstants.IS_USING_RANKED_TOURNAMENT = true;
+            EvolutionaryAlgorithmConstants.IS_USING_ADAPTIVE_CROSSOVER_CHANCES = false;
             GenerateOneSetOfResults(evoSolution, GenericConstants.EVO_Elitism_TEST_RESULTS_RANKED);
 
             // Generate EVO Adaptive results non ranked
             ClearSolutions();
             EvolutionaryAlgorithmConstants.IS_USING_ELITISM = false;
             EvolutionaryAlgorithmConstants.IS_USING_ADAPTIVE_CROSSOVER_CHANCES = true;
+            EvolutionaryAlgorithmConstants.IS_USING_RANKED_TOURNAMENT = false;
             GenerateOneSetOfResults(evoSolution, GenericConstants.EVO_Adaptive_TEST_RESULTS);
 
             // Generate EVO Adaptive results ranked
@@ -96,12 +99,14 @@ namespace CompIntelligence_Coursework.Helpers
             ClearSolutions();
             EvolutionaryAlgorithmConstants.IS_USING_ELITISM = true;
             EvolutionaryAlgorithmConstants.IS_USING_RANKED_TOURNAMENT = false;
+            EvolutionaryAlgorithmConstants.IS_USING_ADAPTIVE_CROSSOVER_CHANCES = true;
             GenerateOneSetOfResults(evoSolution, GenericConstants.EVO_Elitism_Adaptive_TEST_RESULTS);
 
             // Generate EVO Elitism Adaptive results ranked
             ClearSolutions();
             EvolutionaryAlgorithmConstants.IS_USING_ELITISM = true;
             EvolutionaryAlgorithmConstants.IS_USING_RANKED_TOURNAMENT = true;
+            EvolutionaryAlgorithmConstants.IS_USING_ADAPTIVE_CROSSOVER_CHANCES = true;
             GenerateOneSetOfResults(evoSolution, GenericConstants.EVO_Elitism_Adaptive_TEST_RESULTS_RANKED);
         }
 

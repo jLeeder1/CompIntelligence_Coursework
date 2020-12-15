@@ -35,7 +35,7 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                 };
             }
 
-            FailedSolutionsCounter.FailedRecombinationCounter++;
+            //FailedSolutionsCounter.FailedRecombinationCounter++;
 
             return new List<Solution>
             {
@@ -81,7 +81,9 @@ namespace CompIntelligence_Coursework.EvolutionaryAlgorithm
                 
             }
 
-            if(random.NextDouble() > 0.5)
+            FailedSolutionsCounter.FailedRecombinationCounter++;
+
+            if (random.NextDouble() > 0.5)
             {
                 return parentOne;
             }
